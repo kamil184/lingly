@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">Lingly</string>
+    <string name="title_community">community</string>
+    <string name="title_dialogs">dialogs</string>
+    <string name="title_profile">profile</string>
+</resources>
