@@ -118,21 +118,21 @@ public class SignUpActivity extends BaseActivity {
 //TODO превести все сообщения в ресуры!!
 
                 if (TextUtils.isEmpty(email)) {
-                    showWarningDialog( "Введите email адрес!");
+                    showSnackBar( R.string.email_signup_err);
                     return;
                 }
 
 
 
                 if (TextUtils.isEmpty(password)) {
-                    showWarningDialog("Введите пароль!");
+                    showSnackBar(R.string.pass_signup_err);
                     return;
                 }
 
 
 
                 if (password.length() < 6) {
-                   showWarningDialog("Слишком короткий пароль, введите минимум 6 символов!");
+                   inputPassword.setError("Слишком короткий пароль, введите минимум 6 символов!");
                     return;
                 }
 
@@ -151,7 +151,7 @@ public class SignUpActivity extends BaseActivity {
                                 // the auth state listener will be notified and logic to handle the
                                 // signed in user can be handled in the listener.
                                 if (!task.isSuccessful()) {
-                                    showWarningDialog("Ошибка регистрации");
+                                    showSnackBar(R.string.signup_err);
                                 } else {
                                     Map<String, Object> user = new HashMap<>();
                                     user.put("name", name);
@@ -174,7 +174,7 @@ public class SignUpActivity extends BaseActivity {
                                                     Log.w("register", "Error writing document", e);
                                                 }
                                             });
-                                   showWarningDialog("Пользователь зарегистрирован");
+                                   showWarningDialog(R.string.signup_sucss);
                                    startActivity(new Intent(SignUpActivity.this, MainActivity.class));
                                    finish();
                                 }

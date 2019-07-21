@@ -97,13 +97,13 @@ public class LoginActivity extends BaseActivity {
                 final String password = inputPassword.getText().toString();
 
                 if (TextUtils.isEmpty(email)) {
-                    showWarningDialog("Введите email адрес!");
+                    showSnackBar(R.string.email_signup_err);
                     return;
                 }
 //TODO сообщения в ресурсы
 
                 if (TextUtils.isEmpty(password)) {
-                    showWarningDialog( "Введите пароль!");
+                    showSnackBar(R.string.pass_signin_err);
                     return;
                 }
 

@@ -20,4 +20,12 @@
     <string name="btn_link_to_register">Все еще не с нами? Присоединяйтесь!</string>
     <string name="auth_failed">Ошибка авторизации, неверный логин/пароль или вы еще не зарегистрированы</string>
     <string name="btn_login">Войти</string>
+    <string name="email_err">Введите email, который вы указали при регистрации</string>
+    <string name="email_signup_err">Введите ваш email</string>
+    <string name="pass_signup_err">Придумайте пароль</string>
+    <string name="pass_reset_sucss">Мы отправили инструкции на вашу почту</string>
+    <string name="pass_reset_fail">Ошибка смены пароля, проверьте email</string>
+    <string name="pass_signin_err">Введите пароль</string>
+    <string name="signup_sucss">Новый пользователь зарегистрирован!</string>
+    <string name="signup_err">Ошибка регистрации</string>
 </resources>

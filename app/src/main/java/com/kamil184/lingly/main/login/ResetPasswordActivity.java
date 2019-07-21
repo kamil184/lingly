@@ -68,7 +68,7 @@ public class ResetPasswordActivity extends BaseActivity {
 
 
                 if (TextUtils.isEmpty(email)) {
-                    showWarningDialog("Введите email, который вы указали при регистрации");
+                    showSnackBar(v,R.string.email_err);
                     return;
 
                 }
@@ -80,9 +80,9 @@ public class ResetPasswordActivity extends BaseActivity {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 if (task.isSuccessful()) {
-                                    showWarningDialog("Мы отправили инструкции на вашу почту.");
+                                    showSnackBar(R.string.pass_reset_sucss);
                                 } else {
-                                    showWarningDialog("Ошибка смены пароля!");
+                                    showSnackBar(R.string.pass_reset_fail);
                                 }
 
 
