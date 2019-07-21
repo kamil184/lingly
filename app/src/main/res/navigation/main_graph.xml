@@ -7,17 +7,17 @@
 
     <fragment
         android:id="@+id/communityFragment"
-        android:name="com.kamil184.lingly.Fragments.CommunityFragment"
+        android:name="com.kamil184.lingly.main.Fragments.CommunityFragment"
         android:label="fragment_community"
         tools:layout="@layout/fragment_community" />
     <fragment
         android:id="@+id/dialogsFragment"
-        android:name="com.kamil184.lingly.Fragments.DialogsFragment"
+        android:name="com.kamil184.lingly.main.Fragments.DialogsFragment"
         android:label="fragment_dialogs"
         tools:layout="@layout/fragment_dialogs" />
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.kamil184.lingly.Fragments.ProfileFragment"
+        android:name="com.kamil184.lingly.main.Fragments.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
 </navigation>

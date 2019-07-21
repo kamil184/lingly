@@ -1,9 +1,23 @@
 <resources>
     <string name="app_name">Lingly</string>
     <string name="title_community">community</string>
-    <string name="title_dialogs">dialogs</string>
-    <string name="title_profile">profile</string>
-    <string name="loading">Loading...</string>
-    <string name="button_ok">Ok</string>
-    <string name="press_once_again_to_exit">press once again to exit</string>
+    <string name="title_dialogs">Сообщения</string>
+    <string name="title_profile">Профиль</string>
+    <string name="loading">Загрузка&#8230;</string>
+    <string name="button_ok">Ок</string>
+    <string name="press_once_again_to_exit">Нажмите еще раз для выхода</string>
+    <string name="btn_forgot_password">Восстановить пароль</string>
+    <string name="btn_link_to_login">Уже зарегистрированы?</string>
+    <string name="action_sign_in_short">Зарегистрироваться</string>
+    <string name="hint_email">email</string>
+    <string name="login">имя пользователя</string>
+    <string name="lbl_forgot_password">Забыли пароль?</string>
+    <string name="hint_password">пароль</string>
+    <string name="forgot_password_msg">Введите адрес электронной почты, на которую зарегистрирован ваш аккаунт</string>
+    <string name="btn_reset_password">Сбросить пароль</string>
+    <string name="btn_back"><![CDATA[<< Back]]></string>
+    <string name="minimum_password">Слишком короткий пароль, введите минимум 6 символов!</string>
+    <string name="btn_link_to_register">Все еще не с нами? Присоединяйтесь!</string>
+    <string name="auth_failed">Ошибка авторизации, неверный логин/пароль или вы еще не зарегистрированы</string>
+    <string name="btn_login">Войти</string>
 </resources>

@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "167950795906",
+    "firebase_url": "https://lingly-app.firebaseio.com",
+    "project_id": "lingly-app",
+    "storage_bucket": "lingly-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:167950795906:android:64e7d5ff7aa606ea",
+        "android_client_info": {
+          "package_name": "com.kamil184.lingly"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "167950795906-mvf9f4lj62rpjbo484aigj8rqmn4rc3f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCB4dMzNqIdFnp9IN3UJLVSMiLJYIwpbbI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "167950795906-mvf9f4lj62rpjbo484aigj8rqmn4rc3f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
