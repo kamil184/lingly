@@ -28,4 +28,5 @@
     <string name="pass_signin_err">Введите пароль</string>
     <string name="signup_sucss">Новый пользователь зарегистрирован!</string>
     <string name="signup_err">Ошибка регистрации</string>
+    <string name="no_interent_connection_err">Проверьте интернет соединение</string>
 </resources>

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.kamil184.lingly.MainActivity;
+import com.kamil184.lingly.R;
 import com.kamil184.lingly.base.BasePresenter;
 
 class LoginPresenter extends BasePresenter {
@@ -19,20 +20,23 @@ class LoginPresenter extends BasePresenter {
         super(context);
     }
 
-
     void signIn(String email, String password){
 
-        auth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener((Activity) context, task -> {
-                    view.setProgressVisibilityGone();
-                    if (task.isSuccessful()) {
-                        Intent intent = new Intent(context, MainActivity.class);
-                        context.startActivity(intent);
-                        view.finishActivity();
-                    }
-                });
+        view.hideKeyboard();
+
+        if (hasInternetConnection()) {
+            auth.signInWithEmailAndPassword(email, password)
+                    .addOnCompleteListener((Activity) context, task -> {
+                        view.setProgressVisibilityGone();
+                        if (task.isSuccessful()) {
+                            Intent intent = new Intent(context, MainActivity.class);
+                            context.startActivity(intent);
+                            view.finishActivity();
+                        }
+                    });
+        }else {
+            view.setProgressVisibilityGone();
+            view.showSnackBar(R.string.no_interent_connection_err);
+        }
     }
-
-
-
 }
