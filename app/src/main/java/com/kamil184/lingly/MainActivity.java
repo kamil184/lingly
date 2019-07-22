@@ -3,8 +3,7 @@ package com.kamil184.lingly;
 import android.content.Intent;
 import android.os.Bundle;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.kamil184.lingly.main.login.LoginActivity;
-import com.kamil184.lingly.main.login.SignUpActivity;
+import com.kamil184.lingly.main.authorization.login.LoginActivity;
 
 import androidx.appcompat.app.AppCompatActivity;
 

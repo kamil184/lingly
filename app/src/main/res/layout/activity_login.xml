@@ -17,52 +17,42 @@
         android:padding="@dimen/activity_horizontal_margin">
 
 
-         <com.rengwuxian.materialedittext.MaterialEditText
-        android:id="@+id/email"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/hint_email"
-        android:textCursorDrawable="@drawable/text_cursor_cyan"
-        app:met_baseColor="@android:color/white"
-        app:met_floatingLabel="highlight"
-        app:met_primaryColor="?colorAccent"
-        />
-
-
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/email_text_input_layout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp">
 
-            <com.rengwuxian.materialedittext.MaterialEditText
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_email"
+                android:inputType="textEmailAddress"
+                app:errorEnabled="true"
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/password_text_input_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            app:passwordToggleEnabled="true">
+
+            <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_password"
                 android:inputType="textPassword"
-                android:textCursorDrawable="@drawable/text_cursor_cyan"
-                app:met_baseColor="@android:color/white"
-                app:met_floatingLabel="highlight"
-                app:met_minCharacters="6"
-                app:met_primaryColor="?colorAccent"
+                app:errorEnabled="true"
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox" />
 
-                />
-
-            <CheckBox
-                android:id="@+id/onpass"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:button="@drawable/chckbox_selector"
-                android:checked="false"
-                app:layout_constraintBottom_toBottomOf="@+id/password"
-                app:layout_constraintEnd_toEndOf="@+id/password"
-                app:layout_constraintTop_toTopOf="@+id/password" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-        <!-- Login Button -->
-
+        </com.google.android.material.textfield.TextInputLayout>
 
         <Button
             android:id="@+id/btn_login"
@@ -70,9 +60,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/Button_marginVertical"
             android:background="@color/colorAccent"
-            android:text="@string/btn_login"
-            android:textColor="@android:color/black" />
-
+            android:text="@string/btn_login" />
 
         <Button
             android:id="@+id/btn_reset_password"
@@ -84,10 +72,6 @@
             android:textAllCaps="false"
             android:textColor="@color/white" />
 
-
-        <!-- Link to Login Screen -->
-
-
         <Button
             android:id="@+id/btn_signup"
             android:layout_width="match_parent"
@@ -98,9 +82,7 @@
             android:textAllCaps="false"
             android:textColor="@color/white" />
 
-
     </LinearLayout>
-
 
     <ProgressBar
         android:id="@+id/progressBar"

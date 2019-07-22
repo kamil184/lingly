@@ -1,4 +1,4 @@
-package com.kamil184.lingly.main.login;
+package com.kamil184.lingly.main.authorization;
 
 import android.os.Bundle;
 
@@ -10,11 +10,7 @@ import android.view.View;
 
 import android.widget.Button;
 
-import android.widget.EditText;
-
 import android.widget.ProgressBar;
-
-import android.widget.Toast;
 
 
 import androidx.annotation.NonNull;
