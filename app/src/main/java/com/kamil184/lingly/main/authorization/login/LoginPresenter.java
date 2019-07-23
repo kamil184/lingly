@@ -34,6 +34,7 @@ class LoginPresenter extends BasePresenter {
                             view.finishActivity();
                         }else {
                             view.showSnackBar(R.string.auth_failed);
+                        
                         }
                     });
         }else {

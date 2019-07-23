@@ -6,11 +6,11 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ProgressBar;
 
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.kamil184.lingly.R;
@@ -28,9 +28,9 @@ public class LoginActivity extends BaseActivity {
     @BindView(R.id.password) TextInputEditText inputPassword;
     @BindView(R.id.password_text_input_layout) TextInputLayout passwordInputLayout;
     @BindView(R.id.progressBar) ProgressBar progressBar;
-    @BindView(R.id.btn_login) Button btnLogin;
-    @BindView(R.id.btn_signup) Button btnSignup;
-    @BindView(R.id.btn_reset_password) Button btnReset;
+    @BindView(R.id.btn_login) MaterialButton btnLogin;
+    @BindView(R.id.btn_signup) MaterialButton btnSignup;
+    @BindView(R.id.btn_reset_password) MaterialButton btnReset;
     @BindView(R.id.container1) CoordinatorLayout container;
     AnimationDrawable anim;
     LoginPresenter presenter;
@@ -61,13 +61,15 @@ public class LoginActivity extends BaseActivity {
 
             boolean validate = true;
             if (isEmailNotValidate(email)) {
-                inputPassword.setError(getString(R.string.email_err));
+                emailInputLayout.setError(getString(R.string.email_err));
                 setProgressVisibilityGone();
+                // TODO: вибрация
                 validate = false;
             }
             if (isPasswordNotValidate(password)) {
-                inputPassword.setError(getString(R.string.minimum_password));
+                passwordInputLayout.setError(getString(R.string.minimum_password));
                 setProgressVisibilityGone();
+                // TODO: вибрация
                 validate = false;
             }
             if(validate) {
@@ -159,6 +161,3 @@ public class LoginActivity extends BaseActivity {
     }
 
 }
-
-
-
