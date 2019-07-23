@@ -3,17 +3,14 @@ package com.kamil184.lingly.main.authorization.login;
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ProgressBar;
 
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 
-import com.gjiazhe.panoramaimageview.GyroscopeObserver;
-import com.gjiazhe.panoramaimageview.PanoramaImageView;
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.kamil184.lingly.R;
@@ -31,9 +28,9 @@ public class LoginActivity extends BaseActivity {
     @BindView(R.id.password) TextInputEditText inputPassword;
     @BindView(R.id.password_text_input_layout) TextInputLayout passwordInputLayout;
     @BindView(R.id.progressBar) ProgressBar progressBar;
-    @BindView(R.id.btn_login) Button btnLogin;
-    @BindView(R.id.btn_signup) Button btnSignup;
-    @BindView(R.id.btn_reset_password) Button btnReset;
+    @BindView(R.id.btn_login) MaterialButton btnLogin;
+    @BindView(R.id.btn_signup) MaterialButton btnSignup;
+    @BindView(R.id.btn_reset_password) MaterialButton btnReset;
     @BindView(R.id.container1) CoordinatorLayout container;
     AnimationDrawable anim;
     LoginPresenter presenter;
@@ -159,7 +156,8 @@ public class LoginActivity extends BaseActivity {
             anim.stop();
     }
 
+    void setDisabledButton(MaterialButton button){
+        button.setClickable(false);
+    }
+
 }
-
-
-
