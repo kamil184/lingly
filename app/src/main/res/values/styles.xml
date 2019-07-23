@@ -8,6 +8,8 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="TransparentButton" parent="Widget.MaterialComponents.Button.TextButton" />
+    <style name="TransparentButton" parent="Widget.MaterialComponents.Button.TextButton"/>
+
+    <style name="TextInputLayout" parent="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"/>
 
 </resources>

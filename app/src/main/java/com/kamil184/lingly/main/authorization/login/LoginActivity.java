@@ -61,11 +61,15 @@ public class LoginActivity extends BaseActivity {
 
             boolean validate = true;
             if (isEmailNotValidate(email)) {
-                inputPassword.setError(getString(R.string.email_err));
+                emailInputLayout.setError(getString(R.string.email_err));
+                setProgressVisibilityGone();
+                // TODO: вибрация
                 validate = false;
             }
             if (isPasswordNotValidate(password)) {
-                inputPassword.setError(getString(R.string.minimum_password));
+                passwordInputLayout.setError(getString(R.string.minimum_password));
+                setProgressVisibilityGone();
+                // TODO: вибрация
                 validate = false;
             }
             if(validate) {
@@ -154,10 +158,6 @@ public class LoginActivity extends BaseActivity {
         super.onPause();
         if (anim != null && anim.isRunning())
             anim.stop();
-    }
-
-    void setDisabledButton(MaterialButton button){
-        button.setClickable(false);
     }
 
 }

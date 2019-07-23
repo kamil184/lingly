@@ -21,7 +21,7 @@
             android:layout_marginBottom="10dp"
             android:gravity="center_horizontal"
             android:padding="20dp"
-            android:text="Вход"
+            android:text="@string/txt_login"
             android:textColor="@color/white"
             android:textSize="36sp"
             android:textStyle="" />
@@ -30,6 +30,8 @@
             android:id="@+id/email_text_input_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:errorTextColor="@color/white"
+            style="@style/TextInputLayout"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp">
 
@@ -38,7 +40,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
-                android:alpha="0.3"
                 android:hint="@string/hint_email"
                 android:inputType="textEmailAddress"
                 android:textColorHint="@color/white"
@@ -50,6 +51,8 @@
             android:id="@+id/password_text_input_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:errorTextColor="@color/white"
+            style="@style/TextInputLayout"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
             app:passwordToggleEnabled="true">
@@ -59,7 +62,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
-                android:alpha="0.3"
                 android:hint="@string/hint_password"
                 android:inputType="textPassword"
                 android:textColorHint="@color/white"
