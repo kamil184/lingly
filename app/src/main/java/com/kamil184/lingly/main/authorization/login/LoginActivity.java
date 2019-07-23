@@ -3,7 +3,6 @@ package com.kamil184.lingly.main.authorization.login;
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -12,14 +11,12 @@ import android.widget.ProgressBar;
 
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 
-import com.gjiazhe.panoramaimageview.GyroscopeObserver;
-import com.gjiazhe.panoramaimageview.PanoramaImageView;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.kamil184.lingly.R;
 import com.kamil184.lingly.base.BaseActivity;
 import com.kamil184.lingly.main.authorization.ResetPasswordActivity;
-import com.kamil184.lingly.main.authorization.SignUpActivity;
+import com.kamil184.lingly.main.authorization.Registration.SignUpActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -65,10 +62,12 @@ public class LoginActivity extends BaseActivity {
             boolean validate = true;
             if (isEmailNotValidate(email)) {
                 inputPassword.setError(getString(R.string.email_err));
+                setProgressVisibilityGone();
                 validate = false;
             }
             if (isPasswordNotValidate(password)) {
                 inputPassword.setError(getString(R.string.minimum_password));
+                setProgressVisibilityGone();
                 validate = false;
             }
             if(validate) {

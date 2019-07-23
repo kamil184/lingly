@@ -32,6 +32,8 @@ class LoginPresenter extends BasePresenter {
                             Intent intent = new Intent(context, MainActivity.class);
                             context.startActivity(intent);
                             view.finishActivity();
+                        }else {
+                            view.showSnackBar(R.string.auth_failed);
                         }
                     });
         }else {
