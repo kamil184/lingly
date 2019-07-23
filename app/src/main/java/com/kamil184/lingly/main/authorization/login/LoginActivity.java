@@ -1,6 +1,7 @@
 package com.kamil184.lingly.main.authorization.login;
 
 import android.content.Intent;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.text.Editable;
@@ -8,6 +9,8 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
+
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 
 import com.gjiazhe.panoramaimageview.GyroscopeObserver;
 import com.gjiazhe.panoramaimageview.PanoramaImageView;
@@ -31,9 +34,8 @@ public class LoginActivity extends BaseActivity {
     @BindView(R.id.btn_login) Button btnLogin;
     @BindView(R.id.btn_signup) Button btnSignup;
     @BindView(R.id.btn_reset_password) Button btnReset;
-    @BindView(R.id.panorama_image_view) PanoramaImageView panoramaImageView;
-
-    private GyroscopeObserver gyroscopeObserver;
+    @BindView(R.id.container1) CoordinatorLayout container;
+    AnimationDrawable anim;
     LoginPresenter presenter;
 
     @Override
@@ -44,14 +46,9 @@ public class LoginActivity extends BaseActivity {
         presenter.attachView(this);
         ButterKnife.bind(this);
 
-        gyroscopeObserver = new GyroscopeObserver();
-        // Set the maximum radian the device should rotate to show image's bounds.
-        // It should be set between 0 and π/2.
-        // The default value is π/9.
-        gyroscopeObserver.setMaxRotateRadian(Math.PI/9);
-        panoramaImageView.setEnablePanoramaMode(true);
-        panoramaImageView.setGyroscopeObserver(gyroscopeObserver);
-
+        anim = (AnimationDrawable) container.getBackground();
+        anim.setEnterFadeDuration(100);
+        anim.setExitFadeDuration(1000);
 
         btnSignup.setOnClickListener(v ->
                 startActivity(new Intent(LoginActivity.this, SignUpActivity.class)));
@@ -151,18 +148,17 @@ public class LoginActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        // Register GyroscopeObserver.
-        gyroscopeObserver.register(this);
+        if (anim != null && !anim.isRunning())
+            anim.start();
     }
-
-
 
     @Override
     protected void onPause() {
         super.onPause();
-        // Unregister GyroscopeObserver.
-        gyroscopeObserver.unregister();
+        if (anim != null && anim.isRunning())
+            anim.stop();
     }
+
 }
 
 
