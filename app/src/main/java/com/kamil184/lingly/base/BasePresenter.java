@@ -5,6 +5,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class BasePresenter {
 
@@ -28,5 +29,8 @@ public class BasePresenter {
 
     protected String getCurrentUserId() {
         return FirebaseAuth.getInstance().getUid();
+    }
+    protected FirebaseUser getCurrentUser(){
+        return auth.getCurrentUser();
     }
 }
