@@ -45,6 +45,8 @@ dependencies {
     implementation 'com.google.firebase:firebase-firestore:20.1.0'
     implementation 'com.google.firebase:firebase-storage:18.1.0'
 
+    implementation 'com.gjiazhe:PanoramaImageView:1.0'
+
     testImplementation 'junit:junit:4.13-beta-3'
 
     implementation 'com.google.dagger:dagger:2.23.2'

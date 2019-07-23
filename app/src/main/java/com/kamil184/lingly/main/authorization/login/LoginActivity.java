@@ -9,6 +9,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
 
+import com.gjiazhe.panoramaimageview.GyroscopeObserver;
+import com.gjiazhe.panoramaimageview.PanoramaImageView;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.kamil184.lingly.R;
@@ -29,7 +31,9 @@ public class LoginActivity extends BaseActivity {
     @BindView(R.id.btn_login) Button btnLogin;
     @BindView(R.id.btn_signup) Button btnSignup;
     @BindView(R.id.btn_reset_password) Button btnReset;
+    @BindView(R.id.panorama_image_view) PanoramaImageView panoramaImageView;
 
+    private GyroscopeObserver gyroscopeObserver;
     LoginPresenter presenter;
 
     @Override
@@ -39,6 +43,15 @@ public class LoginActivity extends BaseActivity {
         presenter = new LoginPresenter(this);
         presenter.attachView(this);
         ButterKnife.bind(this);
+
+        gyroscopeObserver = new GyroscopeObserver();
+        // Set the maximum radian the device should rotate to show image's bounds.
+        // It should be set between 0 and π/2.
+        // The default value is π/9.
+        gyroscopeObserver.setMaxRotateRadian(Math.PI/9);
+        panoramaImageView.setEnablePanoramaMode(true);
+        panoramaImageView.setGyroscopeObserver(gyroscopeObserver);
+
 
         btnSignup.setOnClickListener(v ->
                 startActivity(new Intent(LoginActivity.this, SignUpActivity.class)));
@@ -135,4 +148,22 @@ public class LoginActivity extends BaseActivity {
         return password.length() + "/6+";
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // Register GyroscopeObserver.
+        gyroscopeObserver.register(this);
+    }
+
+
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        // Unregister GyroscopeObserver.
+        gyroscopeObserver.unregister();
+    }
 }
+
+
+
