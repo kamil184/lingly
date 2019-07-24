@@ -1,6 +1,5 @@
 package com.kamil184.lingly.base;
 
-import android.app.Activity;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -17,7 +16,6 @@ public class BasePresenter {
         this.context = context;
         auth = FirebaseAuth.getInstance();
     }
-    
 
     public boolean hasInternetConnection() {
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
