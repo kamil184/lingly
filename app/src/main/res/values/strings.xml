@@ -10,7 +10,7 @@
     <string name="btn_link_to_login">Уже зарегистрированы?</string>
     <string name="action_sign_in_short">Зарегистрироваться</string>
     <string name="hint_email">Email</string>
-    <string name="login">имя пользователя</string>
+    <string name="login">Имя пользователя</string>
     <string name="lbl_forgot_password">Забыли пароль?</string>
     <string name="hint_password">Пароль</string>
     <string name="forgot_password_msg">Введите адрес электронной почты, на которую зарегистрирован ваш аккаунт</string>
@@ -30,4 +30,5 @@
     <string name="signup_sucss">Новый пользователь зарегистрирован!</string>
     <string name="signup_err">Ошибка регистрации</string>
     <string name="no_interent_connection_err">Проверьте интернет соединение</string>
+    <string name="login_empty">Придумайте логин!</string>
 </resources>

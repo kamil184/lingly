@@ -5,69 +5,83 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true">
+    android:background="@drawable/animation_list"
+    android:fitsSystemWindows="true"
+    android:id="@+id/signup_container"
+    >
+
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorPrimary"
+
         android:gravity="center"
         android:orientation="vertical"
         android:padding="@dimen/activity_horizontal_margin">
 
-        <com.rengwuxian.materialedittext.MaterialEditText
-            android:id="@+id/us_name"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/us_name_text_input_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/login"
-            android:textCursorDrawable="@drawable/text_cursor_cyan"
-            app:met_baseColor="@android:color/white"
-            app:met_floatingLabel="highlight"
-            app:met_primaryColor="?colorAccent"
-            />
+            app:errorTextColor="@color/white"
+            style="@style/TextInputLayout"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp">
 
-        <com.rengwuxian.materialedittext.MaterialEditText
-        android:id="@+id/email"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/hint_email"
-        android:textCursorDrawable="@drawable/text_cursor_cyan"
-        app:met_baseColor="@android:color/white"
-        app:met_floatingLabel="highlight"
-        app:met_primaryColor="?colorAccent"
-        app:met_clearButton="true"/>
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/us_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:hint="@string/login"
+                android:inputType="textPersonName"
+                android:textColorHint="@color/white"
+                app:errorEnabled="true" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/email_text_input_layout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            app:errorTextColor="@color/white"
+            style="@style/TextInputLayout"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp">
 
-            <com.rengwuxian.materialedittext.MaterialEditText
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:hint="@string/hint_email"
+                android:inputType="textEmailAddress"
+                android:textColorHint="@color/white"
+                app:errorEnabled="true" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/password_text_input_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:errorTextColor="@color/white"
+            style="@style/TextInputLayout"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            app:passwordToggleEnabled="true">
+
+            <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
                 android:hint="@string/hint_password"
                 android:inputType="textPassword"
-                android:textCursorDrawable="@drawable/text_cursor_cyan"
-                app:met_baseColor="@android:color/white"
-                app:met_floatingLabel="highlight"
-                app:met_minCharacters="6"
-                app:met_primaryColor="?colorAccent"
-
-                />
-
-            <CheckBox
-                android:id="@+id/onpass"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:button="@drawable/chckbox_selector"
-                android:checked="false"
-                app:layout_constraintBottom_toBottomOf="@+id/password"
-                app:layout_constraintEnd_toEndOf="@+id/password"
-                app:layout_constraintTop_toTopOf="@+id/password" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                android:textColorHint="@color/white"
+                app:errorEnabled="true" />
+        </com.google.android.material.textfield.TextInputLayout>
         <!-- Login Button -->
 
 

@@ -1,8 +1,10 @@
 package com.kamil184.lingly.main.authorization.login;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -10,6 +12,8 @@ import android.widget.ProgressBar;
 
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -34,6 +38,8 @@ public class LoginActivity extends BaseActivity {
     @BindView(R.id.container1) CoordinatorLayout container;
     AnimationDrawable anim;
     LoginPresenter presenter;
+    long mills=300;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,8 +49,9 @@ public class LoginActivity extends BaseActivity {
         presenter.attachView(this);
         ButterKnife.bind(this);
 
+        Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         anim = (AnimationDrawable) container.getBackground();
-        anim.setEnterFadeDuration(100);
+        anim.setEnterFadeDuration(0);
         anim.setExitFadeDuration(1000);
 
         btnSignup.setOnClickListener(v ->
@@ -63,13 +70,25 @@ public class LoginActivity extends BaseActivity {
             if (isEmailNotValidate(email)) {
                 emailInputLayout.setError(getString(R.string.email_err));
                 setProgressVisibilityGone();
-                // TODO: вибрация
+                YoYo.with(Techniques.Shake)
+                        .duration(400)
+                        .repeat(1)
+                        .playOn(inputEmail);
+                if (vibrator.hasVibrator()) {
+                    vibrator.vibrate(mills);
+                }
                 validate = false;
             }
             if (isPasswordNotValidate(password)) {
                 passwordInputLayout.setError(getString(R.string.minimum_password));
                 setProgressVisibilityGone();
-                // TODO: вибрация
+                YoYo.with(Techniques.Shake)
+                        .duration(400)
+                        .repeat(1)
+                        .playOn(inputPassword);
+                if (vibrator.hasVibrator()) {
+                    vibrator.vibrate(mills);
+                }
                 validate = false;
             }
             if(validate) {
