@@ -1,4 +1,4 @@
-package com.kamil184.lingly.main.authorization.Registration;
+package com.kamil184.lingly.main.authorization.Registration.sign_up;
 
 import android.app.Activity;
 import android.content.Context;
@@ -8,7 +8,6 @@ import androidx.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 import com.kamil184.lingly.MainActivity;
@@ -18,10 +17,10 @@ import com.kamil184.lingly.base.BasePresenter;
 
 public class SignUpPresenter extends BasePresenter {
 
-    private SignUpActivity view;
+    private SignUpFragment view;
     private FirebaseUser user;
 
-    void attachView(SignUpActivity signUpActivity) {
+    void attachView(SignUpFragment signUpActivity) {
         view = signUpActivity;
     }
 
@@ -45,14 +44,11 @@ public class SignUpPresenter extends BasePresenter {
                                     .setDisplayName(name)
                                     .build();
                             user.updateProfile(profileUpdates)
-                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<Void> task) {
-                                            if (task.isSuccessful()) {
-                                                view.setProgressVisibilityGone();
-                                                view.showSnackBar(R.string.signup_sucss);
-                                                view.startActivity(new Intent(context, MainActivity.class));
-                                            }
+                                    .addOnCompleteListener(task1 -> {
+                                        if (task1.isSuccessful()) {
+                                            view.setProgressVisibilityGone();
+                                            view.showSnackBar(R.string.signup_sucss);
+                                            view.startActivity(new Intent(context, MainActivity.class));
                                         }
                                     });
                         }

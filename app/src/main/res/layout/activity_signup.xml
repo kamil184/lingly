@@ -2,15 +2,11 @@
 
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/animation_list"
     android:fitsSystemWindows="true"
-    android:id="@+id/signup_container"
-    >
-
-
+    android:id="@+id/signup_container">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -113,13 +109,7 @@
             android:textAllCaps="false"
             android:textColor="@color/white" />
 
-
-
-
-
-
     </LinearLayout>
-
 
     <ProgressBar
         android:id="@+id/progressBar"

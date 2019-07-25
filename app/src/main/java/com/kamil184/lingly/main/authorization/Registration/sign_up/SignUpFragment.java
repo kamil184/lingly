@@ -1,4 +1,4 @@
-package com.kamil184.lingly.main.authorization.Registration;
+package com.kamil184.lingly.main.authorization.Registration.sign_up;
 
 import android.content.Context;
 import android.content.Intent;
@@ -6,15 +6,13 @@ import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.text.Editable;
-import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.text.method.PasswordTransformationMethod;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
+import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
+import androidx.annotation.Nullable;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 
 import com.daimajia.androidanimations.library.Techniques;
@@ -23,17 +21,16 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.kamil184.lingly.R;
-import com.kamil184.lingly.base.BaseActivity;
+import com.kamil184.lingly.base.BaseFragment;
 import com.kamil184.lingly.main.authorization.ResetPasswordActivity;
 import com.kamil184.lingly.main.authorization.login.LoginActivity;
-import com.rengwuxian.materialedittext.MaterialEditText;
 
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
-public class SignUpActivity extends BaseActivity {
+public class SignUpFragment extends BaseFragment {
 
     @BindView(R.id.btn_login) MaterialButton btnSignIn;
     @BindView(R.id.btn_signup) MaterialButton btnSignUp;
@@ -50,18 +47,13 @@ public class SignUpActivity extends BaseActivity {
     AnimationDrawable anim;
     SignUpPresenter presenter;
 
-    long mills = 300;
     Vibrator vibrator;
+    long mills = 300;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_signup);
-        ButterKnife.bind(this);
-        presenter = new SignUpPresenter(this);
-        presenter.attachView(this);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
 
-        vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         anim = (AnimationDrawable) container.getBackground();
         anim.setEnterFadeDuration(0);
         anim.setExitFadeDuration(1000);
@@ -134,11 +126,11 @@ public class SignUpActivity extends BaseActivity {
 
         //TODO кнопки
 
-        btnResetPassword.setOnClickListener(v -> startActivity(new Intent(SignUpActivity.this, ResetPasswordActivity.class)));
+        btnResetPassword.setOnClickListener(v -> startActivity(new Intent(getActivity(), ResetPasswordActivity.class)));
 
 
 
-        btnSignIn.setOnClickListener(v -> startActivity(new Intent(SignUpActivity.this, LoginActivity.class)));
+        btnSignIn.setOnClickListener(v -> startActivity(new Intent(getActivity(), LoginActivity.class)));
 
 
 
@@ -152,6 +144,20 @@ public class SignUpActivity extends BaseActivity {
                 presenter.signUpWithEmail(name,email,password);
             }
         });
+
+        View view = inflater.inflate(R.layout.activity_signup, container, false);
+        ButterKnife.bind(this, view);
+        vibrator = (Vibrator) getActivity().getSystemService(Context.VIBRATOR_SERVICE);
+        presenter = new SignUpPresenter(getActivity());
+        presenter.attachView(this);
+
+        return view;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
     }
 
     void setProgressVisibilityGone(){
@@ -228,7 +234,7 @@ public class SignUpActivity extends BaseActivity {
     }
 
     @Override
-    protected void onResume() {
+    public void onResume() {
         super.onResume();
         progressBar.setVisibility(View.GONE);
         if (anim != null && !anim.isRunning())
@@ -236,7 +242,7 @@ public class SignUpActivity extends BaseActivity {
     }
 
     @Override
-    protected void onPause() {
+    public void onPause() {
         super.onPause();
         if (anim != null && anim.isRunning())
             anim.stop();
