@@ -19,6 +19,7 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.kamil184.lingly.R;
@@ -34,9 +35,9 @@ import butterknife.ButterKnife;
 
 public class SignUpActivity extends BaseActivity {
 
-    @BindView(R.id.sign_in_button) Button btnSignIn;
-    @BindView(R.id.sign_up_button) Button btnSignUp;
-    @BindView(R.id.btn_reset_password) Button btnResetPassword;
+    @BindView(R.id.btn_login) MaterialButton btnSignIn;
+    @BindView(R.id.btn_signup) MaterialButton btnSignUp;
+    @BindView(R.id.btn_reset_password) MaterialButton btnResetPassword;
     @BindView(R.id.email) TextInputEditText inputEmail;
     @BindView(R.id.email_text_input_layout) TextInputLayout emailInputLayout;
     @BindView(R.id.password) TextInputEditText inputPassword;
