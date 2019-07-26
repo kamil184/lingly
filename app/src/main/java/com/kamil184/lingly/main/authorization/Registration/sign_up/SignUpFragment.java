@@ -42,7 +42,7 @@ public class SignUpFragment extends BaseFragment {
     @BindView(R.id.us_name) TextInputEditText inputName;
     @BindView(R.id.us_name_text_input_layout) TextInputLayout nameInputLayout;
     @BindView(R.id.progressBar) ProgressBar progressBar;
-    @BindView(R.id.signup_container) CoordinatorLayout container;
+    @BindView(R.id.signup_container) CoordinatorLayout container1;
 
     AnimationDrawable anim;
     SignUpPresenter presenter;
@@ -53,8 +53,12 @@ public class SignUpFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-        anim = (AnimationDrawable) container.getBackground();
+        View view1 = inflater.inflate(R.layout.activity_signup, container, false);
+        ButterKnife.bind(this, view1);
+        vibrator = (Vibrator) getActivity().getSystemService(Context.VIBRATOR_SERVICE);
+        presenter = new SignUpPresenter(getActivity());
+        presenter.attachView(this);
+        anim = (AnimationDrawable) container1.getBackground();
         anim.setEnterFadeDuration(0);
         anim.setExitFadeDuration(1000);
 
@@ -145,13 +149,9 @@ public class SignUpFragment extends BaseFragment {
             }
         });
 
-        View view = inflater.inflate(R.layout.activity_signup, container, false);
-        ButterKnife.bind(this, view);
-        vibrator = (Vibrator) getActivity().getSystemService(Context.VIBRATOR_SERVICE);
-        presenter = new SignUpPresenter(getActivity());
-        presenter.attachView(this);
 
-        return view;
+
+        return view1;
     }
 
     @Override
@@ -198,7 +198,7 @@ public class SignUpFragment extends BaseFragment {
             emailInputLayout.setError(getString(R.string.email_err));
             setProgressVisibilityGone();
             YoYo.with(Techniques.Shake)
-                    .duration(400)
+                    .duration(200)
                     .repeat(1)
                     .playOn(inputEmail);
             if (vibrator.hasVibrator()) {
@@ -210,7 +210,7 @@ public class SignUpFragment extends BaseFragment {
             passwordInputLayout.setError(getString(R.string.minimum_password));
             setProgressVisibilityGone();
             YoYo.with(Techniques.Shake)
-                    .duration(400)
+                    .duration(200)
                     .repeat(1)
                     .playOn(inputPassword);
             if (vibrator.hasVibrator()) {
@@ -222,7 +222,7 @@ public class SignUpFragment extends BaseFragment {
             nameInputLayout.setError(getString(R.string.login_empty));
             setProgressVisibilityGone();
             YoYo.with(Techniques.Shake)
-                    .duration(400)
+                    .duration(200)
                     .repeat(1)
                     .playOn(inputName);
             if (vibrator.hasVibrator()) {

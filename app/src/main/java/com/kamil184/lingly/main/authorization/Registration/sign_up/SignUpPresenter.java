@@ -37,6 +37,7 @@ public class SignUpPresenter extends BasePresenter {
                         // the auth state listener will be notified and logic to handle the
                         // signed in user can be handled in the listener.
                         if (!task.isSuccessful()) {
+                            view.setProgressVisibilityGone();
                             view.showSnackBar(R.string.signup_err);
                         } else {
                             user = getCurrentUser();
@@ -48,7 +49,7 @@ public class SignUpPresenter extends BasePresenter {
                                         if (task1.isSuccessful()) {
                                             view.setProgressVisibilityGone();
                                             view.showSnackBar(R.string.signup_sucss);
-                                            view.startActivity(new Intent(context, MainActivity.class));
+                                            view.startActivity(new Intent(context,ExtraUserInfoFragment.class));
                                         }
                                     });
                         }
