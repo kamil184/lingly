@@ -50,18 +50,29 @@ public class SignUpFragment extends BaseFragment {
     Vibrator vibrator;
     long mills = 300;
 
+    public interface Callback{
+        void toUserInfo();
+    }
+
+    SignUpFragment.Callback callback;
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        callback = (SignUpFragment.Callback) context;
+        presenter = new SignUpPresenter(context);
+        vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view1 = inflater.inflate(R.layout.activity_signup, container, false);
         ButterKnife.bind(this, view1);
-        vibrator = (Vibrator) getActivity().getSystemService(Context.VIBRATOR_SERVICE);
-        presenter = new SignUpPresenter(getActivity());
+
         presenter.attachView(this);
         anim = (AnimationDrawable) container1.getBackground();
         anim.setEnterFadeDuration(0);
         anim.setExitFadeDuration(1000);
-
 
         inputPassword.addTextChangedListener(new TextWatcher() {
 
@@ -79,7 +90,6 @@ public class SignUpFragment extends BaseFragment {
             @Override
             public void afterTextChanged(Editable s) { }
         });
-
 
         inputEmail.addTextChangedListener(new TextWatcher() {
 
@@ -127,16 +137,11 @@ public class SignUpFragment extends BaseFragment {
             }
         });
 
-
         //TODO кнопки
 
         btnResetPassword.setOnClickListener(v -> startActivity(new Intent(getActivity(), ResetPasswordActivity.class)));
 
-
-
         btnSignIn.setOnClickListener(v -> startActivity(new Intent(getActivity(), LoginActivity.class)));
-
-
 
         btnSignUp.setOnClickListener(v -> {
             progressBar.setVisibility(View.VISIBLE);
@@ -146,10 +151,9 @@ public class SignUpFragment extends BaseFragment {
 
             if(validate(name,email,password)){
                 presenter.signUpWithEmail(name,email,password);
+                callback.toUserInfo();
             }
         });
-
-
 
         return view1;
     }
@@ -163,12 +167,6 @@ public class SignUpFragment extends BaseFragment {
     void setProgressVisibilityGone(){
         progressBar.setVisibility(View.GONE);
     }
-
-    void finishActivity(){
-        finish();
-    }
-
-
 
     private boolean isEmailNotValidate(String email) {
         if (email.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {

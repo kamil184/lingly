@@ -17,6 +17,7 @@ import com.kamil184.lingly.base.BasePresenter;
 
 public class SignUpPresenter extends BasePresenter {
 
+
     private SignUpFragment view;
     private FirebaseUser user;
 
@@ -33,9 +34,6 @@ public class SignUpPresenter extends BasePresenter {
         if(hasInternetConnection()) {
             auth.createUserWithEmailAndPassword(email, password)
                     .addOnCompleteListener((Activity) context, task -> {
-                        // If sign in fails, display a message to the user. If sign in succeeds
-                        // the auth state listener will be notified and logic to handle the
-                        // signed in user can be handled in the listener.
                         if (!task.isSuccessful()) {
                             view.setProgressVisibilityGone();
                             view.showSnackBar(R.string.signup_err);
