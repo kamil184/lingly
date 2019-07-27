@@ -42,4 +42,17 @@
     <string name="txt_signup">Регистрация</string>
     <string name="native_language">Родной язык</string>
     <string name="non_native_language">Язык, который Вы бы хотели изучать</string>
+    <string-array name="languages">
+        Русский
+        Английский
+        Немецкий
+        Французский
+        Испанский
+        Португальский
+        Арабский
+        Турецкий
+        Итальянский
+        Хинди
+    </string-array>
+
 </resources>

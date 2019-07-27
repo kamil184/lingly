@@ -1,18 +1,25 @@
 package com.kamil184.lingly.main.authorization.Registration.native_language;
 
+import android.app.Application;
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.SimpleAdapter;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.kamil184.lingly.R;
 import com.kamil184.lingly.base.BaseFragment;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -21,6 +28,10 @@ public class NativeLanguageFragment extends BaseFragment {
 
     @BindView(R.id.linear) LinearLayout layout;
     AnimationDrawable anim;
+    @BindView(R.id.native_language_list)
+    ListView native_language_list;
+
+    NativeLanguagePresenter presenter;
 
     public interface Callback{
         void toNonNativeLanguage();
@@ -43,6 +54,10 @@ public class NativeLanguageFragment extends BaseFragment {
         anim = (AnimationDrawable) layout.getBackground();
         anim.setEnterFadeDuration(0);
         anim.setExitFadeDuration(1000);
+        presenter = new NativeLanguagePresenter(getActivity());
+        presenter.attachView(this);
+
+        setLanguageAdapter();
 
         return view1;
     }
@@ -60,5 +75,28 @@ public class NativeLanguageFragment extends BaseFragment {
         super.onPause();
         if (anim != null && anim.isRunning())
             anim.stop();
+    }
+
+    private void setLanguageAdapter(){
+    String[] languageArray = presenter.languageArray;
+    //TODO добавить иконки флагов
+
+    ArrayList<HashMap<String, Object>> data = new ArrayList<>(
+                languageArray.length);
+    HashMap<String, Object> map;
+
+    for (String s : languageArray) {
+        map = new HashMap<>();
+        map.put("LanguageName", s);
+        data.add(map);
+    }
+
+    String[] from = {"LanguageName"};
+    int[] to = {R.id.country_text};
+
+    SimpleAdapter adapter = new SimpleAdapter(getContext(), data, R.layout.fragment_set_language_item,
+                from, to);
+
+    native_language_list.setAdapter(adapter);
     }
 }
