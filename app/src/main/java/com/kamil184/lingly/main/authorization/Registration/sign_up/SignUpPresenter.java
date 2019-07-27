@@ -47,7 +47,7 @@ public class SignUpPresenter extends BasePresenter {
                                         if (task1.isSuccessful()) {
                                             view.setProgressVisibilityGone();
                                             view.showSnackBar(R.string.signup_sucss);
-                                            view.startActivity(new Intent(context,ExtraUserInfoFragment.class));
+                                            view.callback.toUserInfo();
                                         }
                                     });
                         }

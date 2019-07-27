@@ -14,4 +14,13 @@
         android:id="@+id/extraInfo"
         android:name="com.kamil184.lingly.main.authorization.Registration.sign_up.ExtraUserInfoFragment"
         tools:layout="@layout/fragment_extrauserinfo"/>
+    <fragment
+        android:id="@+id/nativeLanguageFragment"
+        android:name="com.kamil184.lingly.main.authorization.Registration.native_language.NativeLanguageFragment"
+        android:label="fragment_native_language"
+        tools:layout="@layout/fragment_native_language" />
+    <fragment
+        android:id="@+id/nonNativeLanguageFragment"
+        android:name="com.kamil184.lingly.main.authorization.Registration.non_native_language.NonNativeLanguageFragment"
+        android:label="NonNativeLanguageFragment" />
 </navigation>

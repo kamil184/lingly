@@ -40,4 +40,6 @@
     <string name="date_of_birth">Ваш день рождения: </string>
     <string name="next_step">Далее</string>
     <string name="txt_signup">Регистрация</string>
+    <string name="native_language">Родной язык</string>
+    <string name="non_native_language">Язык, который Вы бы хотели изучать</string>
 </resources>

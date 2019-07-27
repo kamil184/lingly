@@ -44,7 +44,10 @@ public class ExtraUserInfoPresenter extends BasePresenter {
             if(isAuthorized()) {
                 db.collection("users").document(getCurrentUserEmail())
                         .set(user)
-                        .addOnSuccessListener(aVoid -> view.finish())//TODO переход на след фрагмент
+                        .addOnSuccessListener(aVoid ->{
+                            view.finish();
+                            view.callback.toNativeLanguage();
+                        })//TODO переход на след фрагмент
                         .addOnFailureListener(e -> view.showSnackBar(R.string.signup_err));
             }else{
                 view.showSnackBar(R.string.signup_err);

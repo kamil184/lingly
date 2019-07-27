@@ -15,6 +15,7 @@ import android.widget.DatePicker;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.fragment.app.Fragment;
 
@@ -50,6 +51,18 @@ public class ExtraUserInfoFragment extends BaseFragment {
 
     Vibrator vibrator;
     long mills = 300;
+
+    public interface Callback{
+        void toNativeLanguage();
+    }
+
+    ExtraUserInfoFragment.Callback callback;
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        callback = (ExtraUserInfoFragment.Callback) context;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

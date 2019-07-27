@@ -15,8 +15,6 @@ import android.widget.ProgressBar;
 import androidx.annotation.Nullable;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 
-import com.daimajia.androidanimations.library.Techniques;
-import com.daimajia.androidanimations.library.YoYo;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -24,6 +22,7 @@ import com.kamil184.lingly.R;
 import com.kamil184.lingly.base.BaseFragment;
 import com.kamil184.lingly.main.authorization.ResetPasswordActivity;
 import com.kamil184.lingly.main.authorization.login.LoginActivity;
+import com.kamil184.lingly.util.AnimationsUtil;
 
 
 import butterknife.BindView;
@@ -151,7 +150,6 @@ public class SignUpFragment extends BaseFragment {
 
             if(validate(name,email,password)){
                 presenter.signUpWithEmail(name,email,password);
-                callback.toUserInfo();
             }
         });
 
@@ -195,10 +193,7 @@ public class SignUpFragment extends BaseFragment {
         if (isEmailNotValidate(email)) {
             emailInputLayout.setError(getString(R.string.email_err));
             setProgressVisibilityGone();
-            YoYo.with(Techniques.Shake)
-                    .duration(200)
-                    .repeat(1)
-                    .playOn(inputEmail);
+            AnimationsUtil.shakeAnimation(inputEmail);
             if (vibrator.hasVibrator()) {
                 vibrator.vibrate(mills);
             }
@@ -207,10 +202,7 @@ public class SignUpFragment extends BaseFragment {
         if (isPasswordNotValidate(password)) {
             passwordInputLayout.setError(getString(R.string.minimum_password));
             setProgressVisibilityGone();
-            YoYo.with(Techniques.Shake)
-                    .duration(200)
-                    .repeat(1)
-                    .playOn(inputPassword);
+            AnimationsUtil.shakeAnimation(inputPassword);
             if (vibrator.hasVibrator()) {
                 vibrator.vibrate(mills);
             }
@@ -219,10 +211,7 @@ public class SignUpFragment extends BaseFragment {
         if(isNameNotValidate(name)){
             nameInputLayout.setError(getString(R.string.login_empty));
             setProgressVisibilityGone();
-            YoYo.with(Techniques.Shake)
-                    .duration(200)
-                    .repeat(1)
-                    .playOn(inputName);
+            AnimationsUtil.shakeAnimation(inputName);
             if (vibrator.hasVibrator()) {
                 vibrator.vibrate(mills);
             }
