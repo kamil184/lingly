@@ -79,20 +79,22 @@ public class NativeLanguageFragment extends BaseFragment {
 
     private void setLanguageAdapter(){
     String[] languageArray = presenter.languageArray;
+    int[] flagArray = presenter.flagArray;
     //TODO добавить иконки флагов
 
     ArrayList<HashMap<String, Object>> data = new ArrayList<>(
                 languageArray.length);
     HashMap<String, Object> map;
 
-    for (String s : languageArray) {
+    for (int i = 0; i < languageArray.length; i++) {
         map = new HashMap<>();
-        map.put("LanguageName", s);
+        map.put("LanguageName", languageArray[i]);
+        map.put("LanguageFlag", flagArray[i]);
         data.add(map);
     }
 
-    String[] from = {"LanguageName"};
-    int[] to = {R.id.country_text};
+    String[] from = {"LanguageName","LanguageFlag"};
+    int[] to = {R.id.country_text,R.id.country_image};
 
     SimpleAdapter adapter = new SimpleAdapter(getContext(), data, R.layout.fragment_set_language_item,
                 from, to);
