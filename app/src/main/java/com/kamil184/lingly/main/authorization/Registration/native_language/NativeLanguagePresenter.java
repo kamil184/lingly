@@ -1,6 +1,9 @@
 package com.kamil184.lingly.main.authorization.Registration.native_language;
 
 import android.content.Context;
+import android.view.View;
+
+import androidx.annotation.StringRes;
 
 import com.google.firebase.auth.FirebaseUser;
 import com.kamil184.lingly.R;
@@ -25,7 +28,9 @@ public class NativeLanguagePresenter extends BasePresenter {
     }
 
 
-    void addNativeLanguage(ArrayList<String> nativeLanguage){
+
+    void addNativaeLanguage(ArrayList<String> nativeLanguage){
+        view.progressBar.setVisibility(View.VISIBLE);
         if(hasInternetConnection()){
             Map<String, Object> user = new HashMap<>();
             user.put("user_native_language",nativeLanguage);
@@ -33,17 +38,24 @@ public class NativeLanguagePresenter extends BasePresenter {
                 db.collection("users").document(getCurrentUserEmail())
                         .update(user)
                         .addOnSuccessListener(aVoid ->{
+                            view.progressBar.setVisibility(View.GONE);
                             view.finish();
                             view.callback.toNonNativeLanguage();
                         })
-                        .addOnFailureListener(e -> view.showSnackBar(R.string.language_err));
+                        .addOnFailureListener(e -> {
+                            ifError(R.string.language_err);
+                        });
             }else{
-                view.showSnackBar(R.string.not_auth_err);
+                ifError(R.string.not_auth_err);
             }
         }else{
-            view.showSnackBar(R.string.no_interent_connection_err);
+            ifError(R.string.no_interent_connection_err);
         }
     }
 
-
+    void ifError(@StringRes int message){
+        view.next_btn.setClickable(true);
+        view.progressBar.setVisibility(View.GONE);
+        view.showSnackBar(message);
+    }
 }

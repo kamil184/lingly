@@ -41,8 +41,7 @@ public class ExtraUserInfoFragment extends BaseFragment {
     @BindView(R.id.second_name_text_input_layout) TextInputLayout secondNameInputLayout;
     @BindView(R.id.datePicker) DatePicker datePicker;
     @BindView(R.id.btn_next) MaterialButton btn_next_step;
-   // @BindView(R.id.progressBar)
-   // ProgressBar progressBar;
+    @BindView(R.id.progressBar) ProgressBar progressBar;
     @BindView(R.id.container)
     CoordinatorLayout container1;
 
@@ -135,6 +134,7 @@ public class ExtraUserInfoFragment extends BaseFragment {
 
 
         btn_next_step.setOnClickListener(v -> {
+            btn_next_step.setClickable(false);
             String firstName = inputFirstName.getText().toString();
             String secondName = inputSecondName.getText().toString();
             int day = datePicker.getDayOfMonth();
@@ -161,7 +161,7 @@ public class ExtraUserInfoFragment extends BaseFragment {
         boolean validate = true;
         if (isNameNotValidate(firstName)) {
             firstNameInputLayout.setError(getString(R.string.empty_field_err));
-            //TODO setProgressVisibilityGone();
+            progressBar.setVisibility(View.GONE);
             YoYo.with(Techniques.Shake)
                     .duration(200)
                     .repeat(1)
@@ -173,7 +173,7 @@ public class ExtraUserInfoFragment extends BaseFragment {
         }
         if (isNameNotValidate(secondName)) {
             secondNameInputLayout.setError(getString(R.string.empty_field_err));
-            //TODO setProgressVisibilityGone();
+            progressBar.setVisibility(View.GONE);
             YoYo.with(Techniques.Shake)
                     .duration(200)
                     .repeat(1)
@@ -190,7 +190,7 @@ public class ExtraUserInfoFragment extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
-        //progressBar.setVisibility(View.GONE);
+        progressBar.setVisibility(View.GONE);
         if (anim != null && !anim.isRunning())
             anim.start();
     }
