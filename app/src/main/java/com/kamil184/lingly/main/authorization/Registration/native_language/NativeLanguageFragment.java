@@ -32,7 +32,7 @@ import butterknife.ButterKnife;
 public class NativeLanguageFragment extends BaseFragment {
 
     @BindView(R.id.linear) LinearLayout layout;
-    @BindView(R.id.native_language_list) ListView native_language_list;
+    @BindView(R.id.native_language_list) ListView nativeLanguageList;
     @BindView(R.id.btn_next) Button next_btn;
     @BindView(R.id.progressBar) ProgressBar progressBar;
 
@@ -66,20 +66,19 @@ public class NativeLanguageFragment extends BaseFragment {
 
         setLanguageAdapter();
         ArrayList<String> selectedLanguagesList = new ArrayList<>();
-        native_language_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View itemClicked, int position, long id) {
-                itemClicked.setBackgroundColor(getResources().getColor(R.color.white));
-                selectedLanguagesList.add(Constants.Languages.languageArray[position]);
-                next_btn.setVisibility(View.VISIBLE);
-                next_btn.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        next_btn.setClickable(false);
-                        presenter.addNativaeLanguage(selectedLanguagesList);
-                    }
-                });
-            }
+        nativeLanguageList.setOnItemClickListener((adapterView, itemClicked, position, id) -> {
+            itemClicked.setBackgroundColor(getResources().getColor(R.color.white));
+            if(selectedLanguagesList.contains(Constants.Languages.languageArray[position])){
+                selectedLanguagesList.remove(Constants.Languages.languageArray[position]);
+                itemClicked.setBackgroundColor(getResources().getColor(R.color.transparent));
+
+            }else
+            selectedLanguagesList.add(Constants.Languages.languageArray[position]);
+            next_btn.setVisibility(View.VISIBLE);
+            next_btn.setOnClickListener(view -> {
+                next_btn.setClickable(false);
+                presenter.addNativaeLanguage(selectedLanguagesList);
+            });
         });
         return view1;
     }

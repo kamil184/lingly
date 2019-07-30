@@ -67,6 +67,10 @@ public class NonNativeLanguageFragment extends BaseFragment {
         ArrayList<String> selectedLanguagesList = new ArrayList<>();
         nonNativeLanguageList.setOnItemClickListener((adapterView, itemClicked, position, id) -> {
             itemClicked.setBackgroundColor(getResources().getColor(R.color.white));
+            if(selectedLanguagesList.contains(Constants.Languages.languageArray[position])){
+                selectedLanguagesList.remove(Constants.Languages.languageArray[position]);
+                itemClicked.setBackgroundColor(getResources().getColor(R.color.transparent));
+            }else
             selectedLanguagesList.add(Constants.Languages.languageArray[position]);
             next_btn.setVisibility(View.VISIBLE);
             next_btn.setOnClickListener(view -> presenter.addNonNativeLanguage(selectedLanguagesList));
