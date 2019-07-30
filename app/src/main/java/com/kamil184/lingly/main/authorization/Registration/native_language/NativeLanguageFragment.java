@@ -33,7 +33,7 @@ public class NativeLanguageFragment extends BaseFragment {
     @BindView(R.id.linear) LinearLayout layout;
     AnimationDrawable anim;
     @BindView(R.id.native_language_list)
-    ListView native_language_list;
+    ListView nativeLanguageList;
     @BindView(R.id.btn_next)
     Button next_btn;
 
@@ -64,21 +64,12 @@ public class NativeLanguageFragment extends BaseFragment {
         presenter.attachView(this);
 
         setLanguageAdapter();
-        String[] selectedLanguages = {"null"};
         ArrayList<String> selectedLanguagesList = new ArrayList<>();
-        native_language_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View itemClicked, int position, long id) {
-                itemClicked.setBackgroundColor(getResources().getColor(R.color.white));
-                selectedLanguagesList.add(Constants.Languages.languageArray[position]);
-                next_btn.setVisibility(View.VISIBLE);
-                next_btn.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        presenter.addNativaeLanguage(selectedLanguagesList);
-                    }
-                });
-            }
+        nativeLanguageList.setOnItemClickListener((adapterView, itemClicked, position, id) -> {
+            itemClicked.setBackgroundColor(getResources().getColor(R.color.white));
+            selectedLanguagesList.add(Constants.Languages.languageArray[position]);
+            next_btn.setVisibility(View.VISIBLE);
+            next_btn.setOnClickListener(view -> presenter.addNativeLanguage(selectedLanguagesList));
         });
         return view1;
     }
@@ -120,6 +111,6 @@ public class NativeLanguageFragment extends BaseFragment {
     SimpleAdapter adapter = new SimpleAdapter(getContext(), data, R.layout.fragment_set_language_item,
                 from, to);
 
-    native_language_list.setAdapter(adapter);
+    nativeLanguageList.setAdapter(adapter);
     }
 }

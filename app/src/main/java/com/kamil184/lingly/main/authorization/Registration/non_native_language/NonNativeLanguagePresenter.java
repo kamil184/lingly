@@ -1,40 +1,38 @@
-package com.kamil184.lingly.main.authorization.Registration.native_language;
+package com.kamil184.lingly.main.authorization.Registration.non_native_language;
 
 import android.content.Context;
 
 import com.google.firebase.auth.FirebaseUser;
 import com.kamil184.lingly.R;
 import com.kamil184.lingly.base.BasePresenter;
+import com.kamil184.lingly.main.authorization.Registration.native_language.NativeLanguageFragment;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-
-public class NativeLanguagePresenter extends BasePresenter {
-    private NativeLanguageFragment view;
+public class NonNativeLanguagePresenter extends BasePresenter {
+    private NonNativeLanguageFragment view;
     private FirebaseUser user;
 
-    public NativeLanguagePresenter(Context context) {
+    public NonNativeLanguagePresenter(Context context) {
         super(context);
     }
 
-    void attachView(NativeLanguageFragment NativeLanguageFragment) {
-        view = NativeLanguageFragment;
+    void attachView(NonNativeLanguageFragment nonNativeLanguageFragment) {
+        view = nonNativeLanguageFragment;
     }
 
-
-    void addNativeLanguage(ArrayList<String> nativeLanguage){
+    void addNonNativeLanguage(ArrayList<String> nonNativeLanguage){
         if(hasInternetConnection()){
             Map<String, Object> user = new HashMap<>();
-            user.put("user_native_language",nativeLanguage);
+            user.put("user_non_native_language",nonNativeLanguage);
             if (isAuthorized()){
                 db.collection("users").document(getCurrentUserEmail())
                         .update(user)
                         .addOnSuccessListener(aVoid ->{
                             view.finish();
-                            view.callback.toNonNativeLanguage();
+                            view.callback.toMainFragment();
                         })
                         .addOnFailureListener(e -> view.showSnackBar(R.string.language_err));
             }else{
@@ -44,6 +42,5 @@ public class NativeLanguagePresenter extends BasePresenter {
             view.showSnackBar(R.string.no_interent_connection_err);
         }
     }
-
 
 }
