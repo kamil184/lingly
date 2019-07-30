@@ -4,8 +4,10 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
+import android.view.View;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.StringRes;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -33,6 +35,7 @@ public class ExtraUserInfoPresenter extends BasePresenter {
     }
 
     void addExtraInfo(String firstName,String secondName,int day,int month,int year){
+        view.progressBar.setVisibility(View.VISIBLE);
         view.hideKeyboard();
         if(hasInternetConnection()) {
             Map<String, Object> user = new HashMap<>();
@@ -45,19 +48,25 @@ public class ExtraUserInfoPresenter extends BasePresenter {
                 db.collection("users").document(getCurrentUserEmail())
                         .update(user)
                         .addOnSuccessListener(aVoid ->{
+                            view.progressBar.setVisibility(View.GONE);
                             view.finish();
                             view.callback.toNativeLanguage();
                         })
-                        .addOnFailureListener(e -> view.showSnackBar(R.string.signup_err));
+                        .addOnFailureListener(e -> {
+                            ifError(R.string.signup_err);
+                        });
             }else{
-                view.showSnackBar(R.string.not_auth_err);
+                ifError(R.string.not_auth_err);
             }
         }
             else{
-            //view.setProgressVisibilityGone();
-            view.showSnackBar(R.string.no_interent_connection_err);
+            ifError(R.string.no_interent_connection_err);
         }
     }
 
-
+    void ifError(@StringRes int message){
+        view.btn_next_step.setClickable(true);
+        view.progressBar.setVisibility(View.GONE);
+        view.showSnackBar(message);
+    }
 }

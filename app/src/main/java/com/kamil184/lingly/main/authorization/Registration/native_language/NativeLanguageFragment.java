@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.SimpleAdapter;
 
 import androidx.annotation.NonNull;
@@ -31,12 +32,11 @@ import butterknife.ButterKnife;
 public class NativeLanguageFragment extends BaseFragment {
 
     @BindView(R.id.linear) LinearLayout layout;
-    AnimationDrawable anim;
-    @BindView(R.id.native_language_list)
-    ListView native_language_list;
-    @BindView(R.id.btn_next)
-    Button next_btn;
+    @BindView(R.id.native_language_list) ListView native_language_list;
+    @BindView(R.id.btn_next) Button next_btn;
+    @BindView(R.id.progressBar) ProgressBar progressBar;
 
+    AnimationDrawable anim;
     NativeLanguagePresenter presenter;
 
     public interface Callback{
@@ -75,6 +75,7 @@ public class NativeLanguageFragment extends BaseFragment {
                 next_btn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        next_btn.setClickable(false);
                         presenter.addNativaeLanguage(selectedLanguagesList);
                     }
                 });
@@ -86,7 +87,7 @@ public class NativeLanguageFragment extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
-        //progressBar.setVisibility(View.GONE);
+        progressBar.setVisibility(View.GONE);
         if (anim != null && !anim.isRunning())
             anim.start();
     }
