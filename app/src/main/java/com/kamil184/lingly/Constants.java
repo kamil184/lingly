@@ -26,4 +26,20 @@ public class Constants {
     public static class General {
         public static final long DOUBLE_CLICK_TO_EXIT_INTERVAL = 3000; // in milliseconds
     }
+    public static class Languages{
+        public static String[] languageArray = {"Русский","Английский","Немецкий","Французский","Испанский","Португальский","Турецкий","Итальянский","Хинди","Японский","Китайский"};
+        public static int[] flagArray = {
+                R.mipmap.ic_list_ru,
+                R.mipmap.ic_list_uk,
+                R.mipmap.ic_list_de,
+                R.mipmap.ic_list_fr,
+                R.mipmap.ic_list_es,
+                R.mipmap.ic_list_pt,
+                R.mipmap.ic_list_tr,
+                R.mipmap.ic_list_it,
+                R.mipmap.ic_list_in,
+                R.mipmap.ic_list_jp,
+                R.mipmap.ic_list_cn
+        };
+    }
 }

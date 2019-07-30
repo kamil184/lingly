@@ -42,6 +42,8 @@
     <string name="txt_signup">Регистрация</string>
     <string name="native_language">Родной язык</string>
     <string name="non_native_language">Язык, который Вы бы хотели изучать</string>
+    <string name="language_err">Ошибка установки языка, попробуйте позже</string>
+    <string name="not_auth_err">Вы не авторизованы!</string>
     <string-array name="languages">
         Русский
         Английский

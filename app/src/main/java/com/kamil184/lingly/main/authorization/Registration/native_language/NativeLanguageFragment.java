@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -15,6 +17,8 @@ import android.widget.SimpleAdapter;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.google.android.material.button.MaterialButton;
+import com.kamil184.lingly.Constants;
 import com.kamil184.lingly.R;
 import com.kamil184.lingly.base.BaseFragment;
 
@@ -30,6 +34,8 @@ public class NativeLanguageFragment extends BaseFragment {
     AnimationDrawable anim;
     @BindView(R.id.native_language_list)
     ListView native_language_list;
+    @BindView(R.id.btn_next)
+    Button next_btn;
 
     NativeLanguagePresenter presenter;
 
@@ -58,7 +64,22 @@ public class NativeLanguageFragment extends BaseFragment {
         presenter.attachView(this);
 
         setLanguageAdapter();
-
+        String[] selectedLanguages = {"null"};
+        ArrayList<String> selectedLanguagesList = new ArrayList<>();
+        native_language_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View itemClicked, int position, long id) {
+                itemClicked.setBackgroundColor(getResources().getColor(R.color.white));
+                selectedLanguagesList.add(Constants.Languages.languageArray[position]);
+                next_btn.setVisibility(View.VISIBLE);
+                next_btn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        presenter.addNativaeLanguage(selectedLanguagesList);
+                    }
+                });
+            }
+        });
         return view1;
     }
 
@@ -78,9 +99,9 @@ public class NativeLanguageFragment extends BaseFragment {
     }
 
     private void setLanguageAdapter(){
-    String[] languageArray = presenter.languageArray;
-    int[] flagArray = presenter.flagArray;
-    //TODO добавить иконки флагов
+    String[] languageArray = Constants.Languages.languageArray;
+    int[] flagArray = Constants.Languages.flagArray;
+
 
     ArrayList<HashMap<String, Object>> data = new ArrayList<>(
                 languageArray.length);

@@ -43,14 +43,14 @@ public class ExtraUserInfoPresenter extends BasePresenter {
             user.put("birth_year",year);
             if(isAuthorized()) {
                 db.collection("users").document(getCurrentUserEmail())
-                        .set(user)
+                        .update(user)
                         .addOnSuccessListener(aVoid ->{
                             view.finish();
                             view.callback.toNativeLanguage();
-                        })//TODO переход на след фрагмент
+                        })
                         .addOnFailureListener(e -> view.showSnackBar(R.string.signup_err));
             }else{
-                view.showSnackBar(R.string.signup_err);
+                view.showSnackBar(R.string.not_auth_err);
             }
         }
             else{
