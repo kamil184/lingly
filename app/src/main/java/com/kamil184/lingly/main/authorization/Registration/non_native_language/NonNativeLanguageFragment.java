@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -18,8 +17,6 @@ import androidx.annotation.Nullable;
 import com.kamil184.lingly.Constants;
 import com.kamil184.lingly.R;
 import com.kamil184.lingly.base.BaseFragment;
-import com.kamil184.lingly.main.authorization.Registration.native_language.NativeLanguageFragment;
-import com.kamil184.lingly.main.authorization.Registration.native_language.NativeLanguagePresenter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -66,14 +63,21 @@ public class NonNativeLanguageFragment extends BaseFragment {
         setLanguageAdapter();
         ArrayList<String> selectedLanguagesList = new ArrayList<>();
         nonNativeLanguageList.setOnItemClickListener((adapterView, itemClicked, position, id) -> {
-            itemClicked.setBackgroundColor(getResources().getColor(R.color.white));
             if(selectedLanguagesList.contains(Constants.Languages.languageArray[position])){
                 selectedLanguagesList.remove(Constants.Languages.languageArray[position]);
-                itemClicked.setBackgroundColor(getResources().getColor(R.color.transparent));
-            }else
-            selectedLanguagesList.add(Constants.Languages.languageArray[position]);
-            next_btn.setVisibility(View.VISIBLE);
-            next_btn.setOnClickListener(view -> presenter.addNonNativeLanguage(selectedLanguagesList));
+                itemClicked.setAlpha((float) 1);
+            }else {
+                itemClicked.setAlpha((float) 0.5);
+                selectedLanguagesList.add(Constants.Languages.languageArray[position]);
+            }
+            if(selectedLanguagesList.size() == 0) {
+                next_btn.setVisibility(View.GONE);
+            } else next_btn.setVisibility(View.VISIBLE);
+
+            next_btn.setOnClickListener(view -> {
+                next_btn.setClickable(false);
+                presenter.addNonNativeLanguage(selectedLanguagesList);
+            });
         });
 
         return view1;
@@ -113,7 +117,7 @@ public class NonNativeLanguageFragment extends BaseFragment {
         String[] from = {"LanguageName","LanguageFlag"};
         int[] to = {R.id.country_text,R.id.country_image};
 
-        SimpleAdapter adapter = new SimpleAdapter(getContext(), data, R.layout.fragment_set_language_item,
+        SimpleAdapter adapter = new SimpleAdapter(getContext(), data, R.layout.set_language_item,
                 from, to);
 
         nonNativeLanguageList.setAdapter(adapter);

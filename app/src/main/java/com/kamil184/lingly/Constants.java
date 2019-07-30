@@ -29,17 +29,17 @@ public class Constants {
     public static class Languages{
         public static String[] languageArray = {"Русский","Английский","Немецкий","Французский","Испанский","Португальский","Турецкий","Итальянский","Хинди","Японский","Китайский"};
         public static int[] flagArray = {
-                R.mipmap.ic_list_ru,
-                R.mipmap.ic_list_uk,
-                R.mipmap.ic_list_de,
-                R.mipmap.ic_list_fr,
-                R.mipmap.ic_list_es,
-                R.mipmap.ic_list_pt,
-                R.mipmap.ic_list_tr,
-                R.mipmap.ic_list_it,
-                R.mipmap.ic_list_in,
-                R.mipmap.ic_list_jp,
-                R.mipmap.ic_list_cn
+                R.drawable.ic_ru,
+                R.drawable.ic_gb,
+                R.drawable.ic_de,
+                R.drawable.ic_fr,
+                R.drawable.ic_es,
+                R.drawable.ic_pt,
+                R.drawable.ic_tr,
+                R.drawable.ic_it,
+                R.drawable.ic_in,
+                R.drawable.ic_jp,
+                R.drawable.ic_cn
         };
     }
 }
