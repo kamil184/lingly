@@ -46,7 +46,7 @@ public class ExtraUserInfoPresenter extends BasePresenter {
             user.put("birth_year",year);
             if(isAuthorized()) {
                 db.collection("users").document(getCurrentUserEmail())
-                        .update(user)
+                        .set(user)
                         .addOnSuccessListener(aVoid ->{
                             view.progressBar.setVisibility(View.GONE);
                             view.finish();

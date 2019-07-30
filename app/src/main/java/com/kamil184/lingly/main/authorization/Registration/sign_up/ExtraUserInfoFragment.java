@@ -134,14 +134,15 @@ public class ExtraUserInfoFragment extends BaseFragment {
 
 
         btn_next_step.setOnClickListener(v -> {
-            btn_next_step.setClickable(false);
             String firstName = inputFirstName.getText().toString();
             String secondName = inputSecondName.getText().toString();
             int day = datePicker.getDayOfMonth();
             int month = datePicker.getMonth()+1;
             int year =  datePicker.getYear();
-            if(validate(firstName,secondName))
-            presenter.addExtraInfo(firstName,secondName,day,month,year);
+            if(validate(firstName,secondName)) {
+                btn_next_step.setClickable(false);
+                presenter.addExtraInfo(firstName, secondName, day, month, year);
+            }
         });
 
 
