@@ -36,6 +36,7 @@ public class NativeLanguageFragment extends BaseFragment {
     @BindView(R.id.btn_next) Button next_btn;
     @BindView(R.id.progressBar) ProgressBar progressBar;
 
+
     AnimationDrawable anim;
     NativeLanguagePresenter presenter;
 
@@ -64,7 +65,6 @@ public class NativeLanguageFragment extends BaseFragment {
         presenter.attachView(this);
 
         setLanguageAdapter();
-        String[] selectedLanguages = {"null"};
         ArrayList<String> selectedLanguagesList = new ArrayList<>();
         native_language_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -121,6 +121,6 @@ public class NativeLanguageFragment extends BaseFragment {
     SimpleAdapter adapter = new SimpleAdapter(getContext(), data, R.layout.fragment_set_language_item,
                 from, to);
 
-    native_language_list.setAdapter(adapter);
+    nativeLanguageList.setAdapter(adapter);
     }
 }

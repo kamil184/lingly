@@ -8,10 +8,11 @@ import androidx.navigation.Navigation;
 import com.kamil184.lingly.R;
 import com.kamil184.lingly.base.BaseActivity;
 import com.kamil184.lingly.main.authorization.Registration.native_language.NativeLanguageFragment;
+import com.kamil184.lingly.main.authorization.Registration.non_native_language.NonNativeLanguageFragment;
 import com.kamil184.lingly.main.authorization.Registration.sign_up.ExtraUserInfoFragment;
 import com.kamil184.lingly.main.authorization.Registration.sign_up.SignUpFragment;
 
-public class RegistrationActivity extends BaseActivity implements SignUpFragment.Callback, ExtraUserInfoFragment.Callback, NativeLanguageFragment.Callback {
+public class RegistrationActivity extends BaseActivity implements SignUpFragment.Callback, ExtraUserInfoFragment.Callback, NativeLanguageFragment.Callback, NonNativeLanguageFragment.Callback {
 
     NavController navController;
 
@@ -36,5 +37,9 @@ public class RegistrationActivity extends BaseActivity implements SignUpFragment
     @Override
     public void toNonNativeLanguage() {
         navController.navigate(R.id.nonNativeLanguageFragment);
+    }
+    @Override
+    public void toMainFragment(){
+        navController.navigate(R.id.communityFragment);
     }
 }
