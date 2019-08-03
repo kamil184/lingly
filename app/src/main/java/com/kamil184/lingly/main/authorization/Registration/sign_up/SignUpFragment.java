@@ -62,6 +62,7 @@ public class SignUpFragment extends BaseFragment {
         presenter = new SignUpPresenter(context);
         vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

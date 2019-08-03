@@ -45,6 +45,8 @@ public class NonNativeLanguageFragment extends BaseFragment {
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         callback = (NonNativeLanguageFragment.Callback) context;
+        presenter = new NonNativeLanguagePresenter(context);
+
     }
 
     @Nullable
@@ -57,7 +59,7 @@ public class NonNativeLanguageFragment extends BaseFragment {
         anim.setEnterFadeDuration(0);
         anim.setExitFadeDuration(1000);
 
-        presenter = new NonNativeLanguagePresenter(getActivity());
+
         presenter.attachView(this);
 
         setLanguageAdapter();

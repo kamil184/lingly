@@ -19,7 +19,7 @@ public class NativeLanguagePresenter extends BasePresenter {
     private NativeLanguageFragment view;
     private FirebaseUser user;
 
-    public NativeLanguagePresenter(Context context) {
+    NativeLanguagePresenter(Context context) {
         super(context);
     }
 
@@ -39,7 +39,6 @@ public class NativeLanguagePresenter extends BasePresenter {
                         .update(user)
                         .addOnSuccessListener(aVoid ->{
                             view.progressBar.setVisibility(View.GONE);
-                            view.finish();
                             view.callback.toNonNativeLanguage();
                         })
                         .addOnFailureListener(e -> {

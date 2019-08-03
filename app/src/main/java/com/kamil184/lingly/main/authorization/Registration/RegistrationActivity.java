@@ -31,13 +31,14 @@ public class RegistrationActivity extends BaseActivity implements SignUpFragment
 
     @Override
     public void toNativeLanguage() {
-        navController.navigate(R.id.nativeLanguageFragment);
+        navController.navigate(R.id.nativeLanguage);
     }
 
     @Override
     public void toNonNativeLanguage() {
-        navController.navigate(R.id.nonNativeLanguageFragment);
+        navController.navigate(R.id.nonNativeLanguage);
     }
+
     @Override
     public void toMainFragment(){
         navController.navigate(R.id.communityFragment);

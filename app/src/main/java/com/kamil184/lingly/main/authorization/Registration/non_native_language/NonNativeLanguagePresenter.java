@@ -15,7 +15,7 @@ public class NonNativeLanguagePresenter extends BasePresenter {
     private NonNativeLanguageFragment view;
     private FirebaseUser user;
 
-    public NonNativeLanguagePresenter(Context context) {
+    NonNativeLanguagePresenter(Context context) {
         super(context);
     }
 
@@ -31,7 +31,6 @@ public class NonNativeLanguagePresenter extends BasePresenter {
                 db.collection("users").document(getCurrentUserEmail())
                         .update(user)
                         .addOnSuccessListener(aVoid ->{
-                            view.finish();
                             view.callback.toMainFragment();
                         })
                         .addOnFailureListener(e -> view.showSnackBar(R.string.language_err));

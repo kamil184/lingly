@@ -46,6 +46,7 @@ public class NativeLanguageFragment extends BaseFragment {
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         callback = (NativeLanguageFragment.Callback) context;
+        presenter = new NativeLanguagePresenter(context);
     }
 
     @Nullable
@@ -57,7 +58,7 @@ public class NativeLanguageFragment extends BaseFragment {
         anim = (AnimationDrawable) layout.getBackground();
         anim.setEnterFadeDuration(0);
         anim.setExitFadeDuration(1000);
-        presenter = new NativeLanguagePresenter(getActivity());
+
         presenter.attachView(this);
 
         setLanguageAdapter();

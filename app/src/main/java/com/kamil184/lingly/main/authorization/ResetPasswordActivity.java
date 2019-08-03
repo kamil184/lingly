@@ -49,44 +49,33 @@ public class ResetPasswordActivity extends BaseActivity {
         auth = FirebaseAuth.getInstance();
 
 
-        btnBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
+        btnBack.setOnClickListener(v -> finish());
+
+
+        btnReset.setOnClickListener(v -> {
+            String email = inputEmail.getText().toString().trim();
+
+
+            if (TextUtils.isEmpty(email)) {
+                showSnackBar(v,R.string.email_err);
+                return;
+
             }
-        });
-
-
-        btnReset.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String email = inputEmail.getText().toString().trim();
-
-
-                if (TextUtils.isEmpty(email)) {
-                    showSnackBar(v,R.string.email_err);
-                    return;
-
-                }
 //TODO сообщения в ресурсы
 
-                progressBar.setVisibility(View.VISIBLE);
-                auth.sendPasswordResetEmail(email)
-                        .addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                if (task.isSuccessful()) {
-                                    showSnackBar(R.string.pass_reset_sucss);
-                                } else {
-                                    showSnackBar(R.string.pass_reset_fail);
-                                }
+            progressBar.setVisibility(View.VISIBLE);
+            auth.sendPasswordResetEmail(email)
+                    .addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            showSnackBar(R.string.pass_reset_sucss);
+                        } else {
+                            showSnackBar(R.string.pass_reset_fail);
+                        }
 
 
 
-                                progressBar.setVisibility(View.GONE);
-                            }
-                        });
-            }
+                        progressBar.setVisibility(View.GONE);
+                    });
         });
     }
 
