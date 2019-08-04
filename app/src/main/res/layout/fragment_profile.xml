@@ -6,15 +6,14 @@
     android:id="@+id/bottomsheet"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginBottom="50dp">
-<ScrollView
+    >
+<androidx.core.widget.NestedScrollView
     android:id="@+id/container1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/animation_list"
     android:orientation="vertical"
    >
-
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -24,10 +23,10 @@
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardView"
-                app:cardBackgroundColor="@color/transparent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintTop_toTopOf="parent"
+                app:cardBackgroundColor="@color/transparent">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -44,7 +43,9 @@
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintStart_toStartOf="parent" />
+                            app:layout_constraintStart_toStartOf="parent"
+                            />
+
 
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/avatar_btn"
@@ -220,5 +221,5 @@
             </androidx.cardview.widget.CardView>
 
         </LinearLayout>
-</ScrollView>
+</androidx.core.widget.NestedScrollView>
 </com.flipboard.bottomsheet.BottomSheetLayout>

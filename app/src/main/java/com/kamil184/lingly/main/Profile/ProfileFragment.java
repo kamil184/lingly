@@ -21,6 +21,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
+import androidx.core.widget.NestedScrollView;
 
 import com.bumptech.glide.Glide;
 import com.flipboard.bottomsheet.BottomSheetLayout;
@@ -42,7 +43,7 @@ import butterknife.ButterKnife;
 
 public class ProfileFragment extends BaseFragment {
 
-   @BindView(R.id.container1) ScrollView container1;
+   @BindView(R.id.container1) NestedScrollView container1;
    @BindView(R.id.user_avatar) ImageView avatar;
    @BindView(R.id.first_name) TextView firstName;
    @BindView(R.id.second_name) TextView secondName;
@@ -82,7 +83,6 @@ public class ProfileFragment extends BaseFragment {
         anim = (AnimationDrawable) container1.getBackground();
         anim.setEnterFadeDuration(0);
         anim.setExitFadeDuration(1000);
-
         presenter.profileFill();
 
         btn.setOnClickListener(view -> {
