@@ -15,6 +15,8 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.kamil184.lingly.Constants;
 import com.kamil184.lingly.R;
 
@@ -23,6 +25,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     public ProgressDialog progressDialog;
     public ActionBar actionBar;
     private long backPressedTime;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

@@ -44,6 +44,9 @@
     <string name="non_native_language">Язык, который Вы бы хотели изучать</string>
     <string name="language_err">Ошибка установки языка, попробуйте позже</string>
     <string name="not_auth_err">Вы не авторизованы!</string>
+    <string name="err">Ошибка загрузки данных</string>
+    <string name="edit_btn">редактировать</string>
+    <string name="avatar_load">Загружаем аватарку</string>
     <string-array name="languages">
         Русский
         Английский
