@@ -28,6 +28,7 @@ public class MainActivity extends BaseActivity {
         navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         navView = findViewById(R.id.nav_view);
         NavigationUI.setupWithNavController(navView, navController);
+
         auth = FirebaseAuth.getInstance();
         if(auth.getCurrentUser()==null) {
             Intent intent = new Intent(MainActivity.this, LoginActivity.class);

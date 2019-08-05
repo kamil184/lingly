@@ -20,13 +20,18 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.core.widget.NestedScrollView;
 
 import com.bumptech.glide.Glide;
 import com.flipboard.bottomsheet.BottomSheetLayout;
 import com.flipboard.bottomsheet.commons.ImagePickerSheetView;
+import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.kamil184.lingly.R;
@@ -43,13 +48,15 @@ import butterknife.ButterKnife;
 
 public class ProfileFragment extends BaseFragment {
 
-   @BindView(R.id.container1) NestedScrollView container1;
+   @BindView(R.id.container1)
+   AppBarLayout container1;
    @BindView(R.id.user_avatar) ImageView avatar;
    @BindView(R.id.first_name) TextView firstName;
    @BindView(R.id.second_name) TextView secondName;
    @BindView(R.id.birth_date) TextView birthDate;
    @BindView(R.id.bottomsheet) BottomSheetLayout bottomSheetLayout;
-   @BindView(R.id.avatar_btn) MaterialButton btn;
+   @BindView(R.id.toolbar)
+    Toolbar toolbar;
 
     private static final int REQUEST_STORAGE = 0;
     private static final int REQUEST_IMAGE_CAPTURE = REQUEST_STORAGE + 1;
@@ -65,6 +72,7 @@ public class ProfileFragment extends BaseFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
 
     }
 
@@ -83,9 +91,15 @@ public class ProfileFragment extends BaseFragment {
         anim = (AnimationDrawable) container1.getBackground();
         anim.setEnterFadeDuration(0);
         anim.setExitFadeDuration(1000);
+
+        ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
+
+
+
         presenter.profileFill();
 
-        btn.setOnClickListener(view -> {
+
+        avatar.setOnClickListener(view -> {
             if (checkNeedsPermission()) {
                 requestStoragePermission();
             } else {

@@ -3,11 +3,7 @@ package com.kamil184.lingly.main.Profile;
 import android.content.Context;
 import android.net.Uri;
 
-import androidx.annotation.NonNull;
-
 import com.bumptech.glide.Glide;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -34,7 +30,8 @@ class ProfilePresenter extends BasePresenter {
     }
 
 
-    void attachView(ProfileFragment profileFragment) {
+    void attachView(ProfileFragment profileFragment)
+    {
         view = profileFragment;
     }
 
@@ -49,7 +46,7 @@ class ProfilePresenter extends BasePresenter {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
                         avatarRef.getDownloadUrl()
-                                .addOnSuccessListener(uri -> ProfilePresenter.this.setAvatar(uri))
+                                .addOnSuccessListener(uri -> setAvatar(uri))
                                 .addOnFailureListener(e -> setAvatar(null));
                         view.firstName.setText(document.get("firstName").toString());
                         view.secondName.setText(document.get("secondName").toString());
@@ -72,11 +69,7 @@ class ProfilePresenter extends BasePresenter {
     }
 
     private void setAvatar(Uri uri){
-        if(uri==null){
-            Glide.with(view)
-                    .load("https://firebasestorage.googleapis.com/v0/b/lingly-app.appspot.com/o/default%2Fdefault_avatar%2Fdefault_avatar.jpg?alt=media&token=7486461c-3c18-4ba1-bb50-04b98408f2ee")
-                    .into(view.avatar);
-        }else{
+        if(uri!=null){
             Glide.with(view)
                     .load(uri)
                     .into(view.avatar);
@@ -91,7 +84,6 @@ class ProfilePresenter extends BasePresenter {
         view.showProgress(R.string.avatar_load);
             uploadTask.addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
-                    setAvatarUri(task.getResult().getMetadata().getPath());
                     view.showWarningDialog("Аватарка загружена");
                     view.hideProgress();
                 } else {
@@ -102,12 +94,6 @@ class ProfilePresenter extends BasePresenter {
 
     }
 
-    private void setAvatarUri(Object path){
-        map = new HashMap<>();
-        map.put("avatar_link", path);
-        final DocumentReference userRef = db.collection("users").document(user.getEmail());
-        userRef.update(map);
-    }
 
 
 }
