@@ -48,8 +48,7 @@ class ProfilePresenter extends BasePresenter {
                         avatarRef.getDownloadUrl()
                                 .addOnSuccessListener(uri -> setAvatar(uri))
                                 .addOnFailureListener(e -> setAvatar(null));
-                        view.firstName.setText(document.get("firstName").toString());
-                        view.secondName.setText(document.get("secondName").toString());
+                        view.toolbar.setTitle(document.get("firstName").toString() + " " + document.get("secondName").toString());
                         view.birthDate.setText(document.get("birth_day").toString()+"."+document.get("birth_month")+"."+document.get("birth_year"));
                         view.hideProgress();
                     } else {

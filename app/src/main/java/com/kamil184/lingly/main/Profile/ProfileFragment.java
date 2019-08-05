@@ -48,22 +48,17 @@ import butterknife.ButterKnife;
 
 public class ProfileFragment extends BaseFragment {
 
-   @BindView(R.id.container1)
-   AppBarLayout container1;
+   @BindView(R.id.container1) AppBarLayout container1;
    @BindView(R.id.user_avatar) ImageView avatar;
-   @BindView(R.id.first_name) TextView firstName;
-   @BindView(R.id.second_name) TextView secondName;
    @BindView(R.id.birth_date) TextView birthDate;
    @BindView(R.id.bottomsheet) BottomSheetLayout bottomSheetLayout;
-   @BindView(R.id.toolbar)
-    Toolbar toolbar;
+   @BindView(R.id.toolbar) Toolbar toolbar;
+    View view1;
 
     private static final int REQUEST_STORAGE = 0;
     private static final int REQUEST_IMAGE_CAPTURE = REQUEST_STORAGE + 1;
     private static final int REQUEST_LOAD_IMAGE = REQUEST_IMAGE_CAPTURE + 1;
     private Uri cameraImageUri = null;
-
-   AnimationDrawable anim;
 
     FirebaseStorage storage = FirebaseStorage.getInstance();
     StorageReference storageRef = storage.getReference();
@@ -72,11 +67,8 @@ public class ProfileFragment extends BaseFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
     }
 
-    View view1;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -88,16 +80,10 @@ public class ProfileFragment extends BaseFragment {
 
         presenter = new ProfilePresenter(getContext());
         presenter.attachView(this);
-        anim = (AnimationDrawable) container1.getBackground();
-        anim.setEnterFadeDuration(0);
-        anim.setExitFadeDuration(1000);
 
         ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
 
-
-
         presenter.profileFill();
-
 
         avatar.setOnClickListener(view -> {
             if (checkNeedsPermission()) {
@@ -110,19 +96,6 @@ public class ProfileFragment extends BaseFragment {
         return view1;
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        if (anim != null && !anim.isRunning())
-            anim.start();
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        if (anim != null && anim.isRunning())
-            anim.stop();
-    }
     private boolean checkNeedsPermission() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN && ActivityCompat.checkSelfPermission(view1.getContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED;
     }
@@ -264,8 +237,6 @@ public class ProfileFragment extends BaseFragment {
     private void genericError() {
         genericError(null);
     }
-
-
 
     private void genericError(String message) {
     showWarningDialog(message);
