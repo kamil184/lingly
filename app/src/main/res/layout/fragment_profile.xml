@@ -18,7 +18,7 @@
             android:fitsSystemWindows="true"
             android:theme="@style/AppTheme.AppBarOverlay">
 
-            <com.google.android.material.appbar.CollapsingToolbarLayout
+            <com.google.android.material.appbar.SubtitleCollapsingToolbarLayout
                 android:id="@+id/toolbar_layout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -33,7 +33,7 @@
                     android:layout_height="match_parent"
                     android:clickable="true"
                     android:focusable="true"
-                    app:srcCompat="@drawable/my_photo"
+                    app:srcCompat="@mipmap/ic_launcher"
                     android:scaleType="centerCrop" />
 
                 <androidx.appcompat.widget.Toolbar
@@ -41,7 +41,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
                     app:layout_collapseMode="pin" />
-            </com.google.android.material.appbar.CollapsingToolbarLayout>
+            </com.google.android.material.appbar.SubtitleCollapsingToolbarLayout>
         </com.google.android.material.appbar.AppBarLayout>
 
         <include layout="@layout/profile_content" />

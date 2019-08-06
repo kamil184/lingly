@@ -5,7 +5,6 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.drawable.AnimationDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -15,23 +14,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.app.ActivityCompat;
-import androidx.core.widget.NestedScrollView;
 
 import com.bumptech.glide.Glide;
 import com.flipboard.bottomsheet.BottomSheetLayout;
 import com.flipboard.bottomsheet.commons.ImagePickerSheetView;
 import com.google.android.material.appbar.AppBarLayout;
-import com.google.android.material.button.MaterialButton;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.appbar.SubtitleCollapsingToolbarLayout;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.kamil184.lingly.R;
@@ -53,6 +48,7 @@ public class ProfileFragment extends BaseFragment {
    @BindView(R.id.birth_date) TextView birthDate;
    @BindView(R.id.bottomsheet) BottomSheetLayout bottomSheetLayout;
    @BindView(R.id.toolbar) Toolbar toolbar;
+   @BindView(R.id.toolbar_layout) SubtitleCollapsingToolbarLayout collapsingToolbarLayout;
     View view1;
 
     private static final int REQUEST_STORAGE = 0;
