@@ -2,11 +2,11 @@
 
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/signup_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/animation_list"
-    android:fitsSystemWindows="true"
-    android:id="@+id/signup_container">
+    android:fitsSystemWindows="true">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -15,6 +15,7 @@
         android:gravity="center"
         android:orientation="vertical"
         android:padding="@dimen/activity_horizontal_margin">
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -29,12 +30,12 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/us_name_text_input_layout"
+            style="@style/TextInputLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:errorTextColor="@color/white"
-            style="@style/TextInputLayout"
             android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp">
+            android:layout_marginBottom="8dp"
+            app:errorTextColor="@color/white">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/us_name"
@@ -50,12 +51,12 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/email_text_input_layout"
+            style="@style/TextInputLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:errorTextColor="@color/white"
-            style="@style/TextInputLayout"
             android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp">
+            android:layout_marginBottom="8dp"
+            app:errorTextColor="@color/white">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/email"
@@ -71,12 +72,12 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/password_text_input_layout"
+            style="@style/TextInputLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:errorTextColor="@color/white"
-            style="@style/TextInputLayout"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
+            app:errorTextColor="@color/white"
             app:passwordToggleEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText

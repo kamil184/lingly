@@ -35,7 +35,7 @@ class ProfilePresenter extends BasePresenter {
         view = profileFragment;
     }
 
-    void profileFill(){
+    void profileFill() throws java.lang.NullPointerException{
         if(hasInternetConnection()) {
             view.showProgress();
             user = getCurrentUser();
@@ -68,12 +68,14 @@ class ProfilePresenter extends BasePresenter {
         }
     }
 
-    private void setAvatar(Uri uri){
-        if(uri!=null){
-            Glide.with(view)
-                    .load(uri)
-                    .into(view.avatar);
-        }
+    private void setAvatar(Uri uri) throws java.lang.NullPointerException{
+        try {
+            if(uri!=null) {
+                Glide.with(view)
+                        .load(uri)
+                        .into(view.avatar);
+            }
+        }catch (NullPointerException ignored){}
     }
 
 

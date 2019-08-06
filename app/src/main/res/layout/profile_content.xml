@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
@@ -10,40 +11,43 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <FrameLayout
+            android:id="@+id/fl_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <!-- FrameLayout будет содержать фрагменты online или not_online,
+         тот фрагмент что ниже надо будет удалить,
+         так как он пока что только ради наглядности -->
+
+        <fragment
+            android:id="@+id/DELETE_THIS"
+            android:name="com.kamil184.lingly.main.Fragments.OnlineFragment"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/profile_margin"
-            android:orientation="horizontal">
-
-            <androidx.appcompat.widget.AppCompatImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                app:srcCompat="@drawable/ic_online" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/profile_margin"
-                android:text="@string/online"
-                android:textColor="@color/green" />
-
-        </LinearLayout>
+            tools:layout="@layout/online" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/profile_margin"
-            android:text="Я не умею разговаривать с людьми и вот мне грустно и вот короче я нытик и это мой статус" />
+            android:text="Я не умею разговаривать с людьми и вот мне грустно и вот короче я нытик и это мой статус"
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/birth_date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/profile_margin"
-            android:textSize="18sp"
+            android:text="16 лет"
+            android:textSize="16sp"
             android:textStyle="bold" />
+
+        <!-- список языков-->
+        <GridLayout
+            android:id="@+id/languages"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
         <TextView
             android:id="@+id/about"

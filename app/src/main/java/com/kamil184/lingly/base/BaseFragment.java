@@ -20,7 +20,7 @@ public class BaseFragment extends Fragment {
         ((BaseActivity) getActivity()).showProgress(message);
     }
 
-    public void hideProgress() {
+    public void hideProgress() throws java.lang.NullPointerException {
         ((BaseActivity) getActivity()).hideProgress();
     }
 

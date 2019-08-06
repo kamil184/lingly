@@ -46,7 +46,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         progressDialog.show();
     }
 
-    public void hideProgress() {
+    public void hideProgress() throws java.lang.NullPointerException {
         if (progressDialog != null) {
             progressDialog.dismiss();
             progressDialog = null;
