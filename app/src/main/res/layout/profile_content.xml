@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    android:layout_marginBottom="30dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -26,13 +27,35 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:layout="@layout/online" />
+        
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:labelFor="@id/status"
+            android:text="Стастус"
+            android:layout_marginStart="3dp"/>
 
         <TextView
+            android:id="@+id/status"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/profile_margin"
             android:text="Я не умею разговаривать с людьми и вот мне грустно и вот короче я нытик и это мой статус"
             android:textSize="16sp" />
+
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="?android:attr/listDivider" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:labelFor="@id/birth_date"
+            android:layout_marginStart="3dp"
+            android:text="Возраст"/>
 
         <TextView
             android:id="@+id/birth_date"
@@ -43,11 +66,18 @@
             android:textSize="16sp"
             android:textStyle="bold" />
 
-        <!-- список языков-->
-        <GridLayout
-            android:id="@+id/languages"
+
+        <View
+            android:id="@+id/divider2"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="?android:attr/listDivider" />
+
+        <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginStart="3dp"
+            android:text="О себе"/>
 
         <TextView
             android:id="@+id/about"
@@ -57,6 +87,18 @@
             android:text="@string/large_text"
             android:textSize="18sp"
             android:textStyle="bold" />
+
+        <!-- список языков-->
+        <View
+            android:id="@+id/divider4"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="?android:attr/listDivider" />
+
+        <GridLayout
+            android:id="@+id/languages"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
     </LinearLayout>
 
