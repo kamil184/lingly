@@ -1,20 +1,26 @@
-package com.kamil184.lingly.main.Fragments;
+package com.kamil184.lingly.adapters;
 
-import android.os.Bundle;
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.appcompat.widget.AppCompatImageView;
-import androidx.fragment.app.Fragment;
 
 import com.kamil184.lingly.Constants;
 import com.kamil184.lingly.R;
+import com.kamil184.lingly.models.LanguageLevelModel;
+
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class LanguageFragment extends Fragment {
+public class LanguageLevelAdapter extends BaseAdapter {
+    private Context mContext;
 
     @BindView(R.id.country_image) AppCompatImageView flag;
     @BindView(R.id.level1) AppCompatImageView level1;
@@ -23,36 +29,55 @@ public class LanguageFragment extends Fragment {
     @BindView(R.id.level4) AppCompatImageView level4;
     @BindView(R.id.level5) AppCompatImageView level5;
 
-    //уровней 6, так как есть нулевой, то есть вообще начинающий
-    byte languageLevel;
+    ArrayList<LanguageLevelModel> arrayList;
 
-    /* можно использовать другой тип данных
-     byte потому что планируется использовать индекс языка в константах
-     */
-    byte language;
-
-    LanguageFragment(byte language, byte languageLevel){
-        this.language = language;
-        this.languageLevel = languageLevel;
+    public LanguageLevelAdapter(Context mContext, ArrayList<LanguageLevelModel> arrayList) {
+        this.mContext = mContext;
+        this.arrayList = arrayList;
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View view1 = inflater.inflate(R.layout.fragment_language, container, false);
+    public int getCount() {
+        return arrayList.size();
+    }
+
+    @Override
+    public Object getItem(int position) {
+        return arrayList.get(position);
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
+
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+
+        View view1;
+
+        LanguageLevelModel model = (LanguageLevelModel) getItem(position);
+
+        if (convertView == null) {
+            LayoutInflater inflater = (LayoutInflater) mContext.getSystemService( Context.LAYOUT_INFLATER_SERVICE );
+            view1 = inflater.inflate(R.layout.fragment_language, parent, false);
+        } else {
+            view1 = convertView;
+        }
+
         ButterKnife.bind(this, view1);
 
-        fillLanguageLevel();
-        fillLanguage();
+        setLanguageLevel(model.getLanguageLevel());
+        setLanguage(model.getLanguage());
 
         return view1;
     }
 
-    private void fillLanguage() {
+    private void setLanguage(byte language) {
         flag.setImageResource(Constants.Languages.flagArray[language]);
     }
 
-    private void fillLanguageLevel() {
+    private void setLanguageLevel(byte languageLevel) {
         switch (languageLevel){
             case 0:
                 level1.setImageResource(R.drawable.language_level_grey1);

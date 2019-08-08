@@ -44,8 +44,8 @@
             android:textStyle="bold" />
 
         <!-- список языков-->
-        <GridLayout
-            android:id="@+id/languages"
+        <GridView
+            android:id="@+id/native_languages_grid"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
