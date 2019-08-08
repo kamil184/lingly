@@ -38,8 +38,6 @@ public class SignUpFragment extends BaseFragment {
     @BindView(R.id.email_text_input_layout) TextInputLayout emailInputLayout;
     @BindView(R.id.password) TextInputEditText inputPassword;
     @BindView(R.id.password_text_input_layout) TextInputLayout passwordInputLayout;
-    @BindView(R.id.us_name) TextInputEditText inputName;
-    @BindView(R.id.us_name_text_input_layout) TextInputLayout nameInputLayout;
     @BindView(R.id.progressBar) ProgressBar progressBar;
     @BindView(R.id.signup_container) CoordinatorLayout container1;
 
@@ -114,28 +112,9 @@ public class SignUpFragment extends BaseFragment {
             }
         });
 
-        inputName.addTextChangedListener(new TextWatcher() {
 
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
 
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                nameInputLayout.setErrorEnabled(false);
-            }
 
-            @Override
-            public void afterTextChanged(Editable s) { }
-        });
-
-        inputName.setOnFocusChangeListener((view, hasFocus) -> {
-            if (!hasFocus) {
-                String name = inputName.getText().toString();
-                if(isNameNotValidate(name)) {
-                    nameInputLayout.setError(getString(R.string.login_empty));
-                } else nameInputLayout.setErrorEnabled(false);
-            }
-        });
 
         //TODO кнопки
 
@@ -145,12 +124,11 @@ public class SignUpFragment extends BaseFragment {
 
         btnSignUp.setOnClickListener(v -> {
             progressBar.setVisibility(View.VISIBLE);
-            String name = inputName.getText().toString().trim();
             String email = inputEmail.getText().toString().trim();
             String password = inputPassword.getText().toString().trim();
 
-            if(validate(name,email,password)){
-                presenter.signUpWithEmail(name,email,password);
+            if(validate(email,password)){
+                presenter.signUpWithEmail(email,password);
             }
         });
 
@@ -189,7 +167,7 @@ public class SignUpFragment extends BaseFragment {
         return password.length() + "/6+";
     }
 
-    private boolean validate(String name,String email,String password) {
+    private boolean validate(String email,String password) {
         boolean validate = true;
         if (isEmailNotValidate(email)) {
             emailInputLayout.setError(getString(R.string.email_err));
@@ -204,15 +182,6 @@ public class SignUpFragment extends BaseFragment {
             passwordInputLayout.setError(getString(R.string.minimum_password));
             setProgressVisibilityGone();
             AnimationsUtil.shakeAnimation(inputPassword);
-            if (vibrator.hasVibrator()) {
-                vibrator.vibrate(mills);
-            }
-            validate = false;
-        }
-        if(isNameNotValidate(name)){
-            nameInputLayout.setError(getString(R.string.login_empty));
-            setProgressVisibilityGone();
-            AnimationsUtil.shakeAnimation(inputName);
             if (vibrator.hasVibrator()) {
                 vibrator.vibrate(mills);
             }

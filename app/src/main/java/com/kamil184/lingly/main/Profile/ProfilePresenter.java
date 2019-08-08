@@ -4,6 +4,7 @@ import android.content.Context;
 import android.net.Uri;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -12,6 +13,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.kamil184.lingly.R;
 import com.kamil184.lingly.base.BasePresenter;
+import com.squareup.picasso.Picasso;
 
 import java.util.HashMap;
 
@@ -39,15 +41,11 @@ class ProfilePresenter extends BasePresenter {
         if(hasInternetConnection()) {
             view.showProgress();
             user = getCurrentUser();
-            final StorageReference avatarRef = storageRef.child("users/"+user.getEmail()+"/avatar/");
             final DocumentReference userRef = db.collection("users").document(user.getEmail());
             userRef.get().addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
-                        avatarRef.getDownloadUrl()
-                                .addOnSuccessListener(uri -> setAvatar(uri))
-                                .addOnFailureListener(e -> setAvatar(null));
                         view.collapsingToolbarLayout.setTitle(document.get("firstName").toString() + " " + document.get("secondName").toString());
                         view.collapsingToolbarLayout.setSubtitle(user.getEmail());
                         view.birthDate.setText(document.get("birth_day").toString()+"."+document.get("birth_month")+"."+document.get("birth_year"));
@@ -68,10 +66,20 @@ class ProfilePresenter extends BasePresenter {
         }
     }
 
+
+    void getAvatarUri(){
+        user = getCurrentUser();
+        final StorageReference avatarRef = storageRef.child("users/"+user.getEmail()+"/avatar/");
+        avatarRef.getDownloadUrl()
+                .addOnSuccessListener(uri -> setAvatar(uri))
+                .addOnFailureListener(e -> setAvatar(null));
+
+    }
+
     private void setAvatar(Uri uri) throws java.lang.NullPointerException{
         try {
             if(uri!=null) {
-                Glide.with(view)
+                Picasso.get()
                         .load(uri)
                         .into(view.avatar);
             }

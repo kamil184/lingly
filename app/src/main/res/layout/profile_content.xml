@@ -76,7 +76,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="3dp"
-            android:text="О себе"/>
+            android:text="О себе"
+            android:labelFor="@id/about"/>
 
         <TextView
             android:id="@+id/about"
@@ -94,7 +95,7 @@
             android:layout_height="1dp"
             android:background="?android:attr/listDivider" />
 
-        <GridLayout
+        <GridView
             android:id="@+id/languages"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />

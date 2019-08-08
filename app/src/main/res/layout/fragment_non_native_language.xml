@@ -17,7 +17,7 @@
         android:layout_marginTop="@dimen/activity_vertical_margin"
         android:layout_marginEnd="@dimen/activity_horizontal_margin"
         android:gravity="center_horizontal"
-        android:text="@string/native_language"
+        android:text="@string/non_native_language"
         android:textColor="@color/white"
         android:textSize="24sp"
         android:textStyle="bold" />
@@ -26,13 +26,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ProgressBar
-            android:id="@+id/progressBar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.cardview.widget.CardView
             android:id="@+id/non_native_language_card"
@@ -44,6 +37,7 @@
             app:layout_constraintTop_toTopOf="parent"
             card_view:cardCornerRadius="6dp">
 
+
             <ListView
                 android:id="@+id/non_native_language_list"
                 android:layout_width="match_parent"
@@ -52,6 +46,15 @@
                 android:background="@color/white"
                 android:divider="@null"
                 android:scrollbars="none" />
+
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:visibility="gone"/>
+
         </androidx.cardview.widget.CardView>
 
         <Button

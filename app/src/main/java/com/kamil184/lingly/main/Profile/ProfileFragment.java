@@ -50,7 +50,7 @@ public class ProfileFragment extends BaseFragment {
    @BindView(R.id.bottomsheet) BottomSheetLayout bottomSheetLayout;
    @BindView(R.id.toolbar) Toolbar toolbar;
    @BindView(R.id.toolbar_layout) SubtitleCollapsingToolbarLayout collapsingToolbarLayout;
-   @BindView(R.id.native_languages_grid) GridView nativeLanguages;
+   @BindView(R.id.languages) GridView nativeLanguages;
     View view1;
 
     private static final int REQUEST_STORAGE = 0;
@@ -65,12 +65,15 @@ public class ProfileFragment extends BaseFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setRetainInstance(true);
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view1 = inflater.inflate(R.layout.fragment_profile, container, false);
+
 
         ButterKnife.bind(this, view1);
 
@@ -82,6 +85,7 @@ public class ProfileFragment extends BaseFragment {
         ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
 
         presenter.profileFill();
+        presenter.getAvatarUri();
 
         avatar.setOnClickListener(view -> {
             if (checkNeedsPermission()) {
@@ -93,6 +97,7 @@ public class ProfileFragment extends BaseFragment {
 
         return view1;
     }
+
 
     private boolean checkNeedsPermission() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN && ActivityCompat.checkSelfPermission(view1.getContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED;

@@ -77,7 +77,7 @@ public class NativeLanguageFragment extends BaseFragment {
 
             next_btn.setOnClickListener(view -> {
                 next_btn.setClickable(false);
-                presenter.addNativeLanguage(selectedLanguagesList);
+                presenter.setNativeLanguage(selectedLanguagesList);
             });
         });
         return view1;

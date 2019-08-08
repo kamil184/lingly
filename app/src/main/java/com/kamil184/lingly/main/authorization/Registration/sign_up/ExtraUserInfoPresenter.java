@@ -49,7 +49,6 @@ public class ExtraUserInfoPresenter extends BasePresenter {
                         .set(user)
                         .addOnSuccessListener(aVoid ->{
                             view.progressBar.setVisibility(View.GONE);
-                            view.finish();
                             view.callback.toNativeLanguage();
                         })
                         .addOnFailureListener(e -> {

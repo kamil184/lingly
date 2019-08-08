@@ -29,7 +29,7 @@ public class SignUpPresenter extends BasePresenter {
         super(context);
     }
 
-    void signUpWithEmail(String name, String email,String password){
+    void signUpWithEmail(String email,String password){
         view.hideKeyboard();
         if(hasInternetConnection()) {
             auth.createUserWithEmailAndPassword(email, password)
@@ -39,17 +39,8 @@ public class SignUpPresenter extends BasePresenter {
                             view.showSnackBar(R.string.signup_err);
                         } else {
                             user = getCurrentUser();
-                            UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-                                    .setDisplayName(name)
-                                    .build();
-                            user.updateProfile(profileUpdates)
-                                    .addOnCompleteListener(task1 -> {
-                                        if (task1.isSuccessful()) {
-                                            view.setProgressVisibilityGone();
-                                            view.showSnackBar(R.string.signup_sucss);
-                                            view.callback.toUserInfo();
-                                        }
-                                    });
+                            view.setProgressVisibilityGone();
+                            view.callback.toUserInfo();
                         }
                     });
         }else{

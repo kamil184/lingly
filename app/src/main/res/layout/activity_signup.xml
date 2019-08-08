@@ -28,26 +28,6 @@
             android:textSize="36sp"
             android:textStyle="" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/us_name_text_input_layout"
-            style="@style/TextInputLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
-            app:errorTextColor="@color/white">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/us_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:adjustViewBounds="true"
-                android:hint="@string/login"
-                android:inputType="textPersonName"
-                android:textColorHint="@color/white"
-                app:errorEnabled="true" />
-
-        </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/email_text_input_layout"
@@ -63,7 +43,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
-                android:hint="@string/hint_email"
+                android:hint="@string/email_signup_err"
                 android:inputType="textEmailAddress"
                 android:textColorHint="@color/white"
                 app:errorEnabled="true" />
@@ -85,7 +65,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
-                android:hint="@string/hint_password"
+                android:hint="@string/pass_signup_err"
                 android:inputType="textPassword"
                 android:textColorHint="@color/white"
                 app:errorEnabled="true" />

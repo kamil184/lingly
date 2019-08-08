@@ -15,13 +15,14 @@ import com.kamil184.lingly.main.authorization.Registration.sign_up.SignUpFragmen
 public class RegistrationActivity extends BaseActivity implements SignUpFragment.Callback, ExtraUserInfoFragment.Callback, NativeLanguageFragment.Callback, NonNativeLanguageFragment.Callback {
 
     NavController navController;
+    NativeLanguageFragment nativeLanguageFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
         navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-
+        nativeLanguageFragment = new NativeLanguageFragment();
     }
 
     @Override

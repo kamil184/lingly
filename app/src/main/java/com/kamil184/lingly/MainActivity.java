@@ -19,8 +19,7 @@ public class MainActivity extends BaseActivity {
 
     BottomNavigationView navView;
     NavController navController;
-    protected FirebaseAuth auth;
-    public FirebaseUser user;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,8 +28,7 @@ public class MainActivity extends BaseActivity {
         navView = findViewById(R.id.nav_view);
         NavigationUI.setupWithNavController(navView, navController);
 
-        auth = FirebaseAuth.getInstance();
-        if(auth.getCurrentUser()==null) {
+        if(getCurrentUser()==null) {
             Intent intent = new Intent(MainActivity.this, LoginActivity.class);
             startActivity(intent);
         }

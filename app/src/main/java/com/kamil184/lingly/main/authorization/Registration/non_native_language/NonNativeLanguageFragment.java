@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.SimpleAdapter;
 
 import androidx.annotation.NonNull;
@@ -32,6 +33,8 @@ public class NonNativeLanguageFragment extends BaseFragment {
     ListView nonNativeLanguageList;
     @BindView(R.id.btn_next)
     Button next_btn;
+    @BindView(R.id.progressBar)
+    ProgressBar progressBar;
 
     NonNativeLanguagePresenter presenter;
 
@@ -88,7 +91,7 @@ public class NonNativeLanguageFragment extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
-        //progressBar.setVisibility(View.GONE);
+        progressBar.setVisibility(View.GONE);
         if (anim != null && !anim.isRunning())
             anim.start();
     }

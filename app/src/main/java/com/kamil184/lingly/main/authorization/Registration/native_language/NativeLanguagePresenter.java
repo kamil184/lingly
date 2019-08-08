@@ -1,6 +1,7 @@
 package com.kamil184.lingly.main.authorization.Registration.native_language;
 
 import android.content.Context;
+import android.os.Handler;
 import android.view.View;
 
 import androidx.annotation.StringRes;
@@ -29,7 +30,7 @@ public class NativeLanguagePresenter extends BasePresenter {
 
 
 
-    void addNativeLanguage(ArrayList<String> nativeLanguage){
+    void setNativeLanguage(ArrayList<String> nativeLanguage){
         view.progressBar.setVisibility(View.VISIBLE);
         if(hasInternetConnection()){
             Map<String, Object> user = new HashMap<>();
@@ -38,8 +39,8 @@ public class NativeLanguagePresenter extends BasePresenter {
                 db.collection("users").document(getCurrentUserEmail())
                         .update(user)
                         .addOnSuccessListener(aVoid ->{
-                            view.progressBar.setVisibility(View.GONE);
-                            view.callback.toNonNativeLanguage();
+                                view.progressBar.setVisibility(View.GONE);
+                                view.callback.toNonNativeLanguage();
                         })
                         .addOnFailureListener(e -> {
                             ifError(R.string.language_err);
