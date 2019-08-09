@@ -23,4 +23,9 @@
         android:id="@+id/nonNativeLanguage"
         android:name="com.kamil184.lingly.main.authorization.Registration.non_native_language.NonNativeLanguageFragment"
         android:label="NonNativeLanguageFragment" />
+    <activity
+        android:id="@+id/mainActivity2"
+        android:name="com.kamil184.lingly.MainActivity"
+        android:label="activity_main"
+        tools:layout="@layout/activity_main" />
 </navigation>

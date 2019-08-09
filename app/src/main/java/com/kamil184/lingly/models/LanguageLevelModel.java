@@ -1,7 +1,5 @@
 package com.kamil184.lingly.models;
 
-import java.util.ArrayList;
-
 public class LanguageLevelModel {
 
     public long getLanguageLevel() {
@@ -12,23 +10,21 @@ public class LanguageLevelModel {
         this.languageLevel = languageLevel;
     }
 
-    public long getLanguage(int position) {
-        return (long)language.get(position);
+    public long getLanguage() {
+        return language;
     }
 
-    public void setLanguage(ArrayList language) {
+    public void setLanguage(long language) {
         this.language = language;
     }
 
     //уровней 6, так как есть нулевой, то есть вообще начинающий
     private long languageLevel;
 
-    /* можно использовать другой тип данных
-     byte потому что планируется использовать индекс языка в константах
-     */
-    private ArrayList language;
+    //индекс языка в константах
+    private long language;
 
-    public LanguageLevelModel(long languageLevel, ArrayList language) {
+    public LanguageLevelModel(long languageLevel, long language) {
         this.languageLevel = languageLevel;
         this.language = language;
     }

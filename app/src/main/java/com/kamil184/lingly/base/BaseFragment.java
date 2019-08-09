@@ -21,7 +21,10 @@ public class BaseFragment extends Fragment {
     }
 
     public void hideProgress() throws java.lang.NullPointerException {
-        ((BaseActivity) getActivity()).hideProgress();
+        try {
+            ((BaseActivity) getActivity()).hideProgress();
+        } catch (NullPointerException ignored){ }
+
     }
 
     public void showSnackBar(int message) {
