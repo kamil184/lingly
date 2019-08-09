@@ -66,14 +66,14 @@ public class NonNativeLanguageFragment extends BaseFragment {
         presenter.attachView(this);
 
         setLanguageAdapter();
-        ArrayList<String> selectedLanguagesList = new ArrayList<>();
+        ArrayList<Integer> selectedLanguagesList = new ArrayList<>();
         nonNativeLanguageList.setOnItemClickListener((adapterView, itemClicked, position, id) -> {
-            if(selectedLanguagesList.contains(Constants.Languages.languageArray[position])){
-                selectedLanguagesList.remove(Constants.Languages.languageArray[position]);
+            if(selectedLanguagesList.contains(position)){
+                selectedLanguagesList.remove(position);
                 itemClicked.setAlpha((float) 1);
             }else {
                 itemClicked.setAlpha((float) 0.5);
-                selectedLanguagesList.add(Constants.Languages.languageArray[position]);
+                selectedLanguagesList.add(position);
             }
             if(selectedLanguagesList.size() == 0) {
                 next_btn.setVisibility(View.GONE);

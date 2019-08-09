@@ -68,17 +68,17 @@ public class LanguageLevelAdapter extends BaseAdapter {
         ButterKnife.bind(this, view1);
 
         setLanguageLevel(model.getLanguageLevel());
-        setLanguage(model.getLanguage());
+        setLanguage(model.getLanguage(position));
 
         return view1;
     }
 
-    private void setLanguage(byte language) {
-        flag.setImageResource(Constants.Languages.flagArray[language]);
+    private void setLanguage(long language) {
+        flag.setImageResource(Constants.Languages.flagArray[(int)language]);
     }
 
-    private void setLanguageLevel(byte languageLevel) {
-        switch (languageLevel){
+    private void setLanguageLevel(long languageLevel) {
+        switch ((int)languageLevel){
             case 0:
                 level1.setImageResource(R.drawable.language_level_grey1);
                 level2.setImageResource(R.drawable.language_level_grey2);

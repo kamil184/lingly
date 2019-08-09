@@ -23,7 +23,7 @@ public class NonNativeLanguagePresenter extends BasePresenter {
         view = nonNativeLanguageFragment;
     }
 
-    void addNonNativeLanguage(ArrayList<String> nonNativeLanguage){
+    void addNonNativeLanguage(ArrayList<Integer> nonNativeLanguage){
         view.progressBar.setVisibility(View.VISIBLE);
         if(hasInternetConnection()){
             Map<String, Object> user = new HashMap<>();

@@ -30,7 +30,7 @@ public class NativeLanguagePresenter extends BasePresenter {
 
 
 
-    void setNativeLanguage(ArrayList<String> nativeLanguage){
+    void setNativeLanguage(ArrayList<Integer> nativeLanguage){
         view.progressBar.setVisibility(View.VISIBLE);
         if(hasInternetConnection()){
             Map<String, Object> user = new HashMap<>();
@@ -58,4 +58,7 @@ public class NativeLanguagePresenter extends BasePresenter {
         view.progressBar.setVisibility(View.GONE);
         view.showSnackBar(message);
     }
+
+
+
 }

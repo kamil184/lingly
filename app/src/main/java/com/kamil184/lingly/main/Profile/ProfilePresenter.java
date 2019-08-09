@@ -12,9 +12,12 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.kamil184.lingly.R;
+import com.kamil184.lingly.adapters.LanguageLevelAdapter;
 import com.kamil184.lingly.base.BasePresenter;
+import com.kamil184.lingly.models.LanguageLevelModel;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 
@@ -25,6 +28,10 @@ class ProfilePresenter extends BasePresenter {
     FirebaseStorage storage = FirebaseStorage.getInstance();
     StorageReference storageRef = storage.getReference();
     private HashMap<String,Object> map;
+    LanguageLevelAdapter languageLevelAdapter;
+    ArrayList<LanguageLevelModel> arrayList = new ArrayList<>();
+
+
 
 
     ProfilePresenter(Context context) {
@@ -49,6 +56,10 @@ class ProfilePresenter extends BasePresenter {
                         view.collapsingToolbarLayout.setTitle(document.get("firstName").toString() + " " + document.get("secondName").toString());
                         view.collapsingToolbarLayout.setSubtitle(user.getEmail());
                         view.birthDate.setText(document.get("birth_day").toString()+"."+document.get("birth_month")+"."+document.get("birth_year"));
+                        LanguageLevelModel s = new LanguageLevelModel((long)document.get("user_native_language_level"),(ArrayList) document.get("user_native_language"));
+                        arrayList.add(s);
+                        languageLevelAdapter = new LanguageLevelAdapter(view.getContext(),arrayList);
+                        view.nativeLanguages.setAdapter(languageLevelAdapter);
                         view.hideProgress();
                     } else {
                         view.showWarningDialog("Такого пользователя нет!");
@@ -103,6 +114,8 @@ class ProfilePresenter extends BasePresenter {
             });
 
     }
+
+
 
 
 
