@@ -27,7 +27,7 @@ public class NonNativeLanguagePresenter extends BasePresenter {
         view.progressBar.setVisibility(View.VISIBLE);
         if(hasInternetConnection()){
             Map<String, Object> user = new HashMap<>();
-            user.put("user_non_native_language",nonNativeLanguage);
+            user.put("non_native_languages",nonNativeLanguage);
             if (isAuthorized()){
                 db.collection("users").document(getCurrentUserEmail())
                         .update(user)

@@ -24,6 +24,7 @@
     <string name="txt_login">Вход</string>
     <string name="email_err">Некорректный email</string>
     <string name="email_signup_err">Email</string>
+    <string name="language_level_select">Выберите уровень владения изучаемыми языками</string>
     <string name="pass_signup_err">Пароль</string>
     <string name="pass_reset_sucss">Мы отправили инструкции на вашу почту</string>
     <string name="pass_reset_fail">Ошибка смены пароля, проверьте email</string>

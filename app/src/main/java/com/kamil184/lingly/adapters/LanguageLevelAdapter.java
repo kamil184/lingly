@@ -68,7 +68,7 @@ public class LanguageLevelAdapter extends BaseAdapter {
         ButterKnife.bind(this, view1);
 
         setLanguageLevel(model.getLanguageLevel());
-        setLanguage(model.getLanguage(position));
+        setLanguage(model.getLanguage());
 
         return view1;
     }

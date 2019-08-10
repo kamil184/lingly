@@ -39,11 +39,12 @@ public class ExtraUserInfoPresenter extends BasePresenter {
         view.hideKeyboard();
         if(hasInternetConnection()) {
             Map<String, Object> user = new HashMap<>();
-            user.put("firstName", firstName);
-            user.put("secondName",secondName);
+            user.put("first_name", firstName);
+            user.put("second_name",secondName);
             user.put("birth_day",day);
             user.put("birth_month",month);
             user.put("birth_year",year);
+            user.put("is_online",true);
             if(isAuthorized()) {
                 db.collection("users").document(getCurrentUserEmail())
                         .set(user)

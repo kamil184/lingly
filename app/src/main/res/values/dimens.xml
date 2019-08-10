@@ -18,10 +18,11 @@
     <dimen name="app_bar_height">300dp</dimen>
     <dimen name="text_margin">16dp</dimen>
     <dimen name="corners_language_level">20dp</dimen>
-    <dimen name="language_level_width">20dp</dimen>
-    <dimen name="language_level1_height">20dp</dimen>
-    <dimen name="language_level2_height">32dp</dimen>
-    <dimen name="language_level3_height">44dp</dimen>
-    <dimen name="language_level4_height">56dp</dimen>
-    <dimen name="language_level5_height">68dp</dimen>
+    <dimen name="language_level_flag_size">50dp</dimen>
+    <dimen name="language_level_width">10dp</dimen>
+    <dimen name="language_level1_height">5dp</dimen>
+    <dimen name="language_level2_height">9dp</dimen>
+    <dimen name="language_level3_height">13dp</dimen>
+    <dimen name="language_level4_height">16dp</dimen>
+    <dimen name="language_level5_height">20dp</dimen>
 </resources>
