@@ -31,7 +31,7 @@ public class BasePresenter {
     }
 
     protected String getCurrentUserId() {
-        return FirebaseAuth.getInstance().getUid();
+        return auth.getCurrentUser().getUid();
     }
     protected FirebaseUser getCurrentUser(){
         return auth.getCurrentUser();

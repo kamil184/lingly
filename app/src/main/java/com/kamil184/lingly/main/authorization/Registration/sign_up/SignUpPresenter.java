@@ -3,8 +3,10 @@ package com.kamil184.lingly.main.authorization.Registration.sign_up;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.view.View;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.StringRes;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -13,6 +15,12 @@ import com.google.firebase.auth.UserProfileChangeRequest;
 import com.kamil184.lingly.MainActivity;
 import com.kamil184.lingly.R;
 import com.kamil184.lingly.base.BasePresenter;
+
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Random;
+import java.util.UUID;
 
 
 public class SignUpPresenter extends BasePresenter {
@@ -38,9 +46,13 @@ public class SignUpPresenter extends BasePresenter {
                             view.setProgressVisibilityGone();
                             view.showSnackBar(R.string.signup_err);
                         } else {
+                            Map<String, Object> userInfo = new HashMap<>();
                             user = getCurrentUser();
-                            view.setProgressVisibilityGone();
-                            view.callback.toUserInfo();
+                            userInfo.put("email",user.getEmail());
+                            db.collection("users").document(user.getUid())
+                                    .set(userInfo)
+                                    .addOnSuccessListener(aVoid -> switchToNextStep())
+                                    .addOnFailureListener(e -> ifError(R.string.signup_err));
                         }
                     });
         }else{
@@ -48,6 +60,16 @@ public class SignUpPresenter extends BasePresenter {
             view.showSnackBar(R.string.no_interent_connection_err);
         }
 
+    }
+
+    private void switchToNextStep(){
+        view.setProgressVisibilityGone();
+        view.callback.toUserInfo();
+    }
+
+    void ifError(@StringRes int message){
+        view.progressBar.setVisibility(View.GONE);
+        view.showSnackBar(message);
     }
 
 }

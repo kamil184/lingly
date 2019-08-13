@@ -43,11 +43,11 @@ public class ExtraUserInfoPresenter extends BasePresenter {
             user.put("second_name",secondName);
             user.put("birth_day",day);
             user.put("birth_month",month);
-            user.put("birth_year",year);
+            user.put("birth _year",year);
             user.put("is_online",true);
             if(isAuthorized()) {
-                db.collection("users").document(getCurrentUserEmail())
-                        .set(user)
+                db.collection("users").document(getCurrentUserId())
+                        .update(user)
                         .addOnSuccessListener(aVoid ->{
                             view.progressBar.setVisibility(View.GONE);
                             view.callback.toNativeLanguage();

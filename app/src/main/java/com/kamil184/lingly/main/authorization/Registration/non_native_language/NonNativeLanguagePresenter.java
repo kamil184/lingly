@@ -29,7 +29,7 @@ public class NonNativeLanguagePresenter extends BasePresenter {
             Map<String, Object> user = new HashMap<>();
             user.put("non_native_languages",nonNativeLanguage);
             if (isAuthorized()){
-                db.collection("users").document(getCurrentUserEmail())
+                db.collection("users").document(getCurrentUserId())
                         .update(user)
                         .addOnSuccessListener(aVoid ->{
                             view.progressBar.setVisibility(View.GONE);

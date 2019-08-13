@@ -34,7 +34,7 @@ public class NativeLanguagePresenter extends BasePresenter {
             Map<String, Object> user = new HashMap<>();
             user.put("native_languages",nativeLanguage);
             if (isAuthorized()){
-                db.collection("users").document(getCurrentUserEmail())
+                db.collection("users").document(getCurrentUserId())
                         .update(user)
                         .addOnSuccessListener(aVoid ->{
                                 view.progressBar.setVisibility(View.GONE);
