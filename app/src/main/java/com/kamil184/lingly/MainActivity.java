@@ -28,7 +28,7 @@ public class MainActivity extends BaseActivity {
         navView = findViewById(R.id.nav_view);
         NavigationUI.setupWithNavController(navView, navController);
 
-        if(getCurrentUser()==null) {
+        if(getCurrentUser()!=null) {
             Intent intent = new Intent(MainActivity.this, LoginActivity.class);
             startActivity(intent);
         }

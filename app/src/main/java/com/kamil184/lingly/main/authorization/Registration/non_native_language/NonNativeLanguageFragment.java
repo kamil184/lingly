@@ -39,7 +39,7 @@ public class NonNativeLanguageFragment extends BaseFragment {
     NonNativeLanguagePresenter presenter;
 
     public interface Callback{
-        void toMainFragment();
+        void toSelectLanguageLevel(Bundle bundle1);
     }
 
     NonNativeLanguageFragment.Callback callback;

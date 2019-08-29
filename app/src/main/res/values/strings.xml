@@ -48,6 +48,7 @@
     <string name="err">Ошибка загрузки данных</string>
     <string name="edit_btn">редактировать</string>
     <string name="avatar_load">Загружаем аватарку</string>
+    <string name="select_language_level">Выберите Ваш уровень владения языками</string>
     <string name="large_text"> "Material is the metaphor.\n\n"
 
         "A material metaphor is the unifying theory of a rationalized space and a system of motion."

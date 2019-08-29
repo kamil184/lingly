@@ -1,6 +1,7 @@
 package com.kamil184.lingly.main.authorization.Registration.non_native_language;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.view.View;
 
 import com.google.firebase.auth.FirebaseUser;
@@ -28,12 +29,14 @@ public class NonNativeLanguagePresenter extends BasePresenter {
         if(hasInternetConnection()){
             Map<String, Object> user = new HashMap<>();
             user.put("non_native_languages",nonNativeLanguage);
+            Bundle bundle1 = new Bundle();
+            bundle1.putIntegerArrayList("nonNativeLanguages",nonNativeLanguage);
             if (isAuthorized()){
                 db.collection("users").document(getCurrentUserId())
                         .update(user)
                         .addOnSuccessListener(aVoid ->{
                             view.progressBar.setVisibility(View.GONE);
-                            view.callback.toMainFragment();
+                            view.callback.toSelectLanguageLevel(bundle1);
                         })
                         .addOnFailureListener(e -> {
                             view.progressBar.setVisibility(View.GONE);
