@@ -2,18 +2,14 @@ package com.kamil184.lingly;
 
 import android.content.Intent;
 import android.os.Bundle;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.kamil184.lingly.base.BaseActivity;
-import com.kamil184.lingly.base.BasePresenter;
-import com.kamil184.lingly.main.authorization.login.LoginActivity;
-
-import androidx.appcompat.app.AppCompatActivity;
 
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.kamil184.lingly.base.BaseActivity;
+import com.kamil184.lingly.main.authorization.login.LoginActivity;
 
 public class MainActivity extends BaseActivity {
 
@@ -28,10 +24,10 @@ public class MainActivity extends BaseActivity {
         navView = findViewById(R.id.nav_view);
         NavigationUI.setupWithNavController(navView, navController);
 
-        if(getCurrentUser()!=null) {
+
             Intent intent = new Intent(MainActivity.this, LoginActivity.class);
             startActivity(intent);
-        }
+
     }
 
 }

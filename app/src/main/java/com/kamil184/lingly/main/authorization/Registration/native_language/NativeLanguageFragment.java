@@ -65,7 +65,7 @@ public class NativeLanguageFragment extends BaseFragment {
         ArrayList<Integer> selectedLanguagesList = new ArrayList<>();
         nativeLanguageList.setOnItemClickListener((adapterView, itemClicked, position, id) -> {
             if(selectedLanguagesList.contains(position)){
-                selectedLanguagesList.remove(position);
+                selectedLanguagesList.remove(selectedLanguagesList.indexOf(position));
                 itemClicked.setAlpha((float) 1);
             }else {
                 itemClicked.setAlpha((float) 0.5);
