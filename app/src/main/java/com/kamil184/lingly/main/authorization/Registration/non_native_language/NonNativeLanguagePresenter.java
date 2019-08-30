@@ -29,14 +29,14 @@ public class NonNativeLanguagePresenter extends BasePresenter {
         if(hasInternetConnection()){
             Map<String, Object> user = new HashMap<>();
             user.put("non_native_languages",nonNativeLanguage);
-            Bundle bundle1 = new Bundle();
-            bundle1.putIntegerArrayList("nonNativeLanguages",nonNativeLanguage);
+            Bundle bundle = new Bundle();
+            bundle.putIntegerArrayList("nonNativeLanguages",nonNativeLanguage);
             if (isAuthorized()){
                 db.collection("users").document(getCurrentUserId())
                         .update(user)
                         .addOnSuccessListener(aVoid ->{
                             view.progressBar.setVisibility(View.GONE);
-                            view.callback.toSelectLanguageLevel(bundle1);
+                            view.callback.toSelectLanguageLevel(bundle);
                         })
                         .addOnFailureListener(e -> {
                             view.progressBar.setVisibility(View.GONE);

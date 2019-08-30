@@ -1,6 +1,7 @@
 package com.kamil184.lingly.main.authorization.Registration.native_language;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.view.View;
 
 import androidx.annotation.StringRes;
@@ -33,16 +34,16 @@ public class NativeLanguagePresenter extends BasePresenter {
         if(hasInternetConnection()){
             Map<String, Object> user = new HashMap<>();
             user.put("native_languages",nativeLanguage);
+            Bundle bundle = new Bundle();
+            bundle.putIntegerArrayList("nativeLanguages",nativeLanguage);
             if (isAuthorized()){
                 db.collection("users").document(getCurrentUserId())
                         .update(user)
                         .addOnSuccessListener(aVoid ->{
                                 view.progressBar.setVisibility(View.GONE);
-                                view.callback.toNonNativeLanguage();
+                                view.callback.toNonNativeLanguage(bundle);
                         })
-                        .addOnFailureListener(e -> {
-                            ifError(R.string.language_err);
-                        });
+                        .addOnFailureListener(e -> ifError(R.string.language_err));
             }else{
                 ifError(R.string.not_auth_err);
             }

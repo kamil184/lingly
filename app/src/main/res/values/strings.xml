@@ -15,7 +15,7 @@
     <string name="hint_password">Пароль</string>
     <string name="forgot_password_msg">Введите адрес электронной почты, на которую зарегистрирован ваш аккаунт</string>
     <string name="btn_reset_password">Сбросить пароль</string>
-    <string name="btn_back"><![CDATA[<< Back]]></string>
+    <string name="btn_back"><![CDATA[<< Назад]]></string>
     <string name="minimum_password">Слишком короткий пароль, введите минимум 6 символов!</string>
     <string name="btn_link_to_register">Все еще не с нами? Присоединяйтесь!</string>
     <string name="auth_failed">Ошибка авторизации, неверный логин/пароль или вы еще не зарегистрированы</string>
