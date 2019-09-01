@@ -18,6 +18,7 @@
         android:layout_marginStart="@dimen/default_padding_top"
         android:layout_marginTop="@dimen/default_padding_top"
         android:layout_marginEnd="@dimen/default_padding_top"
+        android:text="test"
         android:textSize="18sp" />
 
 </LinearLayout>

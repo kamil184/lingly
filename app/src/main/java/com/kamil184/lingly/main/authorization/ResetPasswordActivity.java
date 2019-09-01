@@ -85,9 +85,7 @@ public class ResetPasswordActivity extends BaseActivity {
     }
 
     private boolean isEmailNotValidate(String email) {
-        if (email.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            return true;
-        } return false;
+        return email.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
 
     private void sendResetMail(String email){

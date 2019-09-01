@@ -20,6 +20,7 @@ public class BasePresenter {
         db = FirebaseFirestore.getInstance();
     }
 
+
     public boolean hasInternetConnection() {
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();

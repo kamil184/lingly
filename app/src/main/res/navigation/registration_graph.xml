@@ -28,6 +28,10 @@
         android:name="com.kamil184.lingly.main.authorization.Registration.language_level.SelectLanguageLevelFragment"
         android:label="SelectLanguageLevelFragment"
         tools:layout="@layout/fragment_extrauserinfo" />
+    <fragment
+        android:id="@+id/dialogFragment"
+        tools:layout="@layout/dialog_language_level"
+        />
     <activity
         android:id="@+id/mainActivity2"
         android:name="com.kamil184.lingly.MainActivity"

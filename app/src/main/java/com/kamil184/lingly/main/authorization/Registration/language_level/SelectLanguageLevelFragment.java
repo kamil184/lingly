@@ -14,6 +14,7 @@ import android.widget.SimpleAdapter;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.DialogFragment;
 
 import com.kamil184.lingly.Constants;
 import com.kamil184.lingly.R;
@@ -34,14 +35,18 @@ public class SelectLanguageLevelFragment extends BaseFragment {
 
 
     AnimationDrawable anim;
-    SelectLanguageLevelPresenter presenter;
+    private SelectLanguageLevelPresenter presenter;
+    private SimpleAdapter adapter;
+
+
+
 
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         presenter = new SelectLanguageLevelPresenter(context);
     }
-
+    private DialogFragment languageLevelDialog;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -52,11 +57,29 @@ public class SelectLanguageLevelFragment extends BaseFragment {
         anim.setEnterFadeDuration(0);
         anim.setExitFadeDuration(1000);
 
+
         ArrayList<Integer> ar;
         ar = getArguments().getIntegerArrayList("nonNativeLanguages");
         setLanguageAdapter(ar);
+        ArrayList<Integer> selectedLanguagesList = new ArrayList<>();
+        nonNativeLanguageList.setOnItemClickListener((adapterView, itemClicked, position, id) -> {
+            if(selectedLanguagesList.contains(position)){
+                selectedLanguagesList.remove(selectedLanguagesList.indexOf(position));
+                itemClicked.setAlpha((float) 1);
+            }else {
+                itemClicked.setAlpha((float) 0.5);
+                languageLevelDialog = new LanguageLevelDialog(ar.get(position));
+                languageLevelDialog.show(getFragmentManager(), "lvd");
+                selectedLanguagesList.add(position);
+            }
+            if(selectedLanguagesList.size() == 0) {
+                next_btn.setVisibility(View.GONE);
+            } else next_btn.setVisibility(View.VISIBLE);
 
-
+            next_btn.setOnClickListener(view -> {
+                next_btn.setClickable(false);
+            });
+        });
         presenter.attachView(this);
         return view1;
     }
@@ -81,29 +104,13 @@ public class SelectLanguageLevelFragment extends BaseFragment {
         String[] from = {"LanguageName","LanguageFlag"};
         int[] to = {R.id.country_text,R.id.country_image};
 
-        SimpleAdapter adapter = new SimpleAdapter(getContext(), data, R.layout.set_language_item,
+        adapter = new SimpleAdapter(getContext(), data, R.layout.set_language_item,
                 from, to);
 
         nonNativeLanguageList.setAdapter(adapter);
-        ArrayList<Integer> selectedLanguagesList = new ArrayList<>();
-        nonNativeLanguageList.setOnItemClickListener((adapterView, itemClicked, position, id) -> {
-            if(selectedLanguagesList.contains(position)){
-                selectedLanguagesList.remove(selectedLanguagesList.indexOf(position));
-                itemClicked.setAlpha((float) 1);
-            }else {
-                itemClicked.setAlpha((float) 0.5);
-                selectedLanguagesList.add(position);
-            }
-            if(selectedLanguagesList.size() == 0) {
-                next_btn.setVisibility(View.GONE);
-            } else next_btn.setVisibility(View.VISIBLE);
 
-            next_btn.setOnClickListener(view -> {
-                next_btn.setClickable(false);
-
-            });
-        });
     }
+
 
     @Override
     public void onResume() {
@@ -118,6 +125,5 @@ public class SelectLanguageLevelFragment extends BaseFragment {
         if (anim != null && anim.isRunning())
             anim.stop();
     }
-
 
 }
