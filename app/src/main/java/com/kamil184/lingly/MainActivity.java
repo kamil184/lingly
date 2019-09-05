@@ -24,10 +24,10 @@ public class MainActivity extends BaseActivity {
         navView = findViewById(R.id.nav_view);
         NavigationUI.setupWithNavController(navView, navController);
 
-        if (!isAuthorized()){
+       // if (!isAuthorized()){
             Intent intent = new Intent(MainActivity.this, LoginActivity.class);
             startActivity(intent);
-        }
+       // }
     }
 
 }

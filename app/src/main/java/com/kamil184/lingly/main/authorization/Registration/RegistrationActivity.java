@@ -7,12 +7,13 @@ import androidx.navigation.Navigation;
 
 import com.kamil184.lingly.R;
 import com.kamil184.lingly.base.BaseActivity;
+import com.kamil184.lingly.main.authorization.Registration.language_level.SelectLanguageLevelFragment;
 import com.kamil184.lingly.main.authorization.Registration.native_language.NativeLanguageFragment;
 import com.kamil184.lingly.main.authorization.Registration.non_native_language.NonNativeLanguageFragment;
 import com.kamil184.lingly.main.authorization.Registration.sign_up.ExtraUserInfoFragment;
 import com.kamil184.lingly.main.authorization.Registration.sign_up.SignUpFragment;
 
-public class RegistrationActivity extends BaseActivity implements SignUpFragment.Callback, ExtraUserInfoFragment.Callback, NativeLanguageFragment.Callback, NonNativeLanguageFragment.Callback {
+public class RegistrationActivity extends BaseActivity implements SignUpFragment.Callback, ExtraUserInfoFragment.Callback, NativeLanguageFragment.Callback, NonNativeLanguageFragment.Callback, SelectLanguageLevelFragment.Callback {
 
     NavController navController;
 
@@ -41,5 +42,9 @@ public class RegistrationActivity extends BaseActivity implements SignUpFragment
     @Override
     public void toSelectLanguageLevel(Bundle bundle) {
         navController.navigate(R.id.selectLanguageLevel, bundle);
+    }
+    @Override
+    public void toMainActivity(){
+        navController.navigate(R.id.mainActivity2);
     }
 }

@@ -39,11 +39,16 @@ public class SelectLanguageLevelFragment extends BaseFragment {
     private SimpleAdapter adapter;
 
 
+    public interface Callback{
+        void toMainActivity();
+    }
 
+   SelectLanguageLevelFragment.Callback callback;
 
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
+        callback = (SelectLanguageLevelFragment.Callback) context;
         presenter = new SelectLanguageLevelPresenter(context);
     }
     private DialogFragment languageLevelDialog;
@@ -78,6 +83,7 @@ public class SelectLanguageLevelFragment extends BaseFragment {
 
             next_btn.setOnClickListener(view -> {
                 next_btn.setClickable(false);
+                callback.toMainActivity();
             });
         });
         presenter.attachView(this);

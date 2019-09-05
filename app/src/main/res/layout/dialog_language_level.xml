@@ -1,64 +1,142 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="250dp"
+    android:layout_height="200dp">
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/country_image"
-        android:layout_width="@dimen/language_level_flag_size"
-        android:layout_height="@dimen/language_level_flag_size"
-        android:layout_gravity="center"
-        app:srcCompat="@drawable/ic_fr" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/btn_level1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:layout_marginStart="@dimen/profile_margin"
-        app:srcCompat="@drawable/language_level_color1"
-        android:contentDescription="level1"
-        />
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/border"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.503"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView"
+            app:layout_constraintVertical_bias="0.033">
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/btn_level2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:layout_marginStart="@dimen/profile_margin"
-        android:contentDescription="level2"
-        app:srcCompat="@drawable/language_level_color2" />
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/btn_level1"
+                android:layout_width="wrap_content"
+                android:layout_height="10dp"
+                android:layout_gravity="bottom"
+                android:contentDescription="level1"
+                app:srcCompat="@drawable/language_level_color1" />
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/btn_level3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:layout_marginStart="@dimen/profile_margin"
-        app:srcCompat="@drawable/language_level_grey3"
-        android:contentDescription="level3"
-        />
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/btn_level2"
+                android:layout_width="wrap_content"
+                android:layout_height="13.5dp"
+                android:layout_gravity="bottom"
+                android:layout_marginStart="@dimen/profile_margin"
+                android:contentDescription="level2"
+                app:srcCompat="@drawable/language_level_color2" />
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/btn_level4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:layout_marginStart="@dimen/profile_margin"
-        app:srcCompat="@drawable/language_level_grey4"
-        android:contentDescription="level4"
-        />
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/btn_level3"
+                android:layout_width="wrap_content"
+                android:layout_height="17dp"
+                android:layout_gravity="bottom"
+                android:layout_marginStart="@dimen/profile_margin"
+                android:contentDescription="level3"
+                app:srcCompat="@drawable/language_level_grey3" />
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/btn_level5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:layout_marginStart="@dimen/profile_margin"
-        app:srcCompat="@drawable/language_level_grey5"
-        android:contentDescription="level5"
-        />
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/btn_level4"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_gravity="bottom"
+                android:layout_marginStart="@dimen/profile_margin"
+                android:contentDescription="level4"
+                app:srcCompat="@drawable/language_level_grey4" />
 
-</LinearLayout>
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/btn_level5"
+                android:layout_width="wrap_content"
+                android:layout_height="24dp"
+                android:layout_gravity="bottom"
+                android:layout_marginStart="@dimen/profile_margin"
+                android:contentDescription="level5"
+                app:srcCompat="@drawable/language_level_grey5" />
+        </LinearLayout>
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/country_image"
+            android:layout_width="@dimen/language_level_flag_size"
+            android:layout_height="@dimen/language_level_flag_size"
+            android:layout_gravity="center"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/textView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0"
+            app:srcCompat="@drawable/ic_fr" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:text="Французский"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.502"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.345" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/dis_btn"
+            android:layout_width="96dp"
+            android:layout_height="39dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="3dp"
+            android:text="Отмена"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/ok_btn"
+            app:layout_constraintHorizontal_bias="0.057"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+            app:layout_constraintVertical_bias="0.578" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/ok_btn"
+            android:layout_width="96dp"
+            android:layout_height="39dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="3dp"
+            android:text="Cохранить"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.942"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+            app:layout_constraintVertical_bias="0.578" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>
