@@ -1,19 +1,11 @@
 package com.kamil184.lingly.main.authorization.Registration.sign_up;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
-import android.util.Log;
 import android.view.View;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.UserProfileChangeRequest;
-import com.kamil184.lingly.MainActivity;
 import com.kamil184.lingly.R;
 import com.kamil184.lingly.base.BasePresenter;
 
@@ -43,7 +35,7 @@ public class ExtraUserInfoPresenter extends BasePresenter {
             user.put("second_name",secondName);
             user.put("birth_day",day);
             user.put("birth_month",month);
-            user.put("birth _year",year);
+            user.put("birth_year",year);
             user.put("is_online",true);
             if(isAuthorized()) {
                 db.collection("users").document(getCurrentUserId())

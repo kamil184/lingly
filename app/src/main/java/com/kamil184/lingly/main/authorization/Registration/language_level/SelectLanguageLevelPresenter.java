@@ -29,7 +29,7 @@ public class SelectLanguageLevelPresenter extends BasePresenter {
             Map<String, Object> user = new HashMap<>();
             user.put(""+languageId,languageLevel);
             if (isAuthorized()){
-                db.collection("users").document(getCurrentUserId()).collection("languages").document("languageLevels")
+                db.collection("users").document(getCurrentUserId()).collection("languages").document("languages_levels")
                         .update(user)
                         .addOnSuccessListener(aVoid -> {
                             //view.progressBar.setVisibility(View.GONE);

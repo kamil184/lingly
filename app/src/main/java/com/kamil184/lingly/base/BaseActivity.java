@@ -17,7 +17,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.FirebaseFirestore;
 import com.kamil184.lingly.Constants;
 import com.kamil184.lingly.R;
 
@@ -34,7 +33,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         actionBar = getSupportActionBar();
         auth = FirebaseAuth.getInstance();
-
     }
 
     public void showProgress() {
@@ -148,5 +146,8 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
     protected FirebaseUser getCurrentUser(){
         return auth.getCurrentUser();
+    }
+    protected boolean isAuthorized(){
+        return auth.getCurrentUser() != null;
     }
 }

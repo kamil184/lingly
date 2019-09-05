@@ -13,11 +13,13 @@ public class BasePresenter {
     protected Context context;
     protected FirebaseAuth auth;
     protected FirebaseFirestore db;
+    protected FirebaseUser user;
 
     public BasePresenter(Context context) {
         this.context = context;
         auth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
+        user = getCurrentUser();
     }
 
 

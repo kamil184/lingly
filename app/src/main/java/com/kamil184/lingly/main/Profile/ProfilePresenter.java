@@ -1,11 +1,11 @@
 package com.kamil184.lingly.main.Profile;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.net.Uri;
 
-import com.bumptech.glide.Glide;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.storage.FirebaseStorage;
@@ -32,6 +32,11 @@ class ProfilePresenter extends BasePresenter {
     ArrayList<LanguageLevelModel> arrayList = new ArrayList<>();
 
 
+    private ArrayList<Long> nativeLanguages = new ArrayList<>();
+    private ArrayList<Long> nonNativeLanguages = new ArrayList<>();
+    @SuppressLint("UseSparseArrays")
+    private HashMap<Long,Long> languagesLevels = new HashMap<>();
+
     ProfilePresenter(Context context) {
         super(context);
     }
@@ -45,7 +50,7 @@ class ProfilePresenter extends BasePresenter {
         if (hasInternetConnection()) {
             view.showProgress();
             user = getCurrentUser();
-            final DocumentReference userRef = db.collection("users").document(user.getEmail());
+            final DocumentReference userRef = db.collection("users").document(user.getUid());
             userRef.get().addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
@@ -53,23 +58,7 @@ class ProfilePresenter extends BasePresenter {
                         view.collapsingToolbarLayout.setTitle(document.get("first_name").toString() + " " + document.get("second_name").toString());
                         view.collapsingToolbarLayout.setSubtitle(user.getEmail());
                         view.birthDate.setText(document.get("birth_day").toString() + "." + document.get("birth_month") + "." + document.get("birth_year"));
-
-                        ArrayList<Long> languagesLevels = (ArrayList) document.get("language_levels");
-                        ArrayList<Long> nativeLanguages = (ArrayList) document.get("native_languages");
-                        ArrayList<Long> nonNativeLanguages = (ArrayList) document.get("non_native_languages");
-
-                        for (int i = 0; i < nonNativeLanguages.size(); i++) {
-                            arrayList.add(new LanguageLevelModel(languagesLevels.get(i), nonNativeLanguages.get(i)));
-                        }
-
-                        /*
-                        Для родных языков(nativeLanguages) не надо будет использовать LanguageLevelModel
-                        т.к. они не содержат уровни знания языка
-                         */
-
-                        languageLevelAdapter = new LanguageLevelAdapter(view.getContext(), arrayList);
-                        view.nativeLanguages.setAdapter(languageLevelAdapter);
-                        view.hideProgress();
+                        getLanguagesInfo();
                     } else {
                         view.showWarningDialog("Такого пользователя нет!");
                         //TODO проверка на завершение регистрации
@@ -91,7 +80,7 @@ class ProfilePresenter extends BasePresenter {
         user = getCurrentUser();
         final StorageReference avatarRef = storageRef.child("users/" + user.getEmail() + "/avatar/");
         avatarRef.getDownloadUrl()
-                .addOnSuccessListener(uri -> setAvatar(uri))
+                .addOnSuccessListener(this::setAvatar)
                 .addOnFailureListener(e -> setAvatar(null));
 
     }
@@ -109,9 +98,8 @@ class ProfilePresenter extends BasePresenter {
 
 
     void uploadAvatar(Uri uri) {
-        Uri file = uri;
         final StorageReference avatarRef = storageRef.child("users/" + user.getEmail() + "/avatar/");
-        UploadTask uploadTask = avatarRef.putFile(file);
+        UploadTask uploadTask = avatarRef.putFile(uri);
         view.showProgress(R.string.avatar_load);
         uploadTask.addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
@@ -125,5 +113,84 @@ class ProfilePresenter extends BasePresenter {
 
     }
 
+    private void getLanguagesInfo(){
+    user = getCurrentUser();
+    final DocumentReference userRef = db.collection("users").document(user.getUid());
+    final CollectionReference languageRef = userRef.collection("languages");
+    languageRef.document("languages_native").get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                DocumentSnapshot nativeDocument = task.getResult();
+                if (nativeDocument.exists()) {
+                     nativeLanguages = (ArrayList) nativeDocument.get("native_languages");
+                        getNonNativeLanguagesInfo();
+                } else {
+                    view.showWarningDialog("Такого пользователя нет!");
+                    view.hideProgress();
+                }
+            } else {
+                view.showSnackBar(R.string.err);
+                view.hideProgress();
+            }
+     });
+
+
+
+
+
+    }
+
+   private void getNonNativeLanguagesInfo(){
+       user = getCurrentUser();
+       final DocumentReference userRef = db.collection("users").document(user.getUid());
+       final CollectionReference languageRef = userRef.collection("languages");
+        languageRef.document("languages_non_native").get().addOnCompleteListener(task -> {
+            if(task.isSuccessful()){
+                DocumentSnapshot nonNativeDocument = task.getResult();
+                if(nonNativeDocument.exists()){
+                    nonNativeLanguages = (ArrayList) nonNativeDocument.get("non_native_languages");
+                    getLanguageLevels();
+                }else {
+                    view.showWarningDialog("Такого пользователя нет!");
+                    view.hideProgress();
+                }
+            } else {
+                view.showSnackBar(R.string.err);
+                view.hideProgress();
+            }
+        });
+    }
+    private void getLanguageLevels(){
+        user = getCurrentUser();
+        final DocumentReference userRef = db.collection("users").document(user.getUid());
+        final CollectionReference languageRef = userRef.collection("languages");
+        languageRef.document("languages_levels").get().addOnCompleteListener(task -> {
+            if(task.isSuccessful()){
+                DocumentSnapshot levelsDocument = task.getResult();
+                if(levelsDocument.exists()){
+                    for ( int i = 0;i<nonNativeLanguages.size();i++){
+                        languagesLevels.put(nonNativeLanguages.get(i),(long)levelsDocument.get(""+nonNativeLanguages.get(i)));
+                    }
+                    for (int i = 0; i < nonNativeLanguages.size(); i++) {
+                        arrayList.add(new LanguageLevelModel(languagesLevels.get(nonNativeLanguages.get(i)), nonNativeLanguages.get(i)));
+                    }
+
+                        /*
+                        Для родных языков(nativeLanguages) не надо будет использовать LanguageLevelModel
+                        т.к. они не содержат уровни знания языка
+                         */
+
+                    languageLevelAdapter = new LanguageLevelAdapter(view.getContext(), arrayList);
+                    view.nativeLanguages.setAdapter(languageLevelAdapter);
+                    view.hideProgress();
+                }else {
+                    view.showWarningDialog("Такого пользователя нет!");
+                    view.hideProgress();
+                }
+            } else {
+                view.showSnackBar(R.string.err);
+                view.hideProgress();
+            }
+        });
+    }
 
 }

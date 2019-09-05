@@ -37,8 +37,8 @@ public class NativeLanguagePresenter extends BasePresenter {
             Bundle bundle = new Bundle();
             bundle.putIntegerArrayList("nativeLanguages",nativeLanguage);
             if (isAuthorized()){
-                db.collection("users").document(getCurrentUserId())
-                        .update(user)
+                db.collection("users").document(getCurrentUserId()).collection("languages").document("languages_native")
+                        .set(user)
                         .addOnSuccessListener(aVoid ->{
                                 view.progressBar.setVisibility(View.GONE);
                                 view.callback.toNonNativeLanguage(bundle);

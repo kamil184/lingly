@@ -2,32 +2,27 @@ package com.kamil184.lingly.main.authorization.Registration.sign_up;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.view.View;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.UserProfileChangeRequest;
-import com.kamil184.lingly.MainActivity;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.kamil184.lingly.R;
 import com.kamil184.lingly.base.BasePresenter;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Random;
-import java.util.UUID;
 
 
-public class SignUpPresenter extends BasePresenter {
+class SignUpPresenter extends BasePresenter {
 
 
     private SignUpFragment view;
     private FirebaseUser user;
+    private DocumentReference userRef;
+    private CollectionReference languagesRef;
 
     void attachView(SignUpFragment signUpActivity) {
         view = signUpActivity;
@@ -46,13 +41,9 @@ public class SignUpPresenter extends BasePresenter {
                             view.setProgressVisibilityGone();
                             view.showSnackBar(R.string.signup_err);
                         } else {
-                            Map<String, Object> userInfo = new HashMap<>();
-                            user = getCurrentUser();
-                            userInfo.put("email",user.getEmail());
-                            db.collection("users").document(user.getUid())
-                                    .set(userInfo)
-                                    .addOnSuccessListener(aVoid -> switchToNextStep())
-                                    .addOnFailureListener(e -> ifError(R.string.signup_err));
+                            userRef = db.collection("users").document(getCurrentUserId());
+                            languagesRef  = userRef.collection("languages");
+                            createUserInfo();
                         }
                     });
         }else{
@@ -60,7 +51,46 @@ public class SignUpPresenter extends BasePresenter {
             view.showSnackBar(R.string.no_interent_connection_err);
         }
 
+    /*
+    Ну тут уж все очевидно, я считаю
+    */
+
     }
+    private void createUserInfo(){
+        Map<String, Object> userInfo = new HashMap<>();
+        userInfo.put("email",getCurrentUserEmail());
+        userRef
+                .set(userInfo)
+                .addOnSuccessListener(aVoid -> createLanguagesInfo())
+                .addOnFailureListener(e -> ifError(R.string.signup_err));
+    }
+
+    /*
+    Метод createLanguageInfo() создает документы в коллекцию languages, туда же кладет информацию о том, выбран язык или нет,
+    в будущем это надо будет для проверки, заполнил ли юзер свои данные.
+    Метод пытается создать документ, если success, то пытается для другого документа и так , пока либо не выведет ошибку, либо не создаст все документы
+     */
+
+    private void createLanguagesInfo(){
+        Map<String, Object> languagesInfo = new HashMap<>();
+        languagesInfo.put("is_selected",false);
+        languagesRef.document("languages_levels")
+                .set(languagesInfo)
+                .addOnSuccessListener(aVoid -> {
+                    languagesRef.document("languages_native")
+                            .set(languagesInfo)
+                            .addOnSuccessListener(aVoid1 -> {
+                                languagesRef.document("languages_non_native")
+                                        .set(languagesInfo)
+                                        .addOnSuccessListener(aVoid2 -> switchToNextStep() )
+                                        .addOnFailureListener(e -> ifError(R.string.signup_err));
+                            })
+                            .addOnFailureListener(e -> ifError(R.string.signup_err));
+                })
+                .addOnFailureListener(e -> ifError(R.string.signup_err));
+    }
+
+
 
     private void switchToNextStep(){
         view.setProgressVisibilityGone();

@@ -19,7 +19,7 @@ public class LanguageLevelDialog extends DialogFragment implements View.OnClickL
     private ImageView l1,l2,l3,l4,l5,flag;
     private int languageId,languageLevel;
 
-    public  LanguageLevelDialog(int languageId){
+    LanguageLevelDialog(int languageId){
         this.languageId = languageId;
     }
 
