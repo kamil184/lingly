@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.fragment.app.DialogFragment;
 
 import com.kamil184.lingly.Constants;
@@ -24,6 +25,7 @@ public class LanguageLevelDialog extends DialogFragment implements View.OnClickL
     private int languageId,languageLevel = 1;
     private BlurDialogEngine mBlurEngine;
     private Button dis_btn, ok_btn;
+    private AppCompatImageButton plus, minus;
     private TextView text;
 
     LanguageLevelDialog(int languageId){
@@ -51,15 +53,14 @@ public class LanguageLevelDialog extends DialogFragment implements View.OnClickL
         dis_btn = v.findViewById(R.id.dis_btn);
         ok_btn = v.findViewById(R.id.ok_btn);
         text = v.findViewById(R.id.textView);
+        plus = v.findViewById(R.id.plus);
+        minus = v.findViewById(R.id.minus);
 
         flag.setImageResource(Constants.Languages.flagArray[languageId]);
         text.setText(Constants.Languages.languageArray[languageId]);
 
-        l1.setOnClickListener(this);
-        l2.setOnClickListener(this);
-        l3.setOnClickListener(this);
-        l4.setOnClickListener(this);
-        l5.setOnClickListener(this);
+        plus.setOnClickListener(this);
+        minus.setOnClickListener(this);
         dis_btn.setOnClickListener(this);
         ok_btn.setOnClickListener(this);
         return v;
