@@ -30,6 +30,7 @@
                 android:background="@color/transparent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 app:srcCompat="@drawable/minus_24dp"/>
 
             <LinearLayout
@@ -88,6 +89,7 @@
                 android:background="@color/transparent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 app:srcCompat="@drawable/plus_24dp"/>
         </LinearLayout>
 
