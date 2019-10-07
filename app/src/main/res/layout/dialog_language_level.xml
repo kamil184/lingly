@@ -17,7 +17,6 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
-            android:background="@drawable/border"
             android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -26,66 +25,71 @@
             app:layout_constraintTop_toBottomOf="@+id/textView"
             app:layout_constraintVertical_bias="0.033">
 
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/btn_level1"
+            <ImageButton
+                android:id="@+id/minus"
+                android:background="@color/transparent"
                 android:layout_width="wrap_content"
-                android:layout_height="10dp"
-                android:layout_gravity="bottom"
-                android:contentDescription="level1"
-                app:srcCompat="@drawable/language_level_color1" />
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/minus_24dp"/>
 
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/btn_level2"
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="13.5dp"
-                android:layout_gravity="bottom"
-                android:layout_marginStart="@dimen/profile_margin"
-                android:contentDescription="level2"
-                app:srcCompat="@drawable/language_level_color2" />
+                android:layout_height="wrap_content"
+                android:background="@drawable/border"
+                android:orientation="horizontal">
 
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/btn_level3"
-                android:layout_width="wrap_content"
-                android:layout_height="17dp"
-                android:layout_gravity="bottom"
-                android:layout_marginStart="@dimen/profile_margin"
-                android:contentDescription="level3"
-                app:srcCompat="@drawable/language_level_grey3" />
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/btn_level1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="10dp"
+                    android:layout_gravity="bottom"
+                    android:contentDescription="level1"
+                    app:srcCompat="@drawable/language_level_color1" />
 
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/btn_level4"
-                android:layout_width="wrap_content"
-                android:layout_height="20dp"
-                android:layout_gravity="bottom"
-                android:layout_marginStart="@dimen/profile_margin"
-                android:contentDescription="level4"
-                app:srcCompat="@drawable/language_level_grey4" />
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/btn_level2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="13.5dp"
+                    android:layout_gravity="bottom"
+                    android:layout_marginStart="@dimen/profile_margin"
+                    android:contentDescription="level2"
+                    app:srcCompat="@drawable/language_level_grey2" />
 
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/btn_level5"
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/btn_level3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="17dp"
+                    android:layout_gravity="bottom"
+                    android:layout_marginStart="@dimen/profile_margin"
+                    android:contentDescription="level3"
+                    app:srcCompat="@drawable/language_level_grey3" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/btn_level4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:layout_gravity="bottom"
+                    android:layout_marginStart="@dimen/profile_margin"
+                    android:contentDescription="level4"
+                    app:srcCompat="@drawable/language_level_grey4" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/btn_level5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="24dp"
+                    android:layout_gravity="bottom"
+                    android:layout_marginStart="@dimen/profile_margin"
+                    android:contentDescription="level5"
+                    app:srcCompat="@drawable/language_level_grey5" />
+            </LinearLayout>
+
+            <ImageButton
+                android:id="@+id/plus"
+                android:background="@color/transparent"
                 android:layout_width="wrap_content"
-                android:layout_height="24dp"
-                android:layout_gravity="bottom"
-                android:layout_marginStart="@dimen/profile_margin"
-                android:contentDescription="level5"
-                app:srcCompat="@drawable/language_level_grey5" />
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/plus_24dp"/>
         </LinearLayout>
-
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/country_image"
-            android:layout_width="@dimen/language_level_flag_size"
-            android:layout_height="@dimen/language_level_flag_size"
-            android:layout_gravity="center"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toTopOf="@+id/textView"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0"
-            app:srcCompat="@drawable/ic_fr" />
 
         <TextView
             android:id="@+id/textView"
@@ -136,6 +140,22 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/linearLayout"
             app:layout_constraintVertical_bias="0.578" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/country_image"
+            android:layout_width="@dimen/language_level_flag_size"
+            android:layout_height="@dimen/language_level_flag_size"
+            android:layout_gravity="center"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/textView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0"
+            app:srcCompat="@drawable/ic_fr" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

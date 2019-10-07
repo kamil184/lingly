@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.fragment.app.DialogFragment;
 
@@ -20,9 +21,10 @@ public class LanguageLevelDialog extends DialogFragment implements View.OnClickL
 
     final String LOG_TAG = "myLogs";
     private ImageView l1,l2,l3,l4,l5,flag;
-    private int languageId,languageLevel;
+    private int languageId,languageLevel = 1;
     private BlurDialogEngine mBlurEngine;
     private Button dis_btn, ok_btn;
+    private TextView text;
 
     LanguageLevelDialog(int languageId){
         this.languageId = languageId;
@@ -48,8 +50,10 @@ public class LanguageLevelDialog extends DialogFragment implements View.OnClickL
         flag = v.findViewById(R.id.country_image);
         dis_btn = v.findViewById(R.id.dis_btn);
         ok_btn = v.findViewById(R.id.ok_btn);
+        text = v.findViewById(R.id.textView);
 
         flag.setImageResource(Constants.Languages.flagArray[languageId]);
+        text.setText(Constants.Languages.languageArray[languageId]);
 
         l1.setOnClickListener(this);
         l2.setOnClickListener(this);
@@ -61,48 +65,16 @@ public class LanguageLevelDialog extends DialogFragment implements View.OnClickL
         return v;
     }
 
-    public void onClick(View v) {
+    public void onClick(View v){
         Log.d(LOG_TAG, "Dialog 1: " + v.getId()+" "+languageId);
-        switch (v.getId()) {
-            case R.id.btn_level1:
-                l1.setImageResource(R.drawable.language_level_color1);
-                l2.setImageResource(R.drawable.language_level_grey2);
-                l3.setImageResource(R.drawable.language_level_grey3);
-                l4.setImageResource(R.drawable.language_level_grey4);
-                l5.setImageResource(R.drawable.language_level_grey5);
-               languageLevel = 1;
+        switch (v.getId()){
+            case R.id.plus:
+                if(languageLevel != 5)languageLevel++;
+                setImage();
                 break;
-            case R.id.btn_level2:
-                l1.setImageResource(R.drawable.language_level_color1);
-                l2.setImageResource(R.drawable.language_level_color2);
-                l3.setImageResource(R.drawable.language_level_grey3);
-                l4.setImageResource(R.drawable.language_level_grey4);
-                l5.setImageResource(R.drawable.language_level_grey5);
-                languageLevel = 2;
-                break;
-            case R.id.btn_level3:
-                l1.setImageResource(R.drawable.language_level_color1);
-                l2.setImageResource(R.drawable.language_level_color2);
-                l3.setImageResource(R.drawable.language_level_color3);
-                l4.setImageResource(R.drawable.language_level_grey4);
-                l5.setImageResource(R.drawable.language_level_grey5);
-                languageLevel = 3;
-                break;
-            case R.id.btn_level4:
-                l1.setImageResource(R.drawable.language_level_color1);
-                l2.setImageResource(R.drawable.language_level_color2);
-                l3.setImageResource(R.drawable.language_level_color3);
-                l4.setImageResource(R.drawable.language_level_color4);
-                l5.setImageResource(R.drawable.language_level_grey5);
-                languageLevel = 4;
-                break;
-            case R.id.btn_level5:
-                l1.setImageResource(R.drawable.language_level_color1);
-                l2.setImageResource(R.drawable.language_level_color2);
-                l3.setImageResource(R.drawable.language_level_color3);
-                l4.setImageResource(R.drawable.language_level_color4);
-                l5.setImageResource(R.drawable.language_level_color5);
-               languageLevel = 5;
+            case R.id.minus:
+                if(languageLevel != 1)languageLevel--;
+                setImage();
                 break;
             case R.id.dis_btn:
                 dismiss();
@@ -111,7 +83,45 @@ public class LanguageLevelDialog extends DialogFragment implements View.OnClickL
                 dismiss();
                 SelectLanguageLevelPresenter presenter = new SelectLanguageLevelPresenter(getContext());
                 presenter.setLanguageLevel(languageLevel,languageId);
-
+                break;
+        }
+    }
+    private void setImage() {
+        switch (languageLevel) {
+            case 1:
+                l1.setImageResource(R.drawable.language_level_color1);
+                l2.setImageResource(R.drawable.language_level_grey2);
+                l3.setImageResource(R.drawable.language_level_grey3);
+                l4.setImageResource(R.drawable.language_level_grey4);
+                l5.setImageResource(R.drawable.language_level_grey5);
+                break;
+            case 2:
+                l1.setImageResource(R.drawable.language_level_color1);
+                l2.setImageResource(R.drawable.language_level_color2);
+                l3.setImageResource(R.drawable.language_level_grey3);
+                l4.setImageResource(R.drawable.language_level_grey4);
+                l5.setImageResource(R.drawable.language_level_grey5);
+                break;
+            case 3:
+                l1.setImageResource(R.drawable.language_level_color1);
+                l2.setImageResource(R.drawable.language_level_color2);
+                l3.setImageResource(R.drawable.language_level_color3);
+                l4.setImageResource(R.drawable.language_level_grey4);
+                l5.setImageResource(R.drawable.language_level_grey5);
+                break;
+            case 4:
+                l1.setImageResource(R.drawable.language_level_color1);
+                l2.setImageResource(R.drawable.language_level_color2);
+                l3.setImageResource(R.drawable.language_level_color3);
+                l4.setImageResource(R.drawable.language_level_color4);
+                l5.setImageResource(R.drawable.language_level_grey5);
+                break;
+            case 5:
+                l1.setImageResource(R.drawable.language_level_color1);
+                l2.setImageResource(R.drawable.language_level_color2);
+                l3.setImageResource(R.drawable.language_level_color3);
+                l4.setImageResource(R.drawable.language_level_color4);
+                l5.setImageResource(R.drawable.language_level_color5);
                 break;
         }
     }
