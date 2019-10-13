@@ -3,7 +3,6 @@ package com.kamil184.lingly.main.Profile;
 import android.Manifest;
 import android.annotation.TargetApi;
 import android.app.Activity;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -36,7 +35,6 @@ import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.SubtitleCollapsingToolbarLayout;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.kamil184.lingly.MainActivity;
 import com.kamil184.lingly.R;
 import com.kamil184.lingly.base.BaseFragment;
 
@@ -53,8 +51,10 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
 
    @BindView(R.id.container1) AppBarLayout container1;
    @BindView(R.id.user_avatar) ImageView avatar;
+   @BindView(R.id.status_edit_btn) ImageButton statusBtn;
    @BindView(R.id.birth_date) TextView birthDate;
    @BindView(R.id.about) TextView about;
+   @BindView(R.id.status) TextView status;
    @BindView(R.id.bottomsheet) BottomSheetLayout bottomSheetLayout;
    @BindView(R.id.toolbar) Toolbar toolbar;
    @BindView(R.id.toolbar_layout) SubtitleCollapsingToolbarLayout collapsingToolbarLayout;
@@ -96,6 +96,7 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
 
         avatar.setOnClickListener(this);
         aboutBtn.setOnClickListener(this);
+        statusBtn.setOnClickListener(this);
         return view1;
     }
 
@@ -111,15 +112,14 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
                 break;
 
             case R.id.about_edit_btn:
-                about.setText(startDialog(about.getText().toString()));
+                startDialog(about.getText().toString(),"about");
                 break;
-
+            case R.id.status_edit_btn:
+                startDialog(status.getText().toString(),"status");
         }
     }
 
-    private String startDialog(String string){
-        final S s = new S();
-        s.string = string;
+    private void startDialog(String fieldText,String fieldType){
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
         LayoutInflater inflater = getLayoutInflater();
@@ -135,6 +135,7 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
         Button btn_positive = (Button) dialogView.findViewById(R.id.dialog_positive_btn);
         Button btn_negative = (Button) dialogView.findViewById(R.id.dialog_negative_btn);
         final EditText et_name = (EditText) dialogView.findViewById(R.id.et_name);
+        et_name.setText(fieldText);
 
         // Create the alert dialog
         final AlertDialog dialog = builder.create();
@@ -142,26 +143,19 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
         dialog.show();
 
         // Set positive/yes button click listener
-        btn_positive.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-                s.string = et_name.getText().toString();
-            }
+        btn_positive.setOnClickListener(v -> {
+            dialog.dismiss();
+           presenter.editField(et_name.getText().toString(),fieldType);
         });
 
         // Set negative/no button click listener
-        btn_negative.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Dismiss/cancel the alert dialog
-                //dialog.cancel();
-                dialog.dismiss();
-                Toast.makeText(getContext(),
-                        "No button clicked", Toast.LENGTH_SHORT).show();
-            }
+        btn_negative.setOnClickListener(v -> {
+            // Dismiss/cancel the alert dialog
+            //dialog.cancel();
+            dialog.dismiss();
+            Toast.makeText(getContext(),
+                    "No button clicked", Toast.LENGTH_SHORT).show();
         });
-        return s.string;
     }
 
     private boolean checkNeedsPermission() {
@@ -310,6 +304,3 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
 }
 
 
-class S{
-    String string;
-}

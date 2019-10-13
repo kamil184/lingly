@@ -4,6 +4,8 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.net.Uri;
 
+import androidx.annotation.StringRes;
+
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
@@ -19,6 +21,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 
 class ProfilePresenter extends BasePresenter {
@@ -58,6 +61,8 @@ class ProfilePresenter extends BasePresenter {
                         view.collapsingToolbarLayout.setTitle(document.get("first_name").toString() + " " + document.get("second_name").toString());
                         view.collapsingToolbarLayout.setSubtitle(user.getEmail());
                         view.birthDate.setText(document.get("birth_day").toString() + "." + document.get("birth_month") + "." + document.get("birth_year"));
+                        view.status.setText(document.get("status").toString());
+                        view.about.setText(document.get("about").toString());
                         getLanguagesInfo();
                     } else {
                         view.showWarningDialog("Такого пользователя нет!");
@@ -193,4 +198,31 @@ class ProfilePresenter extends BasePresenter {
         });
     }
 
+
+     void editField(String fieldText,String fieldType){
+        view.hideKeyboard();
+        if(hasInternetConnection()) {
+            Map<String, Object> user = new HashMap<>();
+            user.put(fieldType, fieldText);
+            if(isAuthorized()) {
+                db.collection("users").document(getCurrentUserId())
+                        .update(user)
+                        .addOnSuccessListener(aVoid ->{
+                        })
+                        .addOnFailureListener(e -> {
+                            ifError(R.string.signup_err);
+                        });
+            }else{
+                ifError(R.string.not_auth_err);
+            }
+        }
+        else{
+            ifError(R.string.no_interent_connection_err);
+        }
+    }
+
+
+    void ifError(@StringRes int message){
+        view.showSnackBar(message);
+    }
 }
