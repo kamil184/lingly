@@ -79,6 +79,8 @@ public class ProfileFragment extends BaseFragment {
 
         bottomSheetLayout.setPeekOnDismiss(true);
 
+
+
         presenter = new ProfilePresenter(getContext());
         presenter.attachView(this);
 
@@ -86,6 +88,7 @@ public class ProfileFragment extends BaseFragment {
 
         presenter.profileFill();
         presenter.getAvatarUri();
+
 
         avatar.setOnClickListener(view -> {
             if (checkNeedsPermission()) {
