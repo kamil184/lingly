@@ -51,7 +51,7 @@
                 android:id="@+id/divider3"
                 android:layout_width="match_parent"
                 android:layout_height="3dp"
-                android:background="#5EB888"
+                android:background="@color/colorPrimary"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -81,13 +81,13 @@
 
             <ImageButton
                 android:id="@+id/status_edit_btn"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_gravity="center"
-                android:layout_marginEnd="20dp"
                 android:layout_marginTop="10dp"
+                android:layout_marginEnd="20dp"
                 android:layout_marginBottom="10dp"
-                android:background="#5EB888"
+                android:background="@color/colorAccent"
                 app:srcCompat="@android:drawable/ic_menu_edit" />
 
             <TextView
@@ -124,7 +124,7 @@
                 android:layout_gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="3dp"
-                android:background="#5EB888"
+                android:background="@color/colorPrimary"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -154,13 +154,13 @@
 
             <ImageButton
                 android:id="@+id/birth_date_edit_btn"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
                 android:layout_marginEnd="20dp"
-                android:background="#5EB888"
+                android:background="@color/colorAccent"
                 app:srcCompat="@android:drawable/ic_menu_edit" />
 
             <TextView
@@ -196,7 +196,7 @@
                 android:layout_gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="3dp"
-                android:background="#5EB888"
+                android:background="@color/colorPrimary"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -226,13 +226,13 @@
 
             <ImageButton
                 android:id="@+id/about_edit_btn"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
                 android:layout_marginEnd="20dp"
-                android:background="#5EB888"
+                android:layout_marginBottom="10dp"
+                android:background="@color/colorAccent"
                 app:srcCompat="@android:drawable/ic_menu_edit" />
 
             <TextView
@@ -241,7 +241,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/profile_margin"
                 android:layout_weight="1"
-                android:text="@string/about_txt"
+                android:text="@string/large_text"
                 android:textSize="16sp" />
         </LinearLayout>
 
@@ -269,7 +269,7 @@
                 android:layout_gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="3dp"
-                android:background="#5EB888"
+                android:background="@color/colorPrimary"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
