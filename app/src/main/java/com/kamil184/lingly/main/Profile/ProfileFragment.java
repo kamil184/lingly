@@ -3,6 +3,7 @@ package com.kamil184.lingly.main.Profile;
 import android.Manifest;
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -13,12 +14,17 @@ import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.GridView;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
@@ -30,6 +36,7 @@ import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.SubtitleCollapsingToolbarLayout;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.kamil184.lingly.MainActivity;
 import com.kamil184.lingly.R;
 import com.kamil184.lingly.base.BaseFragment;
 
@@ -42,15 +49,17 @@ import java.util.Locale;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class ProfileFragment extends BaseFragment {
+public class ProfileFragment extends BaseFragment implements View.OnClickListener {
 
    @BindView(R.id.container1) AppBarLayout container1;
    @BindView(R.id.user_avatar) ImageView avatar;
    @BindView(R.id.birth_date) TextView birthDate;
+   @BindView(R.id.about) TextView about;
    @BindView(R.id.bottomsheet) BottomSheetLayout bottomSheetLayout;
    @BindView(R.id.toolbar) Toolbar toolbar;
    @BindView(R.id.toolbar_layout) SubtitleCollapsingToolbarLayout collapsingToolbarLayout;
    @BindView(R.id.languages) GridView nativeLanguages;
+   @BindView(R.id.about_edit_btn) ImageButton aboutBtn;
     View view1;
 
     private static final int REQUEST_STORAGE = 0;
@@ -66,7 +75,6 @@ public class ProfileFragment extends BaseFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
-
     }
 
     @Override
@@ -74,12 +82,9 @@ public class ProfileFragment extends BaseFragment {
                              Bundle savedInstanceState) {
         view1 = inflater.inflate(R.layout.fragment_profile, container, false);
 
-
         ButterKnife.bind(this, view1);
 
         bottomSheetLayout.setPeekOnDismiss(true);
-
-
 
         presenter = new ProfilePresenter(getContext());
         presenter.attachView(this);
@@ -89,23 +94,79 @@ public class ProfileFragment extends BaseFragment {
         presenter.profileFill();
         presenter.getAvatarUri();
 
-
-        avatar.setOnClickListener(view -> {
-            if (checkNeedsPermission()) {
-                requestStoragePermission();
-            } else {
-                showSheetView();
-            }
-        });
-
+        avatar.setOnClickListener(this);
+        aboutBtn.setOnClickListener(this);
         return view1;
     }
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.user_avatar:
+                if (checkNeedsPermission()) {
+                    requestStoragePermission();
+                } else {
+                    showSheetView();
+                }
+                break;
+
+            case R.id.about_edit_btn:
+                about.setText(startDialog(about.getText().toString()));
+                break;
+
+        }
+    }
+
+    private String startDialog(String string){
+        final S s = new S();
+        s.string = string;
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+
+        LayoutInflater inflater = getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.dialog_profile_edit,null);
+
+        // Specify alert dialog is not cancelable/not ignorable
+        builder.setCancelable(false);
+
+        // Set the custom layout as alert dialog view
+        builder.setView(dialogView);
+
+        // Get the custom alert dialog view widgets reference
+        Button btn_positive = (Button) dialogView.findViewById(R.id.dialog_positive_btn);
+        Button btn_negative = (Button) dialogView.findViewById(R.id.dialog_negative_btn);
+        final EditText et_name = (EditText) dialogView.findViewById(R.id.et_name);
+
+        // Create the alert dialog
+        final AlertDialog dialog = builder.create();
+
+        dialog.show();
+
+        // Set positive/yes button click listener
+        btn_positive.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                s.string = et_name.getText().toString();
+            }
+        });
+
+        // Set negative/no button click listener
+        btn_negative.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Dismiss/cancel the alert dialog
+                //dialog.cancel();
+                dialog.dismiss();
+                Toast.makeText(getContext(),
+                        "No button clicked", Toast.LENGTH_SHORT).show();
+            }
+        });
+        return s.string;
+    }
 
     private boolean checkNeedsPermission() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN && ActivityCompat.checkSelfPermission(view1.getContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED;
     }
-
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     private void requestStoragePermission() {
@@ -116,7 +177,6 @@ public class ProfileFragment extends BaseFragment {
             ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_STORAGE);
         }
     }
-
 
     @TargetApi(Build.VERSION_CODES.M)
     @Override
@@ -247,5 +307,9 @@ public class ProfileFragment extends BaseFragment {
     private void genericError(String message) {
     showWarningDialog(message);
     }
+}
 
+
+class S{
+    String string;
 }

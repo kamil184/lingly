@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     android:layout_marginBottom="60dp">
 
@@ -81,11 +82,12 @@
 
             <ImageButton
                 android:id="@+id/status_edit_btn"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
                 android:layout_marginBottom="10dp"
                 android:background="@color/colorAccent"
                 app:srcCompat="@android:drawable/ic_menu_edit" />
@@ -145,7 +147,6 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-
         <LinearLayout
             android:id="@+id/birth_date_layuot"
             android:layout_width="match_parent"
@@ -154,12 +155,13 @@
 
             <ImageButton
                 android:id="@+id/birth_date_edit_btn"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
                 android:layout_marginBottom="10dp"
-                android:layout_marginEnd="20dp"
                 android:background="@color/colorAccent"
                 app:srcCompat="@android:drawable/ic_menu_edit" />
 
@@ -171,6 +173,7 @@
                 android:layout_weight="1"
                 android:text="Я не умею разговаривать с людьми и вот мне грустно и вот короче я нытик и это мой статус"
                 android:textSize="16sp" />
+
         </LinearLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -226,11 +229,12 @@
 
             <ImageButton
                 android:id="@+id/about_edit_btn"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
                 android:layout_marginBottom="10dp"
                 android:background="@color/colorAccent"
                 app:srcCompat="@android:drawable/ic_menu_edit" />
@@ -243,6 +247,7 @@
                 android:layout_weight="1"
                 android:text="@string/large_text"
                 android:textSize="16sp" />
+
         </LinearLayout>
 
         <!-- список языков-->
@@ -291,14 +296,35 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-        <GridView
-            android:id="@+id/languages"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/languages_layuot"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:numColumns="auto_fit"
-            android:layout_marginTop="8dp"
-            />
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/languages_edit_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@color/colorAccent"
+                app:srcCompat="@android:drawable/ic_menu_edit" />
+
+            <GridView
+                android:id="@+id/languages"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:numColumns="auto_fit"
+                android:layout_margin="@dimen/profile_margin"
+                android:layout_weight="1"
+                android:text="@string/large_text"
+                android:textSize="16sp" />
+
+        </LinearLayout>
 
     </LinearLayout>
 
