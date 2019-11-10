@@ -1,5 +1,8 @@
 package com.kamil184.lingly;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 public class Constants {
 
     public static class Profile {
@@ -22,10 +25,26 @@ public class Constants {
         public static final int LARGE_ICONE_SIZE = 256; //px
     }
 
-
     public static class General {
         public static final long DOUBLE_CLICK_TO_EXIT_INTERVAL = 3000; // in milliseconds
     }
+
+    public static class UserData{
+        public static final String APP_PREFERENCES = "LinglySettings";
+        public static final String APP_PREFERENCES_EMAIL = "email";
+        public static final String APP_PREFERENCES_FIRSTNAME = "first_name";
+        public static final String APP_PREFERENCES_SECONDNAME = "second_name";
+        public static final String APP_PREFERENCES_STATUS = "status";
+        public static final String APP_PREFERENCES_ABOUT = "about";
+        public static final String APP_PREFERENCES_BIRTHDAY = "birth_day";
+        public static final String APP_PREFERENCES_BIRTHMONTH = "birth_month";
+        public static final String APP_PREFERENCES_BIRTHYEAR = "birth_year";
+        //передается NativeLanguageList
+        public static final String APP_PREFERENCES_NATIVE_LANGUAGES = "native_languages";
+        //передается NonNativeLanguageList
+        public static final String APP_PREFERENCES_NON_NATIVE_LANGUAGES = "learning_languages";
+    }
+
     public static class Languages{
         public static String[] languageArray = {"Русский","Английский","Немецкий","Французский","Испанский","Португальский","Турецкий","Итальянский","Хинди","Японский","Китайский"};
         public static int[] flagArray = {

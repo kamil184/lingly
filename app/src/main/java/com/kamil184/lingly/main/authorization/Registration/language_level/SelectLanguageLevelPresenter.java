@@ -1,14 +1,19 @@
 package com.kamil184.lingly.main.authorization.Registration.language_level;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.StringRes;
 
 import com.kamil184.lingly.base.BasePresenter;
+import com.kamil184.lingly.main.authorization.Registration.NonNativeLanguageList;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import static com.kamil184.lingly.Constants.UserData.APP_PREFERENCES_NON_NATIVE_LANGUAGES;
+import static com.kamil184.lingly.main.authorization.Registration.RegistrationActivity.complexSettings;
 
 public class SelectLanguageLevelPresenter extends BasePresenter {
 
@@ -25,6 +30,11 @@ public class SelectLanguageLevelPresenter extends BasePresenter {
 
 
     void setLanguageLevel(int languageLevel, int languageId){
+        NonNativeLanguageList list = complexSettings.getObject(APP_PREFERENCES_NON_NATIVE_LANGUAGES, NonNativeLanguageList.class);
+        Log.d("languages levels", list.getLanguageLevelModels().toString());
+        list.setLanguageLevel(languageLevel, languageId);
+        complexSettings.putObject(APP_PREFERENCES_NON_NATIVE_LANGUAGES, list);
+        complexSettings.commit();
         if(hasInternetConnection()){
             Map<String, Object> user = new HashMap<>();
             user.put(""+languageId,languageLevel);

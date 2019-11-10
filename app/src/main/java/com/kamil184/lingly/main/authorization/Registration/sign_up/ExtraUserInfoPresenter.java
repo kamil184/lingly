@@ -12,6 +12,16 @@ import com.kamil184.lingly.base.BasePresenter;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.kamil184.lingly.Constants.UserData.APP_PREFERENCES_ABOUT;
+import static com.kamil184.lingly.Constants.UserData.APP_PREFERENCES_BIRTHDAY;
+import static com.kamil184.lingly.Constants.UserData.APP_PREFERENCES_BIRTHMONTH;
+import static com.kamil184.lingly.Constants.UserData.APP_PREFERENCES_BIRTHYEAR;
+import static com.kamil184.lingly.Constants.UserData.APP_PREFERENCES_EMAIL;
+import static com.kamil184.lingly.Constants.UserData.APP_PREFERENCES_FIRSTNAME;
+import static com.kamil184.lingly.Constants.UserData.APP_PREFERENCES_SECONDNAME;
+import static com.kamil184.lingly.Constants.UserData.APP_PREFERENCES_STATUS;
+import static com.kamil184.lingly.main.authorization.Registration.RegistrationActivity.editor;
+
 public class ExtraUserInfoPresenter extends BasePresenter {
 
     private ExtraUserInfoFragment view;
@@ -27,6 +37,14 @@ public class ExtraUserInfoPresenter extends BasePresenter {
     }
 
     void addExtraInfo(String firstName,String secondName,int day,int month,int year){
+        editor.putString(APP_PREFERENCES_FIRSTNAME, firstName);
+        editor.putString(APP_PREFERENCES_SECONDNAME, secondName);
+        editor.putString(APP_PREFERENCES_STATUS, "");
+        editor.putString(APP_PREFERENCES_ABOUT, "");
+        editor.putInt(APP_PREFERENCES_BIRTHDAY, day);
+        editor.putInt(APP_PREFERENCES_BIRTHMONTH, month);
+        editor.putInt(APP_PREFERENCES_BIRTHYEAR, year);
+        editor.commit();
         view.progressBar.setVisibility(View.VISIBLE);
         view.hideKeyboard();
         if(hasInternetConnection()) {
@@ -36,8 +54,8 @@ public class ExtraUserInfoPresenter extends BasePresenter {
             user.put("birth_day",day);
             user.put("birth_month",month);
             user.put("birth_year",year);
-            user.put("status","Пустой статус :(");
-            user.put("about","Здесь пока пусто");
+            user.put("status","");
+            user.put("about","");
             user.put("is_online",true);
             if(isAuthorized()) {
                 db.collection("users").document(getCurrentUserId())

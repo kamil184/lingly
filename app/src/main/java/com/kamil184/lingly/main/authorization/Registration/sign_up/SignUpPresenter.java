@@ -15,9 +15,11 @@ import com.kamil184.lingly.base.BasePresenter;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.kamil184.lingly.Constants.UserData.APP_PREFERENCES_EMAIL;
+import static com.kamil184.lingly.main.authorization.Registration.RegistrationActivity.editor;
+
 
 class SignUpPresenter extends BasePresenter {
-
 
     private SignUpFragment view;
     private FirebaseUser user;
@@ -32,9 +34,11 @@ class SignUpPresenter extends BasePresenter {
         super(context);
     }
 
-    void signUpWithEmail(String email,String password){
+    void signUpWithEmail(String email, String password) {
+        editor.putString(APP_PREFERENCES_EMAIL, email);
+        editor.commit();
         view.hideKeyboard();
-        if(hasInternetConnection()) {
+        if (hasInternetConnection()) {
             auth.createUserWithEmailAndPassword(email, password)
                     .addOnCompleteListener((Activity) context, task -> {
                         if (!task.isSuccessful()) {
@@ -42,11 +46,11 @@ class SignUpPresenter extends BasePresenter {
                             view.showSnackBar(R.string.signup_err);
                         } else {
                             userRef = db.collection("users").document(getCurrentUserId());
-                            languagesRef  = userRef.collection("languages");
+                            languagesRef = userRef.collection("languages");
                             createUserInfo();
                         }
                     });
-        }else{
+        } else {
             view.setProgressVisibilityGone();
             view.showSnackBar(R.string.no_interent_connection_err);
         }
@@ -56,9 +60,10 @@ class SignUpPresenter extends BasePresenter {
     */
 
     }
-    private void createUserInfo(){
+
+    private void createUserInfo() {
         Map<String, Object> userInfo = new HashMap<>();
-        userInfo.put("email",getCurrentUserEmail());
+        userInfo.put("email", getCurrentUserEmail());
         userRef
                 .set(userInfo)
                 .addOnSuccessListener(aVoid -> createLanguagesInfo())
@@ -71,9 +76,9 @@ class SignUpPresenter extends BasePresenter {
     Метод пытается создать документ, если success, то пытается для другого документа и так , пока либо не выведет ошибку, либо не создаст все документы
      */
 
-    private void createLanguagesInfo(){
+    private void createLanguagesInfo() {
         Map<String, Object> languagesInfo = new HashMap<>();
-        languagesInfo.put("is_selected",false);
+        languagesInfo.put("is_selected", false);
         languagesRef.document("languages_levels")
                 .set(languagesInfo)
                 .addOnSuccessListener(aVoid -> {
@@ -82,7 +87,7 @@ class SignUpPresenter extends BasePresenter {
                             .addOnSuccessListener(aVoid1 -> {
                                 languagesRef.document("languages_non_native")
                                         .set(languagesInfo)
-                                        .addOnSuccessListener(aVoid2 -> switchToNextStep() )
+                                        .addOnSuccessListener(aVoid2 -> switchToNextStep())
                                         .addOnFailureListener(e -> ifError(R.string.signup_err));
                             })
                             .addOnFailureListener(e -> ifError(R.string.signup_err));
@@ -91,13 +96,12 @@ class SignUpPresenter extends BasePresenter {
     }
 
 
-
-    private void switchToNextStep(){
+    private void switchToNextStep() {
         view.setProgressVisibilityGone();
         view.callback.toUserInfo();
     }
 
-    void ifError(@StringRes int message){
+    void ifError(@StringRes int message) {
         view.progressBar.setVisibility(View.GONE);
         view.showSnackBar(message);
     }
