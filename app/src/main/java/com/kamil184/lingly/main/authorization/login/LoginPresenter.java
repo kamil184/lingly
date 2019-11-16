@@ -18,6 +18,9 @@ import com.kamil184.lingly.MainActivity;
 import com.kamil184.lingly.R;
 import com.kamil184.lingly.base.BasePresenter;
 import com.kamil184.lingly.main.authorization.Registration.ComplexPreferences;
+import com.kamil184.lingly.main.authorization.Registration.NonNativeLanguageList;
+
+import java.util.List;
 
 import static android.content.Context.MODE_PRIVATE;
 import static com.kamil184.lingly.Constants.UserData.APP_PREFERENCES;
@@ -28,6 +31,7 @@ import static com.kamil184.lingly.Constants.UserData.APP_PREFERENCES_BIRTHYEAR;
 import static com.kamil184.lingly.Constants.UserData.APP_PREFERENCES_EMAIL;
 import static com.kamil184.lingly.Constants.UserData.APP_PREFERENCES_FIRSTNAME;
 import static com.kamil184.lingly.Constants.UserData.APP_PREFERENCES_NATIVE_LANGUAGES;
+import static com.kamil184.lingly.Constants.UserData.APP_PREFERENCES_NON_NATIVE_LANGUAGES;
 import static com.kamil184.lingly.Constants.UserData.APP_PREFERENCES_SECONDNAME;
 import static com.kamil184.lingly.Constants.UserData.APP_PREFERENCES_STATUS;
 import static com.kamil184.lingly.main.authorization.Registration.RegistrationActivity.editor;
@@ -75,8 +79,29 @@ class LoginPresenter extends BasePresenter {
                     view.hideProgress();
                 }
             });
-            //TODO получить информацию о языках и записать в ComplexPreferences
-            //ComplexPreferences complexSettings = ComplexPreferences.getComplexPreferences(view.getBaseContext(), APP_PREFERENCES, MODE_PRIVATE);
+            final CollectionReference reference = userRef.collection("languages");
+            reference.get().addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    ComplexPreferences complexSettings = ComplexPreferences.getComplexPreferences(view.getBaseContext(), APP_PREFERENCES, MODE_PRIVATE);
+                    NonNativeLanguageList list = new NonNativeLanguageList();
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        switch (document.getId()){
+                            case "languages_levels":
+                                for (int i = 0; i < list.getLanguageLevelModels().size(); i++) {
+                                    list.setLanguageLevel((int)document.get(String.valueOf(i+1)), i);
+                                }
+                                break;
+                            case "languages_non_native":
+                                list.setLanguageLevelModels(null, (List<Long>) document.get("non_native_languages"));
+                                break;
+                            case "language_native":
+                                complexSettings.putObject(APP_PREFERENCES_NATIVE_LANGUAGES, document.get("native_languages"));
+                                break;
+                        }
+                    }
+                    complexSettings.putObject(APP_PREFERENCES_NON_NATIVE_LANGUAGES, list);
+                }
+            });
             auth.signInWithEmailAndPassword(email, password)
                     .addOnCompleteListener((Activity) context, task -> {
                         view.setProgressVisibilityGone();
