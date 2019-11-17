@@ -39,6 +39,7 @@ public class Constants {
         public static final String APP_PREFERENCES_BIRTHDAY = "birth_day";
         public static final String APP_PREFERENCES_BIRTHMONTH = "birth_month";
         public static final String APP_PREFERENCES_BIRTHYEAR = "birth_year";
+
         //передается NativeLanguageList
         public static final String APP_PREFERENCES_NATIVE_LANGUAGES = "native_languages";
         //передается NonNativeLanguageList

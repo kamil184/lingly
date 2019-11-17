@@ -2,6 +2,7 @@ package com.kamil184.lingly.main.Profile;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.Uri;
 
 import androidx.annotation.StringRes;
@@ -12,7 +13,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-import com.kamil184.lingly.Constants;
+import com.kamil184.lingly.Constants.UserData;
 import com.kamil184.lingly.R;
 import com.kamil184.lingly.adapters.LanguageLevelAdapter;
 import com.kamil184.lingly.base.BasePresenter;
@@ -26,6 +27,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static android.content.Context.MODE_PRIVATE;
+import static com.kamil184.lingly.Constants.UserData.APP_PREFERENCES;
+import static com.kamil184.lingly.Constants.UserData.APP_PREFERENCES_ABOUT;
+import static com.kamil184.lingly.Constants.UserData.APP_PREFERENCES_STATUS;
 import static com.kamil184.lingly.MainActivity.complexSettings;
 import static com.kamil184.lingly.MainActivity.mSettings;
 
@@ -54,32 +59,33 @@ class ProfilePresenter extends BasePresenter {
     }
 
     void profileFill() throws java.lang.NullPointerException {
-        view.collapsingToolbarLayout.setTitle(mSettings.getString(Constants.UserData.APP_PREFERENCES_FIRSTNAME, "")
-                + " " + mSettings.getString(Constants.UserData.APP_PREFERENCES_SECONDNAME, ""));
-        view.birthDate.setText(mSettings.getInt(Constants.UserData.APP_PREFERENCES_BIRTHDAY, 0)
-                + "." + mSettings.getInt(Constants.UserData.APP_PREFERENCES_BIRTHMONTH, 0)
-                + "." + mSettings.getInt(Constants.UserData.APP_PREFERENCES_BIRTHYEAR, 0));
-        view.collapsingToolbarLayout.setSubtitle(mSettings.getString(Constants.UserData.APP_PREFERENCES_EMAIL, ""));
+        view.collapsingToolbarLayout.setTitle(mSettings.getString(UserData.APP_PREFERENCES_FIRSTNAME, "")
+                + " " + mSettings.getString(UserData.APP_PREFERENCES_SECONDNAME, ""));
+        view.birthDate.setText(mSettings.getInt(UserData.APP_PREFERENCES_BIRTHDAY, 0)
+                + "." + mSettings.getInt(UserData.APP_PREFERENCES_BIRTHMONTH, 0)
+                + "." + mSettings.getInt(UserData.APP_PREFERENCES_BIRTHYEAR, 0));
+        view.collapsingToolbarLayout.setSubtitle(mSettings.getString(UserData.APP_PREFERENCES_EMAIL, ""));
+        view.status.setText(mSettings.getString(APP_PREFERENCES_STATUS, ""));
+        view.about.setText(mSettings.getString(APP_PREFERENCES_ABOUT, ""));
         if (hasInternetConnection()) {
-            view.showProgress();
             user = getCurrentUser();
             final DocumentReference userRef = db.collection("users").document(user.getUid());
             userRef.get().addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
+                        view.collapsingToolbarLayout.setTitle(document.get("first_name").toString() + " " + document.get("second_name").toString());
                         view.collapsingToolbarLayout.setSubtitle(user.getEmail());
+                        view.birthDate.setText(document.get("birth_day").toString() + "." + document.get("birth_month") + "." + document.get("birth_year"));
                         view.status.setText(document.get("status").toString());
                         view.about.setText(document.get("about").toString());
                         getLanguagesInfo();
                     } else {
                         view.showWarningDialog("Такого пользователя нет!");
                         //TODO проверка на завершение регистрации
-                        view.hideProgress();
                     }
                 } else {
                     view.showSnackBar(R.string.err);
-                    view.hideProgress();
                 }
             });
         } else {
@@ -128,7 +134,7 @@ class ProfilePresenter extends BasePresenter {
 
     private void getLanguagesInfo() {
         //загрузить из памяти
-        nativeLanguages = (ArrayList)complexSettings.getObject(Constants.UserData.APP_PREFERENCES_NATIVE_LANGUAGES, NativeLanguageList.class)
+        nativeLanguages = (ArrayList) complexSettings.getObject(UserData.APP_PREFERENCES_NATIVE_LANGUAGES, NativeLanguageList.class)
                 .getLanguages();
         getNonNativeLanguagesInfo();
 
@@ -155,7 +161,7 @@ class ProfilePresenter extends BasePresenter {
 
     private void getNonNativeLanguagesInfo() {
         //загрузить из памяти
-        List<LanguageLevelModel> languageList = complexSettings.getObject(Constants.UserData.APP_PREFERENCES_NON_NATIVE_LANGUAGES, NonNativeLanguageList.class)
+        List<LanguageLevelModel> languageList = complexSettings.getObject(UserData.APP_PREFERENCES_NON_NATIVE_LANGUAGES, NonNativeLanguageList.class)
                 .getLanguageLevelModels();
         for (int i = 0; i < languageList.size(); i++) {
             nonNativeLanguages.add(languageList.get(i).getLanguage());
@@ -185,7 +191,7 @@ class ProfilePresenter extends BasePresenter {
 
     private void getLanguageLevels() {
         //загрузить из памяти
-        List<LanguageLevelModel> languageList = complexSettings.getObject(Constants.UserData.APP_PREFERENCES_NON_NATIVE_LANGUAGES, NonNativeLanguageList.class)
+        List<LanguageLevelModel> languageList = complexSettings.getObject(UserData.APP_PREFERENCES_NON_NATIVE_LANGUAGES, NonNativeLanguageList.class)
                 .getLanguageLevelModels();
         for (int i = 0; i < nonNativeLanguages.size(); i++) {
             languagesLevels.put(nonNativeLanguages.get(i), languageList.get(i).getLanguageLevel());
@@ -234,6 +240,24 @@ class ProfilePresenter extends BasePresenter {
 
     void editField(String fieldText, String fieldType) {
         view.hideKeyboard();
+        SharedPreferences mSettings = view.getActivity().getSharedPreferences(APP_PREFERENCES, MODE_PRIVATE);
+        SharedPreferences.Editor editor = mSettings.edit();
+        switch (fieldType) {
+            case APP_PREFERENCES_ABOUT:
+                editor.putString(APP_PREFERENCES_ABOUT, fieldText);
+                view.about.setText(fieldText);
+                break;
+            case APP_PREFERENCES_STATUS:
+                editor.putString(APP_PREFERENCES_STATUS, fieldText);
+                view.status.setText(fieldText);
+                break;
+            /*case APP_PREFERENCES_FIRSTNAME:
+                editor.putString(APP_PREFERENCES_FIRSTNAME, fieldText);
+                break;
+            case APP_PREFERENCES_SECONDNAME:
+                editor.putString(APP_PREFERENCES_SECONDNAME, fieldText);
+                break;*/
+        }
         if (hasInternetConnection()) {
             Map<String, Object> user = new HashMap<>();
             user.put(fieldType, fieldText);

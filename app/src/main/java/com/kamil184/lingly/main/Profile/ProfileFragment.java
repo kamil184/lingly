@@ -13,13 +13,10 @@ import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -33,8 +30,11 @@ import com.flipboard.bottomsheet.BottomSheetLayout;
 import com.flipboard.bottomsheet.commons.ImagePickerSheetView;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.SubtitleCollapsingToolbarLayout;
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.kamil184.lingly.Constants;
 import com.kamil184.lingly.R;
 import com.kamil184.lingly.base.BaseFragment;
 
@@ -49,17 +49,17 @@ import butterknife.ButterKnife;
 
 public class ProfileFragment extends BaseFragment implements View.OnClickListener {
 
-   @BindView(R.id.container1) AppBarLayout container1;
-   @BindView(R.id.user_avatar) ImageView avatar;
-   @BindView(R.id.status_edit_btn) ImageButton statusBtn;
-   @BindView(R.id.birth_date) TextView birthDate;
-   @BindView(R.id.about) TextView about;
-   @BindView(R.id.status) TextView status;
-   @BindView(R.id.bottomsheet) BottomSheetLayout bottomSheetLayout;
-   @BindView(R.id.toolbar) Toolbar toolbar;
-   @BindView(R.id.toolbar_layout) SubtitleCollapsingToolbarLayout collapsingToolbarLayout;
-   @BindView(R.id.languages) GridView nativeLanguages;
-   @BindView(R.id.about_edit_btn) ImageButton aboutBtn;
+    @BindView(R.id.container1) AppBarLayout container1;
+    @BindView(R.id.user_avatar) ImageView avatar;
+    @BindView(R.id.status_edit_btn) ImageButton statusBtn;
+    @BindView(R.id.birth_date) TextView birthDate;
+    @BindView(R.id.about) TextView about;
+    @BindView(R.id.status) TextView status;
+    @BindView(R.id.bottomsheet) BottomSheetLayout bottomSheetLayout;
+    @BindView(R.id.toolbar) Toolbar toolbar;
+    @BindView(R.id.toolbar_layout) SubtitleCollapsingToolbarLayout collapsingToolbarLayout;
+    @BindView(R.id.languages) GridView nativeLanguages;
+    @BindView(R.id.about_edit_btn) ImageButton aboutBtn;
     View view1;
 
     private static final int REQUEST_STORAGE = 0;
@@ -89,7 +89,7 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
         presenter = new ProfilePresenter(getContext());
         presenter.attachView(this);
 
-        ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
+        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
 
         presenter.profileFill();
         presenter.getAvatarUri();
@@ -102,7 +102,7 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.user_avatar:
                 if (checkNeedsPermission()) {
                     requestStoragePermission();
@@ -112,49 +112,37 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
                 break;
 
             case R.id.about_edit_btn:
-                startDialog(about.getText().toString(),"about");
+                startDialog(about.getText().toString(), Constants.UserData.APP_PREFERENCES_ABOUT);
                 break;
             case R.id.status_edit_btn:
-                startDialog(status.getText().toString(),"status");
+                startDialog(status.getText().toString(), Constants.UserData.APP_PREFERENCES_STATUS);
         }
     }
 
-    private void startDialog(String fieldText,String fieldType){
+    private void startDialog(String fieldText, String fieldType) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
         LayoutInflater inflater = getLayoutInflater();
-        View dialogView = inflater.inflate(R.layout.dialog_profile_edit,null);
+        View dialogView = inflater.inflate(R.layout.dialog_profile_edit, null);
 
-        // Specify alert dialog is not cancelable/not ignorable
         builder.setCancelable(false);
-
-        // Set the custom layout as alert dialog view
         builder.setView(dialogView);
 
-        // Get the custom alert dialog view widgets reference
-        Button btn_positive = (Button) dialogView.findViewById(R.id.dialog_positive_btn);
-        Button btn_negative = (Button) dialogView.findViewById(R.id.dialog_negative_btn);
-        final EditText et_name = (EditText) dialogView.findViewById(R.id.et_name);
+        MaterialButton btn_positive = dialogView.findViewById(R.id.dialog_positive_btn);
+        MaterialButton btn_negative = dialogView.findViewById(R.id.dialog_negative_btn);
+        final TextInputEditText et_name = dialogView.findViewById(R.id.dialog_edit_text);
         et_name.setText(fieldText);
 
-        // Create the alert dialog
         final AlertDialog dialog = builder.create();
-
         dialog.show();
 
-        // Set positive/yes button click listener
         btn_positive.setOnClickListener(v -> {
             dialog.dismiss();
-           presenter.editField(et_name.getText().toString(),fieldType);
-        });
+            presenter.editField(et_name.getText().toString(), fieldType);
 
-        // Set negative/no button click listener
+        });
         btn_negative.setOnClickListener(v -> {
-            // Dismiss/cancel the alert dialog
-            //dialog.cancel();
             dialog.dismiss();
-            Toast.makeText(getContext(),
-                    "No button clicked", Toast.LENGTH_SHORT).show();
         });
     }
 
@@ -299,7 +287,7 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
     }
 
     private void genericError(String message) {
-    showWarningDialog(message);
+        showWarningDialog(message);
     }
 }
 

@@ -22,7 +22,7 @@ public class RegistrationActivity extends BaseActivity implements SignUpFragment
     NavController navController;
     public static SharedPreferences mSettings;
     public static SharedPreferences.Editor editor;
-    public static ComplexPreferences complexSettings ;
+    public static ComplexPreferences complexSettings;
 
 
     @Override

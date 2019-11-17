@@ -1,47 +1,55 @@
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/dialog_rl"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="10dp"
-    tools:context=".MainActivity"
-    android:background="#e9f1ba"
-    >
+    tools:context=".MainActivity">
+
     <TextView
         android:id="@+id/dialog_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Confirmation."
-        android:padding="5dp"
-        android:background="#d5dda6"
-        android:textSize="15dp"
-        />
-    <EditText
-        android:id="@+id/et_name"
+        android:text="Confirmation"
+        android:textSize="18sp" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/dialog_negative_btn"
+        style="@style/Widget.MaterialComponents.Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@id/dialog_positive_btn"
+        android:layout_marginRight="3dp"
+        android:layout_toLeftOf="@id/dialog_positive_btn"
+        android:text="No" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/dialog_positive_btn"
+        style="@style/Widget.MaterialComponents.Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/dialog_text_input"
+        android:layout_alignParentRight="true"
+        android:text="OK" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/dialog_text_input"
+        style="@style/TextInputLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Input your name."
-        android:textSize="15dp"
         android:layout_below="@id/dialog_title"
-        />
-    <Button
-        android:id="@+id/dialog_positive_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="OK"
-        android:layout_alignParentRight="true"
-        android:background="#dde5ad"
-        android:layout_below="@id/et_name"
-        />
-    <Button
-        android:id="@+id/dialog_negative_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="No"
-        android:layout_toLeftOf="@id/dialog_positive_btn"
-        android:background="#dde5ad"
-        android:layout_marginRight="3dp"
-        android:layout_alignBaseline="@id/dialog_positive_btn"
-        />
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        app:errorTextColor="@color/white">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/dialog_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:hint="@string/hint_email"
+            app:errorEnabled="true" />
+
+    </com.google.android.material.textfield.TextInputLayout>
 </RelativeLayout>
