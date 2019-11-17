@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/registration_graph"
+    app:startDestination="@id/signUpActivity">
+
+    <fragment
+        android:id="@+id/signUpActivity"
+        android:name="com.kamil184.lingly.main.authorization.Registration.sign_up.SignUpFragment"
+        android:label="activity_signup"
+        tools:layout="@layout/activity_signup" />
+    <fragment
+        android:id="@+id/extraInfo"
+        android:name="com.kamil184.lingly.main.authorization.Registration.sign_up.ExtraUserInfoFragment"
+        tools:layout="@layout/fragment_extrauserinfo"/>
+    <fragment
+        android:id="@+id/nativeLanguage"
+        android:name="com.kamil184.lingly.main.authorization.Registration.native_language.NativeLanguageFragment"
+        android:label="fragment_native_language"
+        tools:layout="@layout/fragment_native_language" />
+    <fragment
+        android:id="@+id/nonNativeLanguage"
+        android:name="com.kamil184.lingly.main.authorization.Registration.non_native_language.NonNativeLanguageFragment"
+        android:label="NonNativeLanguageFragment" />
+    <fragment
+        android:id="@+id/selectLanguageLevel"
+        android:name="com.kamil184.lingly.main.authorization.Registration.language_level.SelectLanguageLevelFragment"
+        android:label="SelectLanguageLevelFragment"
+        tools:layout="@layout/fragment_extrauserinfo" />
+    <fragment
+        android:id="@+id/dialogFragment"
+        tools:layout="@layout/dialog_language_level"
+        />
+    <activity
+        android:id="@+id/mainActivity2"
+        android:name="com.kamil184.lingly.MainActivity"
+        android:label="activity_main"
+        tools:layout="@layout/activity_main" />
+</navigation>

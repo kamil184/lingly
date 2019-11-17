@@ -28,12 +28,12 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/email_text_input_layout"
+            style="@style/TextInputLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:errorTextColor="@color/white"
-            style="@style/TextInputLayout"
             android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp">
+            android:layout_marginBottom="8dp"
+            app:errorTextColor="@color/white">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/email"
@@ -49,12 +49,12 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/password_text_input_layout"
+            style="@style/TextInputLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:errorTextColor="@color/white"
-            style="@style/TextInputLayout"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
+            app:errorTextColor="@color/white"
             app:passwordToggleEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText

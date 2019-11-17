@@ -17,7 +17,7 @@
         tools:layout="@layout/fragment_dialogs" />
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.kamil184.lingly.main.Fragments.ProfileFragment"
+        android:name="com.kamil184.lingly.main.Profile.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
 </navigation>

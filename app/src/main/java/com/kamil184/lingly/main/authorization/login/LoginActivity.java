@@ -17,8 +17,8 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.kamil184.lingly.R;
 import com.kamil184.lingly.base.BaseActivity;
+import com.kamil184.lingly.main.authorization.Registration.RegistrationActivity;
 import com.kamil184.lingly.main.authorization.ResetPasswordActivity;
-import com.kamil184.lingly.main.authorization.Registration.SignUpActivity;
 import com.kamil184.lingly.util.AnimationsUtil;
 
 import butterknife.BindView;
@@ -53,7 +53,7 @@ public class LoginActivity extends BaseActivity {
         anim.setExitFadeDuration(1000);
 
         btnSignup.setOnClickListener(v ->
-                startActivity(new Intent(LoginActivity.this, SignUpActivity.class)));
+                startActivity(new Intent(LoginActivity.this, RegistrationActivity.class)));
 
         btnReset.setOnClickListener(v ->
                 startActivity(new Intent(LoginActivity.this, ResetPasswordActivity.class)));

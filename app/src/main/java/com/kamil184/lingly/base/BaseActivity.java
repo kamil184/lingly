@@ -15,6 +15,8 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.kamil184.lingly.Constants;
 import com.kamil184.lingly.R;
 
@@ -23,12 +25,14 @@ public abstract class BaseActivity extends AppCompatActivity {
     public ProgressDialog progressDialog;
     public ActionBar actionBar;
     private long backPressedTime;
+    protected FirebaseAuth auth;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         actionBar = getSupportActionBar();
-
+        auth = FirebaseAuth.getInstance();
     }
 
     public void showProgress() {
@@ -43,7 +47,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         progressDialog.show();
     }
 
-    public void hideProgress() {
+    public void hideProgress() throws java.lang.NullPointerException {
         if (progressDialog != null) {
             progressDialog.dismiss();
             progressDialog = null;
@@ -139,5 +143,11 @@ public abstract class BaseActivity extends AppCompatActivity {
                 onBackPressed();
         }
         return (super.onOptionsItemSelected(menuItem));
+    }
+    protected FirebaseUser getCurrentUser(){
+        return auth.getCurrentUser();
+    }
+    protected boolean isAuthorized(){
+        return auth.getCurrentUser() != null;
     }
 }

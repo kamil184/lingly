@@ -1,4 +1,4 @@
-package com.kamil184.lingly.main.authorization.Registration;
+package com.kamil184.lingly.main.authorization.Registration.sign_up;
 
 import android.content.Context;
 import android.content.Intent;
@@ -6,34 +6,30 @@ import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.text.Editable;
-import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.text.method.PasswordTransformationMethod;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
+import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
+import androidx.annotation.Nullable;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 
-import com.daimajia.androidanimations.library.Techniques;
-import com.daimajia.androidanimations.library.YoYo;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.kamil184.lingly.R;
-import com.kamil184.lingly.base.BaseActivity;
+import com.kamil184.lingly.base.BaseFragment;
 import com.kamil184.lingly.main.authorization.ResetPasswordActivity;
 import com.kamil184.lingly.main.authorization.login.LoginActivity;
-import com.rengwuxian.materialedittext.MaterialEditText;
+import com.kamil184.lingly.util.AnimationsUtil;
 
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
-public class SignUpActivity extends BaseActivity {
+public class SignUpFragment extends BaseFragment {
 
     @BindView(R.id.btn_login) MaterialButton btnSignIn;
     @BindView(R.id.btn_signup) MaterialButton btnSignUp;
@@ -42,30 +38,39 @@ public class SignUpActivity extends BaseActivity {
     @BindView(R.id.email_text_input_layout) TextInputLayout emailInputLayout;
     @BindView(R.id.password) TextInputEditText inputPassword;
     @BindView(R.id.password_text_input_layout) TextInputLayout passwordInputLayout;
-    @BindView(R.id.us_name) TextInputEditText inputName;
-    @BindView(R.id.us_name_text_input_layout) TextInputLayout nameInputLayout;
     @BindView(R.id.progressBar) ProgressBar progressBar;
-    @BindView(R.id.signup_container) CoordinatorLayout container;
+    @BindView(R.id.signup_container) CoordinatorLayout container1;
 
     AnimationDrawable anim;
     SignUpPresenter presenter;
 
-    long mills = 300;
     Vibrator vibrator;
+    long mills = 300;
+
+    public interface Callback{
+        void toUserInfo();
+    }
+
+    SignUpFragment.Callback callback;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_signup);
-        ButterKnife.bind(this);
-        presenter = new SignUpPresenter(this);
-        presenter.attachView(this);
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        callback = (SignUpFragment.Callback) context;
+        presenter = new SignUpPresenter(context);
+        vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
+    }
 
-        vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-        anim = (AnimationDrawable) container.getBackground();
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view1 = inflater.inflate(R.layout.activity_signup, container, false);
+        ButterKnife.bind(this, view1);
+
+        presenter.attachView(this);
+        anim = (AnimationDrawable) container1.getBackground();
         anim.setEnterFadeDuration(0);
         anim.setExitFadeDuration(1000);
-
 
         inputPassword.addTextChangedListener(new TextWatcher() {
 
@@ -83,7 +88,6 @@ public class SignUpActivity extends BaseActivity {
             @Override
             public void afterTextChanged(Editable s) { }
         });
-
 
         inputEmail.addTextChangedListener(new TextWatcher() {
 
@@ -108,61 +112,38 @@ public class SignUpActivity extends BaseActivity {
             }
         });
 
-        inputName.addTextChangedListener(new TextWatcher() {
 
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
 
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                nameInputLayout.setErrorEnabled(false);
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) { }
-        });
-
-        inputName.setOnFocusChangeListener((view, hasFocus) -> {
-            if (!hasFocus) {
-                String name = inputName.getText().toString();
-                if(isNameNotValidate(name)) {
-                    nameInputLayout.setError(getString(R.string.login_empty));
-                } else nameInputLayout.setErrorEnabled(false);
-            }
-        });
 
 
         //TODO кнопки
 
-        btnResetPassword.setOnClickListener(v -> startActivity(new Intent(SignUpActivity.this, ResetPasswordActivity.class)));
+        btnResetPassword.setOnClickListener(v -> startActivity(new Intent(getActivity(), ResetPasswordActivity.class)));
 
-
-
-        btnSignIn.setOnClickListener(v -> startActivity(new Intent(SignUpActivity.this, LoginActivity.class)));
-
-
+        btnSignIn.setOnClickListener(v -> startActivity(new Intent(getActivity(), LoginActivity.class)));
 
         btnSignUp.setOnClickListener(v -> {
             progressBar.setVisibility(View.VISIBLE);
-            String name = inputName.getText().toString().trim();
             String email = inputEmail.getText().toString().trim();
             String password = inputPassword.getText().toString().trim();
 
-            if(validate(name,email,password)){
-                presenter.signUpWithEmail(name,email,password);
+            if(validate(email,password)){
+                presenter.signUpWithEmail(email,password);
             }
         });
+
+        return view1;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
     }
 
     void setProgressVisibilityGone(){
         progressBar.setVisibility(View.GONE);
     }
-
-    void finishActivity(){
-        finish();
-    }
-
-
 
     private boolean isEmailNotValidate(String email) {
         if (email.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
@@ -186,15 +167,12 @@ public class SignUpActivity extends BaseActivity {
         return password.length() + "/6+";
     }
 
-    private boolean validate(String name,String email,String password) {
+    private boolean validate(String email,String password) {
         boolean validate = true;
         if (isEmailNotValidate(email)) {
             emailInputLayout.setError(getString(R.string.email_err));
             setProgressVisibilityGone();
-            YoYo.with(Techniques.Shake)
-                    .duration(400)
-                    .repeat(1)
-                    .playOn(inputEmail);
+            AnimationsUtil.shakeAnimation(inputEmail);
             if (vibrator.hasVibrator()) {
                 vibrator.vibrate(mills);
             }
@@ -203,22 +181,7 @@ public class SignUpActivity extends BaseActivity {
         if (isPasswordNotValidate(password)) {
             passwordInputLayout.setError(getString(R.string.minimum_password));
             setProgressVisibilityGone();
-            YoYo.with(Techniques.Shake)
-                    .duration(400)
-                    .repeat(1)
-                    .playOn(inputPassword);
-            if (vibrator.hasVibrator()) {
-                vibrator.vibrate(mills);
-            }
-            validate = false;
-        }
-        if(isNameNotValidate(name)){
-            nameInputLayout.setError(getString(R.string.login_empty));
-            setProgressVisibilityGone();
-            YoYo.with(Techniques.Shake)
-                    .duration(400)
-                    .repeat(1)
-                    .playOn(inputName);
+            AnimationsUtil.shakeAnimation(inputPassword);
             if (vibrator.hasVibrator()) {
                 vibrator.vibrate(mills);
             }
@@ -228,7 +191,7 @@ public class SignUpActivity extends BaseActivity {
     }
 
     @Override
-    protected void onResume() {
+    public void onResume() {
         super.onResume();
         progressBar.setVisibility(View.GONE);
         if (anim != null && !anim.isRunning())
@@ -236,7 +199,7 @@ public class SignUpActivity extends BaseActivity {
     }
 
     @Override
-    protected void onPause() {
+    public void onPause() {
         super.onPause();
         if (anim != null && anim.isRunning())
             anim.stop();
